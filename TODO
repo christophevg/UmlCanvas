@@ -1,0 +1,30 @@
+- move adl to canvas2d
+- fix licensing info (header + make it URL to website)
+- fetch libs dynamically (using Makefile) -> smaller src dist
+- extend support for events
+- split source into seperate (class) files + clean up code in general
+- introduce global logging framework with fallbacks (print, console, alert)
+  - http://www.depressedpress.com/Content/Development/JavaScript/Extensions/DP%5FDeBug/
+- use Maven to manage project
+- remove lib/* and fetch dependencies dynamically (see Maven)
+- clean up licensing information -> link to website with all info
+- DOCUMENTATION !!!
+  - website: http://thesoftwarefactory.be/wiki/UmlCanvas
+  - http://code.google.com/p/jsdoc-toolkit/
+  - nice examples -> UlmCanvas own class model
+  - howto's
+  - API docs (jsdoc-toolkit is more developer oriented, these should
+    be end-user-oriented)
+
+- split off UMLWebEditor
+  - add decent source editor: http://www.cdolivet.net/editarea/
+  - add toolbox
+  - add multi-diagram support
+  - link to model repository
+  - publish to TheModelFactory
+
+FUTURE:
+- EA ADL-export plugin
+- XMI2ADL service
+- TheModelRepository
+- ...

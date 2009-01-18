@@ -1,0 +1,60 @@
+UMLCanvas is an implementation around the HTML5 Canvas that allows
+generation of UML diagrams. A Mediawiki extension is provided to allow
+editors to just enter the commands required to generate the
+diagrams. Two interfaces are provided: an OO Javascript API and a
+textual DSL in the form of a UML profile for ADL, the Application
+Definition Language.
+
+UMLCanvas is a project by TheSoftwareFactory, 
+maintained by Christophe VG <xtof@thesoftwarefactory.be>
+
+* Kickstart
+
+# ls
+LICENSE		README		doc		lib		src
+Makefile	TODO		examples	samples
+# make
+*** generating adl parser for the web
+*** assembling UmlCanvas
+*** assembling UmlCanvas extesion
+
+--> take a look at the html files in the examples directory
+
+If you have rhino installed, check out the CLI samples:
+
+# make adl-run
+*** cloning prototype repository
+*** building minimal prototype support for testing
+*** generating adl parser
+*** running adl parser on samples/class.adl
+class TestClass +stereotype="entity" {
+  attribute Attribute1: Integer +visibility="public";
+  attribute Attribute2: String +visibility="private";
+  attribute Attribute3: Boolean +visibility="protected";
+  method Method1: Integer +visibility="public" {
+    argument param1: Integer[20];
+    argument param2: String[1..2];
+  }
+  method Method2: Boolean +visibility="protected" {
+    argument param1: Object;
+    argument param2: Something;
+  }
+}
+Visiting root
+Visiting TestClass : root
+Visiting Attribute1 : TestClass
+Visiting Attribute2 : TestClass
+Visiting Attribute3 : TestClass
+Visiting Method1 : TestClass
+Visiting param1 : Method1
+Visiting param2 : Method1
+Visiting Method2 : TestClass
+Visiting param1 : Method2
+Visiting param2 : Method2
+
+Install the extension:
+
+# cd /var/www/htdocs/mediawiki-install-dir/extensions
+# ln -s /path/to/build/extensions/umlcanvas 
+# echo 'require_once( "$IP/extensions/umlcanvas/umlcanvas.php" );' \
+    >> LocalSettings.php

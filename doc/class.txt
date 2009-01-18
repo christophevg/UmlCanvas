@@ -1,0 +1,19 @@
+The Following diagram shows how a class is constructed visually:
+
++------------------------+
+|     padding            |
+|     fontSize           |
+|     linespacing        |
+|     compartmentSpacing |
++------------------------+
+|     compartmentSpacing |
+|     fontSize           |
+|     linespacing        |
+|     compartmentSpacing |
++------------------------+
+|     compartmentSpacing |
+|     fontSize           |
+|     linespacing        |
+|     padding            |
++------------------------+
+

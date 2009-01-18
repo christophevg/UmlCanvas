@@ -1,0 +1,17 @@
+.umlcanvas {
+  border: 2px solid #ccc;
+}
+
+.umlsource {
+  border: 2px solid #ccc;
+}
+
+.umlsource pre {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.umlcanvas-tabcontainer {
+  margin-left: 10px;
+  margin-right: 10px;
+}

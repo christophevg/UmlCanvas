@@ -1,0 +1,56 @@
+<html>
+<head>
+
+<style>
+#mydiagram {
+  border: 1px solid black;
+}
+.diagram-src {
+  display: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<canvas id="mydiagram" width="640" height="480"></canvas>
+<pre id="mydiagramSource" class="diagram-src">
+[@25,50]
+class TestClass +stereotype="entity" {
+  attribute Attribute1 : Integer +public;
+  attribute Attribute2 : String  +private;
+  attribute Attribute3 : Boolean +protected;
+}
+
+[@250,50]
+class TestClass2 +stereotype="entity" {
+  attribute Attribute1 : Integer +public;
+  attribute Attribute2 : String  +private;
+  attribute Attribute3 : Boolean +protected;
+}
+
+[@250,200]
+class TestClass3 +stereotype="entity" {
+  attribute Attribute1 : Integer +public;
+  attribute Attribute2 : String  +private;
+  attribute Attribute3 : Boolean +protected;
+}
+
+dependency Dependency1 {
+  client Client1 : TestClass;
+  supplier Supplier1 : TestClass2;
+}
+
+dependency Dependency2 {
+  client Client1 : TestClass;
+  supplier Supplier1 : TestClass3;
+}
+
+</pre>
+
+<script src="../build/UmlCanvas.js"></script>
+<script>UmlCanvas.registerDiagram( "mydiagram" );</script>
+
+</body>
+</html>

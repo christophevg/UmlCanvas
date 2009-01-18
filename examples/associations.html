@@ -1,0 +1,60 @@
+<html>
+<head>
+
+<style>
+#mydiagram {
+  border: 1px solid black;
+}
+.diagram-src {
+  display: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<canvas id="mydiagram" width="640" height="480"></canvas>
+<pre id="mydiagramSource" class="diagram-src">
+[@250,25]
+class TestClass +stereotype="entity" {
+  attribute Attribute1 : Integer +public;
+  attribute Attribute2 : String  +private;
+  attribute Attribute3 : Boolean +protected;
+}
+[@25,75]
+class TestClass2 +stereotype="entity" {
+  attribute Attribute1 : Integer +public;
+  attribute Attribute2 : String  +private;
+  attribute Attribute3 : Boolean +protected;
+}
+[@250,175]
+class TestClass3 +stereotype="entity" {
+  attribute Attribute1 : Integer +public;
+  attribute Attribute2 : String  +private;
+  attribute Attribute3 : Boolean +protected;
+}
+
+[@horizontal]
+association TestAssociation {
+  role testClass : TestClass2 +navigable;
+  role testClass : TestClass3 +navigable;
+}
+
+association TestAssociation {
+  role testClass : TestClass  +composition;
+  role testClass : TestClass2 +navigable;
+}
+
+association TestAssociation {
+  role testClass : TestClass  +navigable;
+  role testClass : TestClass3 +aggregation;
+}
+
+</pre>
+
+<script src="../build/UmlCanvas.js"></script>
+<script>UmlCanvas.registerDiagram( "mydiagram" );</script>
+
+</body>
+</html>

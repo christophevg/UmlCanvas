@@ -1,0 +1,44 @@
+<html>
+<head>
+
+<style>
+#mydiagram {
+  border: 1px solid black;
+}
+</style>
+
+</head>
+
+<body onload="drawIt();">
+
+<canvas id="mydiagram" width="375" height="200"></canvas>
+<!--<textarea id="mydiagramConsole" rows="10" cols="25"></textarea>-->
+
+<script src="../build/UmlCanvas.js"></script>
+
+<script>
+  function drawIt() {
+    var class1 = new UmlCanvas.Class({name: "TestClass", stereotype: "entity"});
+    with( class1  ) {
+      addAttribute( { name: "Attribute1", visibility: "public", 
+                      type: "Integer" } );
+      addAttribute( { name: "Attribute2", visibility: "private", 
+                      type: "String" } );
+      addAttribute( { name: "Attribute3", visibility: "protected", 
+                      type: "Boolean" } );
+      addMethod( { name: "Method1", visibility: "public", 
+                   returnType: "Integer",
+                   parameters: [ { name: "param1", type: "Integer[20]" },
+                                 { name: "param2", type: "String[1..2]" } ] } );
+      addMethod( { name: "Method2", visibility: "protected", 
+                   returnType: "Boolean",
+                   parameters: [ { name: "param1", type: "Object" },
+                                 { name: "param2", type: "Something" } ]});
+    }
+    var diagram = new UmlCanvas.Canvas("mydiagram");
+    diagram.at(25,25).put(class1);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<html>
+<head>
+
+<style>
+canvas {
+  border: 1px solid black;
+}
+.diagram-src {
+  display: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<canvas id="mydiagram" width="375" height="400"></canvas>
+<pre id="mydiagramSource" class="diagram-src">
+class TestClass +stereotype="entity" {
+  attribute Attribute1 : Integer +visibility="public";
+  attribute Attribute2 : String  +visibility="private";
+  attribute Attribute3 : Boolean +visibility="protected";
+
+  method Method1 : Integer +visibility="public" {
+    argument param1 : Integer[20];
+    argument param2 : String[1..2];
+  }
+
+  method Method2 : Boolean  +visibility="protected" {
+    argument param1 : Object;
+    argument param2 : Something;
+  }
+}
+</pre>
+<textarea id="mydiagramConsole" style="height:250" cols="25"></textarea>
+
+<canvas id="mydiagram2" width="375" height="400"></canvas>
+<pre id="mydiagram2Source" class="diagram-src">
+[@125,25]
+class TestClass +stereotype="entity" {
+  attribute Attribute1: Integer +visibility="public";
+  attribute Attribute2: String  +visibility="private";
+  attribute Attribute3: Boolean +visibility="protected";
+}
+[@25,200]
+class TestClass2: TestClass +stereotype="entity" {
+  attribute Attribute1: Integer +visibility="public";
+  attribute Attribute2: String  +visibility="private";
+  attribute Attribute3: Boolean +visibility="protected";
+}
+[@225,200]
+class TestClass3: TestClass +stereotype="entity" {
+  attribute Attribute1: Integer +visibility="public";
+  attribute Attribute2: String  +visibility="private";
+  attribute Attribute3: Boolean +visibility="protected";
+}
+</pre>
+<textarea id="mydiagram2Console" style="height:250" cols="25"></textarea>
+
+<script src="../build/UmlCanvas.js"></script>
+
+<script>UmlCanvas.registerDiagram( "mydiagram" );</script>
+<script>UmlCanvas.registerDiagram( "mydiagram2" );</script>
+
+<script>
+function doMore() {
+  UmlCanvas.getDiagram( "mydiagram2" )
+           .getClass( "TestClass" )
+           .addMethod( { name: "Method1", visibility: "public", 
+                         returnType: "Integer",
+                         parameters: [{name: "param1",type: "Integer[20]" },
+                                      {name: "param2",type: "String[1..2]"}]} );
+}
+</script>
+
+<div><input type="button" onclick="doMore();" value="do More"/></div>
+</body>
+</html>
