@@ -36,7 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 if (!defined('MEDIAWIKI')) {
   echo <<<EOT
   To install my extension, put the following line in LocalSettings.php:
-  require_once( "\$IP/extensions/umlcanvas/umlcanvas.php" );
+  require_once( "\$IP/extensions/UmlCanvas/UmlCanvas.php" );
 EOT;
         exit( 1 );
 }
@@ -56,14 +56,14 @@ $wgExtensionCredits['parserhook'][] = array(
 
 function UMLCanvasInit() {
   global $wgParser, $wgOut, $IP;
-  $path = "../extensions/umlcanvas";
+  $path = "../extensions/UmlCanvas";
 
   $wgParser->setHook( 'umlcanvas', 'UMLCanvasRender' );
 
   $wgOut->addHeadItem('UMLCanvas-JS', 
-		      "<script src=\"$path/umlcanvas.js\"></script>");  
+		      "<script src=\"$path/UmlCanvas.js\"></script>");  
   $wgOut->addHeadItem('UMLCanvas-CSS', 
-		      "<link href=\"$path/umlcanvas.css\" ".
+		      "<link href=\"$path/UmlCanvas.css\" ".
 		      "rel=\"stylesheet\" type=\"text/css\" />");
   $wgOut->addHeadItem('UMLCanvas-Tabber-JS', 
 		      "<script src=\"$path/tabber.js\"></script>");  

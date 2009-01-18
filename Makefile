@@ -13,20 +13,21 @@ TABBER-URL=http://www.barelyfitz.com/projects/tabber/${TABBER-DIST}
 
 CANVAS2D-URL=http://git.thesoftwarefactory.be/pub/canvas2d.git
 
-EXTLIBS=lib/tabber.css lib/tabber.js
-EXTSRCS=src/${APP}.php src/${APP}.css build/${APP}.js ${EXTLIBS} LICENSE
+DIST-EXTLIBS=lib/tabber.css lib/tabber.js
+DIST-EXTSRCS=src/${APP}.php src/${APP}.css build/${APP}.min.js \
+             ${DIST-EXTLIBS} LICENSE
 
 COMPRESSOR=yuicompressor-2.4.2
 COMPRESSOR-DIST=${COMPRESSOR}.zip
 COMPRESSOR-URL=http://www.julienlecomte.net/yuicompressor/${COMPRESSOR-DIST}
 
 DIST=${APP}-${VERSION}.tar.gz
-DISTSRCS=build/${APP}.js examples doc LICENSE
+DISTSRCS=build/${APP}.min.js examples doc LICENSE
 
 DIST-EXT=${APP}-${VERSION}-ext.tar.gz
 
 DIST-SRC=${APP}-${VERSION}-src.tar.gz
-DIST-SRCSRCS=LICENSE README examples Makefile doc lib src
+DIST-SRCSRCS=LICENSE README examples Makefile doc src
 
 PUB=moonbase:~/dist/
 
@@ -99,12 +100,14 @@ dist/${DIST}: ${DISTSRCS}
 	@echo "*** packaging ${APP}"
 	@mkdir -p dist/js/${APP}
 	@cp -r ${DISTSRCS} dist/js/${APP}
+	@(cd dist/js/${APP}; mv ${APP}.min.js ${APP}.js)
 	@(cd dist/js; tar -zcf ../${DIST} ${APP})
 
-dist/${DIST-EXT}: ${EXTSRCS}
+dist/${DIST-EXT}: ${DIST-EXTSRCS}
 	@echo "*** assembling ${APP} extension"
 	@mkdir -p dist/ext/${APP}
-	@cp ${EXTSRCS} dist/ext/${APP}/
+	@cp ${DIST-EXTSRCS} dist/ext/${APP}/
+	@(cd dist/ext/${APP}; mv ${APP}.min.js ${APP}.js)
 	@(cd dist/ext; tar -zcf ../${DIST-EXT} ${APP})
 
 dist/${DIST-SRC}: 
