@@ -1,0 +1,4 @@
+- improve reg.bat to check for dependencies : .NET 2.0 and mono
+- add better checks to see if currentdiagram is available
+- allow right click selection of diagram and execution of addin
+- add more details: cardinality,...

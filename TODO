@@ -1,6 +1,4 @@
-- move adl to canvas2d
 - fix licensing info (header + make it URL to website)
-- fetch libs dynamically (using Makefile) -> smaller src dist
 - extend support for events
 - split source into seperate (class) files + clean up code in general
 - introduce global logging framework with fallbacks (print, console, alert)
@@ -15,13 +13,6 @@
   - howto's
   - API docs (jsdoc-toolkit is more developer oriented, these should
     be end-user-oriented)
-
-- split off UMLWebEditor
-  - add decent source editor: http://www.cdolivet.net/editarea/
-  - add toolbox
-  - add multi-diagram support
-  - link to model repository
-  - publish to TheModelFactory
 
 FUTURE:
 - EA ADL-export plugin

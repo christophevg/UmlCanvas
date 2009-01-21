@@ -1,0 +1,11 @@
+Enterprise Architect AdlExporter Addin
+
+---
+
+A tool to export diagrams in the ADL DSL.
+
+---
+
+Put the AdlExporter distribution directory somewhere on your local
+disk and execute reg.bat to register the DLL with .NET and EA.
+
