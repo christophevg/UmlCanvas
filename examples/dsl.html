@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <style>
+      .box {
+        border: 2px solid #000;
+        float:left;
+        margin:10px; 
+        height: 505px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script src="../build/UmlCanvas.standalone.js"></script>
+  </head>
+  
+  <body>
+    
+    <h1>DSL</h1>
+    <div class="box">
+      <h2>The Canvas2D/UmlCanvas Model</h2>
+      <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
+	      id="myTabbedDiagram" width="800" height="400"></canvas>
+    </div>
+    <pre id="myTabbedDiagramSource" style="display:none;">  
+Diagram myDiagram +dynamic {
+  [@25,25]
+  interface Interface1 +stereotype="base" {
+    operation op1 : Int +protected;
+  }
+
+  [@34,150]
+  class SubClass1 : Interface1 +stereotype="sub" {
+    attribute attr1 : String +private;
+    operation op1 : Int +protected {
+      parameter param1 : String;
+    }
+  }
+
+  [@325,25]
+  class BaseClass1 {
+    operation op1 : Int +protected;
+  }
+
+  [@318,158]
+  class SubClass2 : BaseClass1 {
+    attribute attr1 : String +private;
+    operation op1 : Int +protected {
+      parameter param1 : String;
+    }
+  }
+
+  [@vertical]
+  association myInterface1s {
+    role baseclass : BaseClass1 +composite;
+    role interface : Interface1 +navigable;
+  }
+
+  [@vertical]
+  dependency mySubClasses1 {
+    client subclass : SubClass2;
+    supplier othersubclass : SubClass1;
+  }
+}
+    </pre>  
+  </body>
+</html>

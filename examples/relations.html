@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script src="../build/UmlCanvas.standalone.js"></script>
+  </head>
+  
+  <body onload="drawIt();">
+    
+    <canvas id="mydiagram" width="400" height="250"></canvas>
+    
+    <script>
+      function makeClass(name) {
+        var clazz = new UmlCanvas.Class( { name: name } );
+        with( clazz  ) {
+          addAttribute( { name: "Attribute", visibility: "public", 
+                          type: "Int" } );
+	  addOperation( { name: "Operation", visibility: "public", 
+                          returnType: "Int" } );
+	}
+        return clazz;
+      }
+
+      function drawIt() {
+        var class1 = makeClass( "Class1" );
+        var class2 = makeClass( "Class2" );
+        var class3 = makeClass( "Class3" );
+        var class4 = makeClass( "Class4" );
+
+        with( new UmlCanvas.Model("mydiagram") ) {
+          makeTabbed( ["console","source","about"] );
+	  with( addDiagram( new UmlCanvas.Diagram() ) ) {
+	    at( 25, 25).put(class1);
+	    at(250, 25).put(class2);
+	    at( 25,150).put(class3);
+	    at(250,150).put(class4);
+
+            put(new UmlCanvas.Association(class1, class2, 
+                                          { navigability: "bi" } ) );
+
+            put(new UmlCanvas.Aggregation(class1, class3));
+
+            put(new UmlCanvas.Composition(class2, class4,
+                                          { navigability: "source" } ) );
+
+            put(new UmlCanvas.Dependency(class3, class4, 
+                                         { navigability: "destination" } ) );
+
+            makeDynamic();
+	  }
+        }
+    }
+    </script>
+  </body>
+</html>

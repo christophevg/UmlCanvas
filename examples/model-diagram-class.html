@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script src="../build/UmlCanvas.standalone.js"></script>
+  </head>
+  
+  <body onload="drawIt();">
+    
+    <canvas id="mydiagram" width="400" height="250"></canvas>
+    
+    <script>
+    function drawIt() {
+	var class1 = new UmlCanvas.Class( { name: "TestClass", 
+	                                    stereotype: "entity" } );
+	with( class1  ) {
+	    addAttribute( { name: "Attribute1", visibility: "public", 
+			    type: "Integer" } );
+	    addAttribute( { name: "Attribute2", visibility: "private", 
+			    type: "String" } );
+	    addAttribute( { name: "Attribute3", visibility: "protected", 
+			    type: "Boolean" } );
+	    addOperation( { name: "Operation1", visibility: "public", 
+			    returnType: "Integer",
+			    arguments: [{ name: "arg1", type: "Integer[20]"  },
+					{ name: "arg2", type: "String[1..2]" }]
+			  } );
+	    addOperation( { name: "Operation2", visibility: "protected", 
+			    returnType: "Boolean",
+			    arguments: [{ name: "arg1", type: "Object"    },
+					{ name: "arg2", type: "Something" }]
+			  } );
+	}
+        with( new UmlCanvas.Model("mydiagram") ) {
+          makeTabbed( ["console","source","about"] );
+	  with( addDiagram( new UmlCanvas.Diagram() ) ) {
+	    at(50,50).put(class1);
+            makeDynamic();
+	  }
+        }
+    }
+    </script>
+  </body>
+</html>

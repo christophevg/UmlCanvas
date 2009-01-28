@@ -1,6 +1,8 @@
-- fix licensing info (header + make it URL to website)
+0.1.0
+- add canvas2D extension info
 - extend support for events
-- split source into seperate (class) files + clean up code in general
+
+LATER:
 - introduce global logging framework with fallbacks (print, console, alert)
   - http://www.depressedpress.com/Content/Development/JavaScript/Extensions/DP%5FDeBug/
 - use Maven to manage project
