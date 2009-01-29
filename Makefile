@@ -9,7 +9,7 @@ COMPRESS=java -jar ${COMPRESS-JAR} --type js
 APP=UmlCanvas
 TARGETS=build/${APP}.shared.min.js build/${APP}.standalone.min.js \
         build/${APP}.css 
-VERSION=0.0.1
+VERSION=0.0.2
 SRCS=src/SanityChecks.js \
      src/Model.js \
      src/Common.js \
@@ -30,10 +30,6 @@ COMPRESS-JAR=lib/yuicompressor-${COMPRESSOR-VERSION}/build/yuicompressor-${COMPR
 COMPRESSOR-URL=http://www.julienlecomte.net/yuicompressor/${COMPRESSOR-DIST}
 CANVAS2D-URL=http://git.thesoftwarefactory.be/pub/canvas2d.git
 
-DIST-EXTLIBS=
-DIST-EXTSRCS=src/${APP}.php src/${APP}.css build/${APP}.min.js \
-             ${DIST-EXTLIBS} LICENSE
-
 DIST=${APP}-${VERSION}.zip
 DISTSRCS=${TARGETS} examples/*.html LICENSE README
 
@@ -41,7 +37,10 @@ DIST-SRC=${APP}-${VERSION}-src.zip
 DIST-SRCSRCS=LICENSE README examples Makefile doc src
 
 DIST-EXT=${APP}-${VERSION}-ext.zip
-DIST-EXTSRCS=LICENSE build/${APP}.standalone.min.js build/${APP}.css \
+DIST-EXTSRCS=LICENSE \
+             lib/Canvas2D/build/Canvas2D.standalone.min.js \
+             build/${APP}.shared.min.js \
+             build/${APP}.css \
              src/ext/${APP}.php
 
 PUB=moonbase:~/dist/
