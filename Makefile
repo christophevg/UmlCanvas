@@ -28,7 +28,7 @@ LIBS=lib/Canvas2D/build/Canvas2D.standalone.js
 COMPRESSOR-DIST=yuicompressor-${COMPRESSOR-VERSION}.zip
 COMPRESS-JAR=lib/yuicompressor-${COMPRESSOR-VERSION}/build/yuicompressor-${COMPRESSOR-VERSION}.jar
 COMPRESSOR-URL=http://www.julienlecomte.net/yuicompressor/${COMPRESSOR-DIST}
-CANVAS2D-URL=http://git.thesoftwarefactory.be/pub/canvas2d.git
+CANVAS2D-URL=http://git.thesoftwarefactory.be/pub/Canvas2D.git
 
 DIST=${APP}-${VERSION}.zip
 DISTSRCS=${TARGETS} examples/*.html LICENSE README
