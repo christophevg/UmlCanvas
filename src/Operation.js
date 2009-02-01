@@ -31,7 +31,10 @@ UmlCanvas.Operation = Class.create( {
     },
 
     toADL: function(prefix) {
-	var s = prefix + "operation " + this.name + " : " + this.returnType;
+	var s = prefix + "operation " + this.name;
+	if( this.returnType ) {
+	    s += " : " + this.returnType;
+	}
 	if( this.visibility ) {
 	    s += " +" + this.visibility;
 	}
