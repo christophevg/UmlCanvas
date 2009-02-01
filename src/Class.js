@@ -36,9 +36,10 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	}
     },
 
-    drawText: function(top, text) {
+    drawText: function(top, text, font) {
+	font = font || this.config.font;
 	if( this.canvas ){
-	    this.canvas.drawText( this.config.font, this.config.fontSize, 
+	    this.canvas.drawText( font, this.config.fontSize, 
 				  this.props.left + this.config.padding, 
 				  this.props.top  + top, 
 				  text );
@@ -47,9 +48,10 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	}
     },
 
-    drawTextCenter: function(top, text) {
+    drawTextCenter: function(top, text, font) {
+	font = font || this.config.font;
 	if( this.canvas ) {
-	    this.canvas.drawTextCenter( this.config.font, this.config.fontSize, 
+	    this.canvas.drawTextCenter( font, this.config.fontSize, 
 					this.props.left + (this.props.width/2), 
 					this.props.top  + top, 
 					text );
@@ -190,7 +192,8 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	// className
 	this.drawTextCenter( this.config.padding     + this.config.fontSize
 			     + ( this.props.stereotype ? lineSize : 0 ), 
-			     this.props.name );
+			     this.props.name, 
+			     this.props.isAbstract ? "italic" : "sans" );
 
 	// attributes
 	for( var i=0; i<this.attributes.length; i++ ) {
@@ -212,6 +215,9 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	}
 	if( this.props.stereotype ) {
 	    s += " +stereotype=\"" + this.props.stereotype + "\"";
+	}
+	if( this.props.isAbstract ) {
+	    s += " +abstract";
 	}
 	s += " {\n";
 	this.attributes.each(function(attribute) { 
@@ -241,6 +247,9 @@ UmlCanvas.Class.from = function( construct, diagram ) {
     if( stereotype ) {
 	props.stereotype = stereotype.value.value;
     }
+
+    // ABSTRACT
+    props.isAbstract = construct.modifiers.get( "abstract" ) != null;
 
     var elem = new UmlCanvas.Class( props );
 

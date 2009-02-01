@@ -8,6 +8,7 @@ UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
 	} else {
 	    props['stereotype'] = "interface";
 	}
+	props.isAbstract = true;
 	$super( props );
     },
 
