@@ -72,7 +72,7 @@ namespace addin {
 	public String getAnnotationsAsString(String prefix) {
 	    String s = "";
 	    foreach( String annotation in this.annotations ) {
-		s += "[@" + annotation + "]\r\n";
+		s += prefix + "[@" + annotation + "]\r\n";
 	    }
 	    return s;
 	}
@@ -144,6 +144,7 @@ namespace addin {
 
     public class DiagramVisitor {
 	private EA.Repository repository;
+	private String name;
 	private List<Construct> constructs = new List<Construct>();
 
 	public DiagramVisitor visit(EA.Repository repository) {
@@ -240,7 +241,7 @@ namespace addin {
 	    EA.Element elem = this.repository.GetElementByID(obj.ElementID);
 	    
 	    Construct construct = new Construct()
-		.addAnnotation(obj.left + "," + Math.Abs(obj.top))
+		.addAnnotation(Math.Abs(obj.left) + "," + Math.Abs(obj.top))
 		.setType(elem.Type)
 		.setName(elem.Name)
 		.addModifier(new Modifier(elem.Visibility.ToLower()));
@@ -260,6 +261,7 @@ namespace addin {
 	}
 
 	public DiagramVisitor visit(EA.Diagram diagram ) {
+	    this.name = diagram.Name;
 	    foreach( EA.DiagramObject obj in diagram.DiagramObjects ) {
 		this.importDiagramObject(obj);
 	    }
@@ -267,11 +269,11 @@ namespace addin {
 	}
 
 	public String toString() {
-	    String s = "";
+	    String s = "diagram " + this.name + " {\r\n";
 	    List<String> exported = new List<String>();
 	    int loops = 0;
 
-	    while( loops++ < 10 && exported.Count < this.constructs.Count ) {
+	    while( loops++ < 1000 && exported.Count < this.constructs.Count ) {
 		foreach( Construct construct in this.constructs ) {
 		    if( !exported.Contains(construct.getName() ) ) {
 			Boolean ok = true;
@@ -279,12 +281,13 @@ namespace addin {
 			    if( !exported.Contains(dep) ) { ok = false; }
 			}
 			if( ok ) { 
-			    s += construct.toString() + "\r\n\r\n"; 
+			    s += construct.toString("  ") + "\r\n\r\n"; 
 			    exported.Add( construct.getName() );
 			}
 		    }
 		}
 	    }
+	    s += "}";
 	    return s;
 	}
     }
