@@ -2,13 +2,22 @@ UmlCanvas.Diagram = Class.create( Canvas2D.Sheet, {
     initialize: function($super, props) {
 	$super(props);
 	this.on( "shapeSelected", this.handleElementSelected.bind(this) );
+	this.on( "shapeChanged",  this.handleElementChanged.bind(this) );
     },
 
     handleElementSelected: function(element) {
 	if( element instanceof UmlCanvas.Interface ) {
-	    this.fireEvent( "interfaceSelected", element );
+	    this.canvas.fireEvent( "interfaceSelected", element.props );
 	} else if( element instanceof UmlCanvas.Class ) {
-	    this.fireEvent( "classSelected", element );
+	    this.canvas.fireEvent( "classSelected", element.props );
+	}
+    },
+
+    handleElementChanged: function(element) {
+	if( element instanceof UmlCanvas.Interface ) {
+	    this.canvas.fireEvent( "interfaceChanged", element.props );
+	} else if( element instanceof UmlCanvas.Class ) {
+	    this.canvas.fireEvent( "classChanged", element.props );
 	}
     },
     
