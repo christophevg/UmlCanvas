@@ -2,6 +2,10 @@ var UmlCanvas = {};
 
 UmlCanvas.diagrams = {};
 
+UmlCanvas.getModel = function(id) {
+    return Canvas2D.getCanvas(id);
+};
+
 UmlCanvas.getDiagram = function(diagram) {
     return UmlCanvas.diagrams[diagram];
 };
