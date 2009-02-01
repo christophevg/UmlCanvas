@@ -10,6 +10,18 @@ UmlCanvas.getDiagram = function(diagram) {
     return UmlCanvas.diagrams[diagram];
 };
 
+UmlCanvas.eventHandlers = {};
+
+UmlCanvas.on = function( event, handler ) {
+    UmlCanvas.eventHandlers[event] = handler;
+};
+
+UmlCanvas.fireEvent = function( event, data ) {
+    if( UmlCanvas.eventHandlers[event] ) {
+	UmlCanvas.eventHandlers[event](data);
+    }
+};
+
 UmlCanvas.Model = Class.create( Canvas2D.Canvas, {
     addDiagram: function(diagram) {
 	UmlCanvas.diagrams[diagram.name] = diagram;

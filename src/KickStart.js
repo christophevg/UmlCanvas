@@ -12,3 +12,5 @@ UmlCanvas.KickStart.Starter = Class.create( Canvas2D.KickStart.Starter, {
 
 UmlCanvas.KickStarter = new UmlCanvas.KickStart.Starter();
 Event.observe(window, 'load', function() { UmlCanvas.KickStarter.start(); } );
+
+UmlCanvas.fireEvent( "ready" );
