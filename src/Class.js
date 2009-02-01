@@ -203,6 +203,26 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	    this.drawText( classCompHeight + attrCompHeight + (lineSize*(i+1)),
 			   this.operations[i].toString() );
 	}
+    },
+    toADL: function(prefix) {
+	var s = this.positionToString(prefix);
+	s += prefix + "class "  + this.props.name;
+	if( this.props.zuper ) {
+	    s += " : " + this.props.zuper.props.name;
+	}
+	if( this.props.stereotype ) {
+	    s += " +stereotype=\"" + this.props.stereotype + "\"";
+	}
+	s += " {\n";
+	this.attributes.each(function(attribute) { 
+	    s += attribute.toADL(prefix + "  ") + "\n";
+	});
+	this.operations.each(function(operation) { 
+	    s += operation.toADL(prefix + "  ") + "\n";
+	});
+	s += prefix + "}";
+	return s;
+
     }
 } );
 
@@ -227,6 +247,7 @@ UmlCanvas.Class.from = function( construct, diagram ) {
     // SUPERCLASS
     if( construct.zuper ) {
 	var zuper = diagram.getClass(construct.zuper.constructName);
+	elem.props.zuper = zuper;
 	var relation;
 	if( zuper instanceof UmlCanvas.Interface ) {
 	    relation = new UmlCanvas.Realization( zuper, elem );

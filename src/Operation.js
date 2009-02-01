@@ -17,13 +17,34 @@ UmlCanvas.Operation = Class.create( {
     },
 
     addParameter: function(parameter) {
-	this.parameters.push( parameter.type.toString() );
+	this.parameters.push( parameter );
     },
 
     toString: function() {
+	var params = [];
+	this.parameters.each(function(param) {
+	    params.push( param.type.toString() );
+	});
 	return UmlCanvas.determineVisibility(this.visibility)
-	    + this.name + "(" + this.parameters.join( ", " ) + ")"
+	    + this.name + "(" + params.join( ", " ) + ")"
 	    + (this.returnType ? " : " + this.returnType.toString() : "");
+    },
+
+    toADL: function(prefix) {
+	var s = prefix + "operation " + this.name + " : " + this.returnType;
+	if( this.visibility ) {
+	    s += " +" + this.visibility;
+	}
+	if( this.parameters.length > 0 ) {
+	    s += " {\n";
+	    this.parameters.each(function(param) {
+		s += param.toADL(prefix+"  ") + "\n";
+	    });
+	    s += prefix + "}";
+	} else {
+	    s += ";";
+	}
+	return s;
     }
 
 } );

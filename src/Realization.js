@@ -8,5 +8,9 @@ UmlCanvas.Realization = Class.create( Canvas2D.Connector, {
     },
     initialBranchLength: function(top, bottom) {
 	return 25;
+    },
+    toADL: function() {
+	// realization is handled by the implementation subclass
+	return "";
     }
 });

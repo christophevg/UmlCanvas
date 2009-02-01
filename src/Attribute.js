@@ -10,6 +10,14 @@ UmlCanvas.Attribute = Class.create( {
     toString: function() {
 	return UmlCanvas.determineVisibility(this.visibility)
 	    + this.name + (this.type ? " : " + this.type.toString() : "");
+    },
+    toADL: function(prefix) {
+	var s = prefix + "attribute " + this.name + " : " + this.type;
+	if( this.visibility ) {
+	    s += " +" + this.visibility;
+	}
+	s += ";";
+	return s;
     }
 } );
 

@@ -1,37 +1,49 @@
-UmlCanvas.Composition = Class.create( Canvas2D.Connector, {
-    initialize: function( $super, from, to, props ) {
-	props = props || {};
-	props.begin = UmlCanvas.ConnectorHeads.FullDiamond;
-	if( props.navigability == "bi" || props.navigability == "destination" ){
-	    props.end = UmlCanvas.ConnectorHeads.Arrow;
-	}
-	props['style'] = props['style'] || "horizontal";
-	$super( from, to, props );
-    }
-});
-
-UmlCanvas.Aggregation = Class.create( Canvas2D.Connector, {
-    initialize: function( $super, from, to, props ) {
-	props = props || {};
-	props.begin = UmlCanvas.ConnectorHeads.Diamond;
-	if( props.navigability == "bi" || props.navigability == "destination" ){
-	    props.end = UmlCanvas.ConnectorHeads.Arrow;
-	}
-	props['style'] = props['style'] || "horizontal";
-	$super( from, to, props );
-    }
-});
-
 UmlCanvas.Association = Class.create( Canvas2D.Connector, {
-    initialize: function( $super, from, to, props ) {
-	if( props.navigability == "bi" || props.navigability == "source" ){
+    fromElement : null,
+    toElement   : null,
+    kind        : null,
+    navigability: null,
+
+    initialize: function( $super, from, to, kind, props ) {
+	this.fromElement  = from;
+	this.toElement    = to;
+	this.kind         = kind;
+	this.navigability = props.navigability;
+
+	if( kind == "aggregation" ) {
+	    props.begin = UmlCanvas.ConnectorHeads.Diamond;	    
+	} else if( kind == "composition" ) {
+	    props.begin = UmlCanvas.ConnectorHeads.FullDiamond;	    
+	} else if( props.navigability == "bi" || 
+		   props.navigability == "source" ) 
+	{
 	    props.begin = UmlCanvas.ConnectorHeads.Arrow;
 	}
-	if( props.navigability == "bi" || props.navigability == "destination" ){
+	if( props.navigability == "bi" || props.navigability=="destination") {
 	    props.end = UmlCanvas.ConnectorHeads.Arrow;
 	}
 	props['style'] = props['style'] || "horizontal";
-	$super( from, to, props );
+	$super( from.element, to.element, props );
+    },
+
+    toADL: function(prefix) {
+	var s = prefix + "[@" + this.props.style + "]\n";
+	s += prefix + "association " + this.props.name + " {\n";
+	s += prefix + "  role " + this.fromElement.name + 
+	    " : " + this.fromElement.element.props.name + 
+	    ( this.kind != "association" ? 
+	      ( this.kind == "aggregation" ? 
+		" +shared" : " +composite" ) : "" ) +
+	    ( this.navigability == "bi" || this.navigablity == "source" ?
+	      " +navigable" : "" ) 
+	    + ";\n";
+	s += prefix + "  role " + this.toElement.name + 
+	    " : " + this.toElement.element.props.name + 
+	    ( this.navigability == "bi" || this.navigability == "destination" ?
+	      " +navigable" : "" ) 
+	+ ";\n";
+	s += prefix + "}";
+	return s;
     }
 });
 
@@ -42,7 +54,7 @@ UmlCanvas.Association.getNames = function() {
 UmlCanvas.Association.from = function(construct, diagram) {
     var from = construct.children[0];
     var to   = construct.children[1];
-    var style = "association";
+    var kind = "association";
 
     if( to.modifiers.get( "composition" ) || 
 	to.modifiers.get( "composite"   ) ) 
@@ -53,11 +65,11 @@ UmlCanvas.Association.from = function(construct, diagram) {
     if( from.modifiers.get( "composition" ) || 
 	from.modifiers.get( "composite" ) ) 
     {
-	style = "composition";
+	kind = "composition";
     }
     
     if( to.modifiers.get( "aggregation" ) ||
-	to.modifiers.get( "aggregate" ) ) 
+        to.modifiers.get( "shared" ) ) 
     {
 	from = construct.children[1];
 	to   = construct.children[0];
@@ -65,7 +77,7 @@ UmlCanvas.Association.from = function(construct, diagram) {
     if( from.modifiers.get( "aggregation" ) ||
 	from.modifiers.get( "shared" ) ) 
     {
-	style = "aggregation";
+	kind = "aggregation";
     }
     
     var navigability = null;
@@ -86,21 +98,16 @@ UmlCanvas.Association.from = function(construct, diagram) {
 	}
     }
     
-    props = { style: treeStyle, navigability: navigability };
+    props = { name: construct.name, 
+	      style: treeStyle, navigability: navigability };
     
-    var src = diagram.getClass(from.zuper.constructName);
-    var dst = diagram.getClass(to.zuper.constructName);
+    var src = { name   : from.name, 
+	        element: diagram.getClass(from.zuper.constructName) };
+    var dst = { name   : to.name,
+	        element: diagram.getClass(to.zuper.constructName) };
     
-    switch(style) {
-    case "composition":
-	elem = new UmlCanvas.Composition( src, dst, props );
-	break;
-    case "aggregation":
-	elem = new UmlCanvas.Aggregation( src, dst, props );
-	break;
-    default:
-	elem = new UmlCanvas.Association( src, dst, props );
-    }
+    elem = new UmlCanvas.Association( src, dst, kind, props );
+
     return diagram.addRelation(elem);
 };
     

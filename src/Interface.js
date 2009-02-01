@@ -1,8 +1,13 @@
 UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
+    stereotype: null,
+
     initialize: function( $super, props ) {
-	props['stereotype'] = 
-	    props['stereotype'] ? "interface " + props['stereotype'] 
-	    : "interface";
+	if( props['stereotype'] ) {
+	    this.stereotype = props['stereotype'];
+	    props['stereotype'] = "interface " + props['stereotype'];
+	} else {
+	    props['stereotype'] = "interface";
+	}
 	$super( props );
     },
 
@@ -10,6 +15,27 @@ UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
 	var props = $super();
 	props.type = "Interface";
 	return props;
+    },
+
+    toADL: function(prefix) {
+	var s = this.positionToString(prefix);
+	s += prefix + "interface "  + this.props.name;
+	if( this.props.zuper ) {
+	    s += " : " + this.props.zuper.props.name;
+	}
+	if( this.stereotype ) {
+	    s += " +stereotype=\"" + this.stereotype + "\"";
+	}
+	s += " {\n";
+	this.attributes.each(function(attribute) { 
+	    s += attribute.toADL(prefix + "  ") + "\n";
+	});
+	this.operations.each(function(operation) { 
+	    s += operation.toADL(prefix + "  ") + "\n";
+	});
+	s += prefix + "}";
+	return s;
+
     }
 
 } );

@@ -7,5 +7,9 @@ UmlCanvas.Inheritance = Class.create( Canvas2D.Connector, {
     },
     initialBranchLength: function(top, bottom) {
 	return 25;
+    },
+    toADL: function() {
+	// inheritance is handled by the subclass
+	return "";
     }
 });

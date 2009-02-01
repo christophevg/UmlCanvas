@@ -9,6 +9,18 @@ UmlCanvas.Diagram = Class.create( Canvas2D.Sheet, {
 
     addRelation: function(relation) {
 	return this.add(relation);
+    },
+
+    toADL: function() {
+	var s = "";
+	s += "Diagram "  + this.name;
+	s += " +" + this.style + " {\n";
+	this.shapes.each(function(shape) { 
+	    var t = shape.toADL("  ");
+	    if( t ) { s +=  t + "\n"; }
+	} );
+	s += "}";
+	return s;
     }
 } );
 
