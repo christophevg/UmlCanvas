@@ -2,6 +2,8 @@ UmlCanvas.Dependency = Class.create( Canvas2D.Connector, {
     client : null,
     supplier : null,
     initialize: function( $super, client, supplier, props ) {
+	if( !client.element ) { client = { element: client }; }
+	if( !supplier.element ) { supplier = { element: supplier }; }
 	props = props || {};
 	props.end = UmlCanvas.ConnectorHeads.Arrow;
 	props.lineStyle = "dashed";

@@ -5,6 +5,9 @@ UmlCanvas.Association = Class.create( Canvas2D.Connector, {
     navigability: null,
 
     initialize: function( $super, from, to, kind, props ) {
+	if( !from.element ) { from = { element: from }; }
+	if( !to.element ) { to = { element: to }; }
+	props = props || {};
 	this.fromElement  = from;
 	this.toElement    = to;
 	this.kind         = kind;

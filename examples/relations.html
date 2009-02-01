@@ -1,7 +1,7 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
-    <script src="../build/UmlCanvas.standalone.min.js"></script>
+    <script src="../build/UmlCanvas.standalone.js"></script>
   </head>
   
   <body onload="drawIt();">
@@ -34,12 +34,12 @@
 	    at( 25,150).put(class3);
 	    at(250,150).put(class4);
 
-            put(new UmlCanvas.Association(class1, class2, 
+            put(new UmlCanvas.Association(class1, class2, "association",
                                           { navigability: "bi" } ) );
 
-            put(new UmlCanvas.Aggregation(class1, class3));
+            put(new UmlCanvas.Association(class1, class3, "aggregation" ));
 
-            put(new UmlCanvas.Composition(class2, class4,
+            put(new UmlCanvas.Association(class2, class4, "composition",
                                           { navigability: "source" } ) );
 
             put(new UmlCanvas.Dependency(class3, class4, 
