@@ -87,15 +87,15 @@ build/${APP}.shared.js: ${SRCS}
 build/${APP}.standalone.js: build/${APP}.shared.js ${LIBS}
 	@echo "*** building $@"
 	@mkdir -p build
-	@cat ${LIBS} $< > $@
+	@cat ${LIBS} build/${APP}.shared.js > $@
 
 build/${APP}.shared.min.js: build/${APP}.shared.js ${COMPRESS-JAR}
 	@echo "*** building $@"
-	@${COMPRESS} $< > $@
+	@${COMPRESS} build/${APP}.shared.js > $@
 
 build/${APP}.standalone.min.js: build/${APP}.standalone.js ${COMPRESS-JAR}
 	@echo "*** building $@"
-	@${COMPRESS} $< > $@
+	@${COMPRESS} build/${APP}.standalone.js > $@
 
 build/${APP}.css: ${CSSSRCS}
 	@echo "*** building $@"
@@ -127,7 +127,7 @@ dist/${DIST-EXT}: ${DIST-EXTSRCS}
 	@(cd dist/ext; ${ZIP} ../${DIST-EXT} ${APP})
 
 clean:
-	@find . | grep "~$$" | xargs rm
+	@find . | grep "~$$" | xargs rm -f
 	@rm -rf build dist
 
 mrproper: clean
