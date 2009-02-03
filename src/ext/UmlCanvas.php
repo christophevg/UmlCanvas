@@ -69,7 +69,8 @@ function UmlCanvasRender( $input, $args, $parser ) {
   $canvas = '<div class="UmlCanvas-container" style="float:'.$float.'">' .
     '<canvas class="UmlCanvas'.$classes.'" id="' . $name . 
     '" width="'.$width.'" height="'.$height.'"></canvas></div>';
-  $canvas .= '<pre id="'.$name.'Source" style="display:none">'.$input.'</pre>';
+  $canvas .= '<pre id="'.$name.'Source" style="display:none">' . 
+    str_replace( " :", ":", str_replace( ": ", ":", $input ) ) . '</pre>';
 
   return $canvas;
 }
