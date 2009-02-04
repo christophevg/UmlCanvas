@@ -9,7 +9,7 @@ COMPRESS=java -jar ${COMPRESS-JAR} --type js
 APP=UmlCanvas
 TARGETS=build/${APP}.shared.min.js build/${APP}.standalone.min.js \
         build/${APP}.css 
-VERSION=0.0.2
+VERSION=$(shell git describe --tags | cut -d'-' -f1,2)
 SRCS=src/SanityChecks.js \
      src/Model.js \
      src/Common.js \
