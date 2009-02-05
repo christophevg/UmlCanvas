@@ -1,7 +1,8 @@
 COMPRESSOR-VERSION=2.4.2
 
 FETCH=wget -q
-GIT-FETCH=git clone -q
+GIT-PULL=git pull -q
+GIT-CLONE=git clone -q
 ZIP=zip -qr
 UNZIP=unzip -q
 COMPRESS=java -jar ${COMPRESS-JAR} --type js
@@ -49,6 +50,9 @@ all: build
 
 build: .check-deps ${TARGETS}
 
+update-libs:
+	@(cd lib/Canvas2D; ${GIT-PULL}; make clean; make update-libs; make)
+
 .check-deps:
 	@echo "*** checking dependencies"
 	@echo "    (if you get errors in this section the cmd right before"
@@ -69,9 +73,8 @@ lib/Canvas2D/build/Canvas2D.css: lib/Canvas2D
 
 lib/Canvas2D:
 	@echo "*** importing $@"
-	@${GIT-FETCH} ${CANVAS2D-URL} lib/Canvas2D
-	@(cd lib/Canvas2D; \
-          make build/Canvas2D.standalone.js; make build/Canvas2D.css)
+	@${GIT-CLONE} ${CANVAS2D-URL} lib/Canvas2D
+	@(cd lib/Canvas2D; make)
 
 ${COMPRESS-JAR}:
 	@echo "*** importing yuicompressor"
