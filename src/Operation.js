@@ -1,23 +1,22 @@
 UmlCanvas.Operation = Class.create( {
-    visibility : null,
-    name       : null,
-    parameters : [],
-    returnType : null,
-
     initialize: function( operation ) {
 	this.visibility = operation.visibility;
 	this.name       = operation.name;
 	this.returnType = operation.returnType;
-	this.parameters = new Array();
-	if( operation.parameters ) {
-	    for(var p=0; p<operation.parameters.length; p++ ) {
-		this.addParameter(operation.parameters[p]);
+	this.parameters = [];
+	if( operation.arguments ) {
+	    for(var p=0; p<operation.arguments.length; p++ ) {
+		this.addParameter(operation.arguments[p]);
 	    }
 	}
     },
 
+    getName:       function() { return this.name;       },
+    getReturnType: function() { return this.returnType; },
+    getVisibility: function() { return this.visibility; },
+
     addParameter: function(parameter) {
-	this.parameters.push( parameter );
+	this.parameters.push( new UmlCanvas.Parameter(parameter) );
     },
 
     toString: function() {
@@ -25,31 +24,24 @@ UmlCanvas.Operation = Class.create( {
 	this.parameters.each(function(param) {
 	    params.push( param.type.toString() );
 	});
-	return UmlCanvas.determineVisibility(this.visibility)
+	return UmlCanvas.Common.determineVisibility(this.visibility)
 	    + this.name + "(" + params.join( ", " ) + ")"
 	    + (this.returnType ? " : " + this.returnType.toString() : "");
     },
 
-    toADL: function(prefix) {
-	var s = prefix + "operation " + this.name;
-	if( this.returnType ) {
-	    s += " : " + this.returnType;
-	}
-	if( this.visibility ) {
-	    s += " +" + this.visibility;
-	}
-	if( this.parameters.length > 0 ) {
-	    s += " {\n";
-	    this.parameters.each(function(param) {
-		s += param.toADL(prefix+"  ") + "\n";
-	    });
-	    s += prefix + "}";
-	} else {
-	    s += ";";
-	}
-	return s;
+    asConstruct: function() {
+	var parameters = [];
+	this.parameters.each(function(parameter) {
+	    parameters.push(parameter.asConstruct());
+	});
+	return { annotations : [],
+		 type        : "Operation",
+		 name        : this.getName(),
+		 supers      : [ this.getReturnType() ],
+		 modifiers   : { visibility: this.getVisibility() },
+		 children    : parameters
+	       };
     }
-
 } );
 
 UmlCanvas.Operation.getNames = function() {

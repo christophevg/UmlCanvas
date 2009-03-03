@@ -1,17 +1,18 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
-    <script src="../build/UmlCanvas.standalone.min.js"></script>
+    <script src="../build/UmlCanvas.standalone.js"></script>
   </head>
   
   <body onload="drawIt();">
     
-    <canvas id="mydiagram" width="400" height="250"></canvas>
+    <canvas id="myModel" width="400" height="250"></canvas>
     
     <script>
     function drawIt() {
 	var class1 = new UmlCanvas.Class( { name: "TestClass", 
-	                                    stereotype: "entity" } );
+                                            stereotype: "entity",
+                                            abstract: true } );
 	with( class1  ) {
 	    addAttribute( { name: "Attribute1", visibility: "public", 
 			    type: "Integer" } );
@@ -30,13 +31,18 @@
 					{ name: "arg2", type: "Something" }]
 			  } );
 	}
-        with( new UmlCanvas.Model("mydiagram") ) {
+
+        var manager = new UmlCanvas.Manager();
+
+        with( manager.setupModel("myModel") ) {
           makeTabbed( ["console","source","about"] );
-	  with( addDiagram( new UmlCanvas.Diagram() ) ) {
+	  with( addDiagram() ) {
 	    at(50,50).put(class1);
             makeDynamic();
 	  }
         }
+
+        manager.startAll();
     }
     </script>
   </body>

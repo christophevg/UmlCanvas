@@ -8,6 +8,15 @@ UmlCanvas.Common = {
 	if( construct.modifiers.get( "protected" ) ) { return "protected"; }
 	
 	return null;
+    },
+
+    determineVisibility: function(visibility) {
+	switch(visibility) {
+	case "protected": return "#";
+	case "private"  : return "-";
+	case "package"  : return "~";
+	}
+	return "+";
     }
 }
 

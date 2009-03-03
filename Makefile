@@ -12,8 +12,10 @@ TARGETS=build/${APP}.shared.min.js build/${APP}.standalone.min.js \
         build/${APP}.css 
 VERSION=$(shell git describe --tags | cut -d'-' -f1,2)
 SRCS=src/SanityChecks.js \
-     src/Model.js \
+     src/UmlCanvas.js \
      src/Common.js \
+     src/Manager.js \
+     src/Model.js \
      src/Diagram.js \
      src/Class.js src/Attribute.js src/Operation.js src/Parameter.js \
      src/ConnectorHeads.js \

@@ -1,23 +1,27 @@
 UmlCanvas.Attribute = Class.create( {
-    visibility : null,
-    name : null,
-    type : null,
     initialize: function( attribute ) {
 	this.visibility = attribute.visibility;
 	this.name       = attribute.name;
 	this.type       = attribute.type;
     },
+
+    getName:       function() { return this.name;       },
+    getType:       function() { return this.type;       },
+    getVisibility: function() { return this.visibility; },
+
     toString: function() {
-	return UmlCanvas.determineVisibility(this.visibility)
+	return UmlCanvas.Common.determineVisibility(this.visibility)
 	    + this.name + (this.type ? " : " + this.type.toString() : "");
     },
-    toADL: function(prefix) {
-	var s = prefix + "attribute " + this.name + " : " + this.type;
-	if( this.visibility ) {
-	    s += " +" + this.visibility;
-	}
-	s += ";";
-	return s;
+
+    asConstruct: function() {
+	return { annotations : [],
+		 type        : "Attribute",
+		 name        : this.getName(),
+		 supers      : [ this.getType() ],
+		 modifiers   : { visibility: this.getVisibility() },
+		 children    : []
+	       };
     }
 } );
 

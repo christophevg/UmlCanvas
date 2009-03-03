@@ -1,18 +1,18 @@
 UmlCanvas.KickStart = {};
 
 UmlCanvas.KickStart.Starter = Class.create( Canvas2D.KickStart.Starter, {
+    initialize: function() {
+	this.manager = new UmlCanvas.Manager();
+    },
+    
     getTag: function() {
 	return "UmlCanvas";
     },
 
     makeInstance: function( name ) {
-	return new UmlCanvas.Model(name);
+	return this.manager.setupModel(name);
     },
 
-    start: function($super) {
-	$super();
-	UmlCanvas.fireEvent( "ready" );
-    }
 } );
 
 UmlCanvas.KickStarter = new UmlCanvas.KickStart.Starter();

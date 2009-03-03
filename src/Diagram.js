@@ -33,16 +33,14 @@ UmlCanvas.Diagram = Class.create( Canvas2D.Sheet, {
 	return this.add(relation);
     },
 
-    toADL: function() {
-	var s = "";
-	s += "Diagram "  + this.name;
-	s += " +" + this.style + " {\n";
+    asConstruct: function($super) {
+	var construct = $super();
+
 	this.shapes.each(function(shape) { 
-	    var t = shape.toADL("  ");
-	    if( t ) { s +=  t + "\n"; }
+	    construct.push(shape.asConstruct());
 	} );
-	s += "}";
-	return s;
+
+	return construct;
     }
 } );
 
