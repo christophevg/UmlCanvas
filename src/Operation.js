@@ -1,6 +1,7 @@
 UmlCanvas.Operation = Class.create( {
     initialize: function( operation ) {
 	this.visibility = operation.visibility;
+	this.ztatic     = operation.isStatic;
 	this.name       = operation.name;
 	this.returnType = operation.returnType;
 	this.parameters = [];
@@ -14,6 +15,7 @@ UmlCanvas.Operation = Class.create( {
     getName:       function() { return this.name;       },
     getReturnType: function() { return this.returnType; },
     getVisibility: function() { return this.visibility; },
+    isStatic:      function() { return this.ztatic;     },
 
     addParameter: function(parameter) {
 	this.parameters.push( new UmlCanvas.Parameter(parameter) );
@@ -34,11 +36,13 @@ UmlCanvas.Operation = Class.create( {
 	this.parameters.each(function(parameter) {
 	    parameters.push(parameter.asConstruct());
 	});
+	var modifiers = { visibility: this.getVisibility() };
+	if( this.isStatic() ) { modifiers.isStatic = true; }
 	return { annotations : [],
 		 type        : "Operation",
 		 name        : this.getName(),
 		 supers      : [ this.getReturnType() ],
-		 modifiers   : { visibility: this.getVisibility() },
+		 modifiers   : modifiers,
 		 children    : parameters
 	       };
     }
@@ -57,6 +61,8 @@ UmlCanvas.Operation.from = function(construct, clazz) {
     if( visibility ) {
 	props['visibility'] = visibility;
     }
+    props['isStatic'] = UmlCanvas.Common.extractStatic(construct);
+
     return clazz.addOperation( props );
 };
 

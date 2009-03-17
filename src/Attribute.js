@@ -1,6 +1,7 @@
 UmlCanvas.Attribute = Class.create( {
     initialize: function( attribute ) {
 	this.visibility = attribute.visibility;
+	this.ztatic     = attribute.isStatic;
 	this.name       = attribute.name;
 	this.type       = attribute.type;
     },
@@ -8,6 +9,7 @@ UmlCanvas.Attribute = Class.create( {
     getName:       function() { return this.name;       },
     getType:       function() { return this.type;       },
     getVisibility: function() { return this.visibility; },
+    isStatic:      function() { return this.ztatic;     },
 
     toString: function() {
 	return UmlCanvas.Common.determineVisibility(this.visibility)
@@ -15,16 +17,17 @@ UmlCanvas.Attribute = Class.create( {
     },
 
     asConstruct: function() {
+	var modifiers = { visibility: this.getVisibility() };
+	if( this.isStatic() ) { modifiers.isStatic = true; }
 	return { annotations : [],
 		 type        : "Attribute",
 		 name        : this.getName(),
 		 supers      : [ this.getType() ],
-		 modifiers   : { visibility: this.getVisibility() },
+		 modifiers   : modifiers,
 		 children    : []
 	       };
     }
 } );
-
 
 UmlCanvas.Attribute.getNames = function() {
     return ["attribute", "property"];
@@ -37,6 +40,8 @@ UmlCanvas.Attribute.from = function(construct, clazz) {
     if( visibility ) {
 	props['visibility'] = visibility;
     }
+    props['isStatic'] = UmlCanvas.Common.extractStatic(construct);
+
     return clazz.addAttribute(props);
 };
 

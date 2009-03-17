@@ -1,6 +1,8 @@
 UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
     config:     { font:               "7pt Sans black",
 		  fontAbstract:       "italic 7pt Sans black",
+		  decoration:         "none",
+		  decorationStatic:   "underline",
 		  lineColor:          "rgba(255,0,0,1)",
 		  lineWidth:          1,
 		  backgroundColor:    "rgba(255,255,200,1)",
@@ -154,6 +156,8 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	sheet.textAlign = "left";
 	sheet.font = this.config.font;
 	for( var i=0; i<this.attributes.length; i++ ) {
+	    sheet.textDecoration = this.attributes[i].isStatic() ?
+		this.config.decorationStatic : this.config.decoration;
 	    sheet.fillText( this.attributes[i].toString(),
 			    left + this.config.padding,
 			    top + classCompHeight + ( lineSize * (i+1) ) );
@@ -161,6 +165,8 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 
 	// operations
 	for( var i=0; i<this.operations.length; i++ ) {
+	    sheet.textDecoration = this.operations[i].isStatic() ?
+		this.config.decorationStatic : this.config.decoration;
 	    sheet.fillText( this.operations[i].toString(),
 			   left + this.config.padding,
 			   top + classCompHeight 

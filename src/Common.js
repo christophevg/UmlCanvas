@@ -10,6 +10,10 @@ UmlCanvas.Common = {
 	return null;
     },
 
+    extractStatic: function(construct) {
+	return construct.modifiers.get( "static" );
+    },
+
     determineVisibility: function(visibility) {
 	switch(visibility) {
 	case "protected": return "#";

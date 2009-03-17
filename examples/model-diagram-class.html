@@ -15,13 +15,13 @@
                                             abstract: true } );
 	with( class1  ) {
 	    addAttribute( { name: "Attribute1", visibility: "public", 
-			    type: "Integer" } );
+			    type: "Integer", isStatic: true } );
 	    addAttribute( { name: "Attribute2", visibility: "private", 
 			    type: "String" } );
 	    addAttribute( { name: "Attribute3", visibility: "protected", 
 			    type: "Boolean" } );
 	    addOperation( { name: "Operation1", visibility: "public", 
-			    returnType: "Integer",
+			    returnType: "Integer", isStatic: true,
 			    arguments: [{ name: "arg1", type: "Integer[20]"  },
 					{ name: "arg2", type: "String[1..2]" }]
 			  } );
