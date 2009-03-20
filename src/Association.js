@@ -1,52 +1,38 @@
 UmlCanvas.Association = Class.create( Canvas2D.Connector, {
-    fromElement : null,
-    toElement   : null,
-    kind        : null,
-    navigability: null,
+    getType: function() { return "association"; },
 
-    initialize: function( $super, from, to, kind, props ) {
-	if( !from.element ) { from = { element: from }; }
-	if( !to.element ) { to = { element: to }; }
-	props = props || {};
-	this.fromElement  = from;
-	this.toElement    = to;
-	this.kind         = kind;
-	this.navigability = props.navigability;
+    myProperties: function($super) {
+	return $super().concat([ "kind", "navigability" ]);
+    },
 
-	if( kind == "aggregation" ) {
+    getKind        : function() { return this.kind;         },
+    getNavigability: function() { return this.navigability; },
+
+    preprocess: function(props) {
+	if( props.kind && props.kind == "aggregation" ) {
 	    props.begin = UmlCanvas.ConnectorHeads.Diamond;	    
-	} else if( kind == "composition" ) {
+	} else if( props.kind && props.kind == "composition" ) {
 	    props.begin = UmlCanvas.ConnectorHeads.FullDiamond;	    
-	} else if( props.navigability == "bi" || 
-		   props.navigability == "source" ) 
+	} else if( props.navigability && 
+		   ( props.navigability == "bi" || 
+		     props.navigability == "source" ) )
 	{
 	    props.begin = UmlCanvas.ConnectorHeads.Arrow;
 	}
-	if( props.navigability == "bi" || props.navigability=="destination") {
+
+	if( props.navigablity && 
+	    ( props.navigability == "bi" || props.navigability=="destination") )
+	{
 	    props.end = UmlCanvas.ConnectorHeads.Arrow;
 	}
-	props['style'] = props['style'] || "horizontal";
-	$super( from.element, to.element, props );
+	props['routing'] = props['routing'] || "horizontal";
+	return props;
     },
 
-    toADL: function(prefix) {
-	var s = prefix + "[@" + this.props.style + "]\n";
-	s += prefix + "association " + this.props.name + " {\n";
-	s += prefix + "  role " + this.fromElement.name + 
-	    " : " + this.fromElement.element.props.name + 
-	    ( this.kind != "association" ? 
-	      ( this.kind == "aggregation" ? 
-		" +shared" : " +composite" ) : "" ) +
-	    ( this.navigability == "bi" || this.navigablity == "source" ?
-	      " +navigable" : "" ) 
-	    + ";\n";
-	s += prefix + "  role " + this.toElement.name + 
-	    " : " + this.toElement.element.props.name + 
-	    ( this.navigability == "bi" || this.navigability == "destination" ?
-	      " +navigable" : "" ) 
-	+ ";\n";
-	s += prefix + "}";
-	return s;
+    asConstruct: function($super) {
+	var construct = $super();
+	// TODO
+	return construct;
     }
 });
 

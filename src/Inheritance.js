@@ -1,15 +1,10 @@
 UmlCanvas.Inheritance = Class.create( Canvas2D.Connector, {
-    initialize: function( $super, from, to, props ) {
-	props = props || {};
+    preprocess: function( props ) {
 	props.begin = UmlCanvas.ConnectorHeads.Triangle;
-	props.style = props.style || "vertical";
-	$super( from, to, props );
+	props.routing = props.routing || "vertical";
+	return props;
     },
     initialBranchLength: function(top, bottom) {
 	return 25;
-    },
-    toADL: function() {
-	// inheritance is handled by the subclass
-	return "";
     }
 });

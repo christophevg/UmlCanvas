@@ -10,7 +10,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 		  compartmentSpacing: 3,
 		  padding:            5 },
 
-    getType: function() { return "Class"; },
+    getType: function() { return "class"; },
 
     myProperties: function() {
 	return [ "stereotype", "abstract", "supers" ];

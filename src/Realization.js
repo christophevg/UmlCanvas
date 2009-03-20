@@ -1,16 +1,11 @@
 UmlCanvas.Realization = Class.create( Canvas2D.Connector, {
-    initialize: function( $super, from, to, props ) {
-	props = props || {};
+    preprocess: function( props ) {
 	props.begin = UmlCanvas.ConnectorHeads.Triangle;
 	props.lineStyle = "dashed";
-	props.style = props.style || "vertical";
-	$super( from, to, props );
+	props.routing = props.routing || "vertical";
+	return props;
     },
     initialBranchLength: function(top, bottom) {
 	return 25;
-    },
-    toADL: function() {
-	// realization is handled by the implementation subclass
-	return "";
     }
 });

@@ -1,12 +1,12 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
-    <script src="../build/UmlCanvas.standalone.js"></script>
+    <script src="../build/UmlCanvas.standalone.min.js"></script>
   </head>
   
   <body onload="drawIt();">
     
-    <canvas id="mydiagram" width="400" height="250"></canvas>
+    <canvas id="myModel" width="400" height="250"></canvas>
     
     <script>
       function makeClass(name) {
@@ -26,28 +26,31 @@
         var class3 = makeClass( "Class3" );
         var class4 = makeClass( "Class4" );
 
-        with( new UmlCanvas.Model("mydiagram") ) {
+        var manager = new UmlCanvas.Manager();
+
+        with( manager.setupModel("myModel") ) {
           makeTabbed( ["console","source","about"] );
-	  with( addDiagram( new UmlCanvas.Diagram() ) ) {
+	  with( addDiagram() ) {
 	    at( 25, 25).put(class1);
 	    at(250, 25).put(class2);
 	    at( 25,150).put(class3);
 	    at(250,150).put(class4);
 
-            put(new UmlCanvas.Association(class1, class2, "association",
-                                          { navigability: "bi" } ) );
-
-            put(new UmlCanvas.Association(class1, class3, "aggregation" ));
-
-            put(new UmlCanvas.Association(class2, class4, "composition",
-                                          { navigability: "source" } ) );
-
-            put(new UmlCanvas.Dependency(class3, class4, 
-                                         { navigability: "destination" } ) );
-
+            put(new UmlCanvas.Association({ from: class1, to: class2, 
+                                            kind: "association",
+                                            navigability: "bi" } ) );
+            put(new UmlCanvas.Association( { from: class1, to: class3, 
+                                             kind: "aggregation" } ));
+            put(new UmlCanvas.Association( { from: class2, to: class4, 
+                                             kind: "composition",
+                                             navigability: "source" } ) );
+            put(new UmlCanvas.Dependency({ from: class3, to: class4, 
+                                           navigability: "destination" } ) );
             makeDynamic();
 	  }
         }
+
+        manager.startAll();
     }
     </script>
   </body>

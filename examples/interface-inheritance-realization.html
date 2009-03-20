@@ -6,7 +6,7 @@
   
   <body onload="drawIt();">
     
-    <canvas id="mydiagram" width="400" height="250"></canvas>
+    <canvas id="myModel" width="400" height="250"></canvas>
     
     <script>
       function makeClass(name) {
@@ -28,22 +28,26 @@
         var class3 = makeClass( "Class3" );
         var class4 = makeClass( "Class4" );
 
-        with( new UmlCanvas.Model("mydiagram") ) {
+        var manager = new UmlCanvas.Manager();
+
+        with( manager.setupModel("myModel") ) {
           makeTabbed( ["console","source","about"] );
-	  with( addDiagram( new UmlCanvas.Diagram() ) ) {
+	  with( addDiagram() ) {
 	    at( 25, 25).put(interface1);
 	    at(250, 25).put(class2);
 	    at( 25,150).put(class3);
 	    at(250,150).put(class4);
 
-            put( new UmlCanvas.Realization( interface1, class3 ) );
+            put( new UmlCanvas.Realization( { from: interface1, to: class3 } ));
 
-            put( new UmlCanvas.Inheritance( class2, class4 ) );
+            put( new UmlCanvas.Inheritance( { from: class2, to: class4 } ));
 
             makeDynamic();
 	  }
         }
-    }
+
+        manager.startAll();
+      }
     </script>
   </body>
 </html>

@@ -1,26 +1,24 @@
 UmlCanvas.Dependency = Class.create( Canvas2D.Connector, {
-    client : null,
-    supplier : null,
-    initialize: function( $super, client, supplier, props ) {
-	if( !client.element ) { client = { element: client }; }
-	if( !supplier.element ) { supplier = { element: supplier }; }
-	props = props || {};
+    getType: function() { return "dependency"; },
+
+    myProperties: function($super) {
+	return $super().concat([ "client", "supplier" ]);
+    },
+
+    getClient  : function() { return this.client;   },
+    getSupplier: function() { return this.supplier; },
+
+    preprocess: function(props) {
 	props.end = UmlCanvas.ConnectorHeads.Arrow;
 	props.lineStyle = "dashed";
-	props['style'] = props['style'] || "horizontal";
-	this.client = client;
-	this.supplier = supplier;
-	$super( client.element, supplier.element, props );
+	props['routing'] = props['routing'] || "horizontal";
+	return props;
     },
-    toADL: function(prefix) {
-	var s = prefix + "[@" + this.props.style + "]\n";
-	s += prefix + "dependency " + this.props.name + " {\n";
-	s += prefix + "  client " + this.client.name + 
-	    " : " + this.client.element.props.name + ";\n";
-	s += prefix + "  supplier " + this.supplier.name + 
-	    " : " + this.supplier.element.props.name + ";\n";
-	s += prefix + "}";
-	return s;
+
+    asConstruct: function($super) {
+	var construct = $super();
+	// TODO
+	return construct;
     }
 });
 
