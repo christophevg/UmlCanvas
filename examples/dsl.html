@@ -24,12 +24,12 @@
     </div>
     <pre id="myTabbedDiagramSource" style="display:none;">  
 Diagram myDiagram +dynamic {
-  [@25,25]
+  [@22,19]
   interface Interface1 +stereotype="base" {
     operation op1 : Int +protected;
   }
 
-  [@34,150]
+  [@37,150]
   class SubClass1 : Interface1 +stereotype="sub" {
     attribute attr1 : String +private;
     operation op1 : Int +protected {
@@ -37,12 +37,12 @@ Diagram myDiagram +dynamic {
     }
   }
 
-  [@325,25]
+  [@330,25]
   class BaseClass1 +abstract {
     operation op1 : Int +protected;
   }
 
-  [@318,158]
+  [@320,156]
   class SubClass2 : BaseClass1 {
     attribute attr1 : String +private;
     operation op1 : Int +protected {

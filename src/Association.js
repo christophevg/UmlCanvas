@@ -87,15 +87,14 @@ UmlCanvas.Association.from = function(construct, diagram) {
 	}
     }
     
+    var src = diagram.getClass(from.supers[0].constructName);
+    var dst = diagram.getClass(to.supers[0].constructName);
+
     props = { name: construct.name, 
-	      style: treeStyle, navigability: navigability };
+	      style: treeStyle, navigability: navigability,
+	      from: src, to: dst, kind: kind };
     
-    var src = { name   : from.name, 
-	        element: diagram.getClass(from.zuper.constructName) };
-    var dst = { name   : to.name,
-	        element: diagram.getClass(to.zuper.constructName) };
-    
-    elem = new UmlCanvas.Association( src, dst, kind, props );
+    elem = new UmlCanvas.Association( props );
 
     return diagram.addRelation(elem);
 };

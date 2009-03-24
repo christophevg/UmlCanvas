@@ -30,8 +30,9 @@ UmlCanvas.Parameter.getNames = function() {
 }
 
 UmlCanvas.Parameter.from = function(construct, operation) {
-    return operation.addParameter( new UmlCanvas.Parameter( construct.name, 
-							    construct.zuper ) );
+    return operation.addParameter( 
+	new UmlCanvas.Parameter( { name: construct.name, 
+				   type: construct.supers[0] } ) );
 };
 
 Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Parameter);

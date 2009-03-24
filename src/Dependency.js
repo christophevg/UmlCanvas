@@ -41,14 +41,13 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
 	    treeStyle = "vertical";
 	}
     }
-    props = { name: construct.name, style: treeStyle }
-    
-    var src = diagram.getClass(client.zuper.constructName);
-    var dst = diagram.getClass(supplier.zuper.constructName);
+   
+    var src = diagram.getClass(client.supers[0].constructName);
+    var dst = diagram.getClass(supplier.supers[0].constructName);
 
-    elem = new UmlCanvas.Dependency( { name: client.name, element: src }, 
-				     { name: supplier.name, element: dst }, 
-				     props );
+    props = { name: construct.name, style: treeStyle, from: src, to: dst };
+
+    elem = new UmlCanvas.Dependency( props );
     return diagram.addRelation(elem);
 };
     

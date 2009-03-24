@@ -205,7 +205,7 @@ UmlCanvas.Class.getNames = function() {
 
 UmlCanvas.Class.from = function( construct, diagram ) {
     var props = {};
-    
+
     // NAME
     props.name = construct.name;
 
@@ -221,15 +221,15 @@ UmlCanvas.Class.from = function( construct, diagram ) {
     var elem = new UmlCanvas.Class( props );
 
     // SUPERCLASS
-    if( construct.supers.length > 0 ) {
+    if( construct.supers && construct.supers.length > 0 ) {
 	construct.supers.each(function(superName) {
 	    var zuper = diagram.getClass(superName);
 	    elem.addSuper(zuper);
 	    var relation;
 	    if( zuper instanceof UmlCanvas.Interface ) {
-		relation = new UmlCanvas.Realization( zuper, elem );
+		relation = new UmlCanvas.Realization( {from: zuper, to: elem} );
 	    } else {
-		relation = new UmlCanvas.Inheritance( zuper, elem );
+		relation = new UmlCanvas.Inheritance( {from:zuper, to: elem} );
 	    }
 	    diagram.addRelation(relation);
 	});
