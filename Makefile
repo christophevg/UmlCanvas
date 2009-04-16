@@ -1,5 +1,6 @@
 COMPRESSOR-VERSION=2.4.2
 
+MAKE=make
 FETCH=wget -q
 GIT-PULL=git pull -q
 GIT-CLONE=git clone -q
@@ -53,7 +54,7 @@ all: build
 build: .check-deps ${TARGETS}
 
 update-libs:
-	@(cd lib/Canvas2D; ${GIT-PULL}; make clean; make update-libs; make)
+	@(cd lib/Canvas2D; ${GIT-PULL}; ${MAKE} clean; ${MAKE} update-libs; make)
 
 .check-deps:
 	@echo "*** checking dependencies"
