@@ -88,6 +88,7 @@ build/${APP}.shared.js: ${SRCS}
 	@echo "*** building $@"
 	@mkdir -p build
 	@cat ${SRCS} > $@
+	@echo "\nUmlCanvas.version = \"${VERSION}\";\n" >> $@;
 
 build/${APP}.standalone.js: build/${APP}.shared.js ${LIBS}
 	@echo "*** building $@"
