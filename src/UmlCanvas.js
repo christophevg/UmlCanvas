@@ -1,7 +1,7 @@
 // namespace for holding all UmlCanvas related classes, functions and extensions
 var UmlCanvasBase = Class.create( {
     getModel : function(id) {
-	UmlCanvas.KickStarter.manager.getModel(id);
+	return UmlCanvas.KickStarter.manager.getModel(id);
     }
 } );
 
