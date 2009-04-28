@@ -1,11 +1,5 @@
 UmlCanvas.Defaults = {}
 
-Canvas2D.Shape.Defaults = {
-    label          : "",
-    labelPos       : "center",
-    labelColor     : "black"
-};
-
 UmlCanvas.Class.Defaults = { 
     stereotype        : "public",
     supers            : [],
