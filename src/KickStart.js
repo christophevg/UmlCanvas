@@ -11,7 +11,7 @@ UmlCanvas.KickStart.Starter = Class.create( Canvas2D.KickStart.Starter, {
 
     makeInstance: function( name ) {
 	return this.manager.setupModel(name);
-    },
+    }
 
 } );
 
