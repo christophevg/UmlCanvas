@@ -1,5 +1,11 @@
 // namespace for holding all UmlCanvas related classes, functions and extensions
-var UmlCanvas = {};
+var UmlCanvasBase = Class.create();
+
+// mix-in event handling
+UmlCanvasBase = Class.create( UmlCanvasBase,
+			      Canvas2D.Factory.extensions.EventHandling );
+
+var UmlCanvas = new UmlCanvasBase();
 
 // register this extension with Canvas2D
 Canvas2D.extensions.push(
