@@ -1,24 +1,13 @@
 UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
-    config:     { font:               "7pt Sans black",
-		  fontAbstract:       "italic 7pt Sans black",
-		  decoration:         "none",
-		  decorationStatic:   "underline",
-		  lineColor:          "rgba(255,0,0,1)",
-		  lineWidth:          1,
-		  backgroundColor:    "rgba(255,255,200,1)",
-		  lineSpacing:        5,
-		  compartmentSpacing: 3,
-		  padding:            5 },
-
-    getType: function() { return "class"; },
-
-    myProperties: function() {
-	return [ "stereotype", "abstract", "supers" ];
+    getClass : function() { return UmlCanvas.Class; },
+    getType  : function() { return "class"; },
+    getAllProperties: function($super) {
+	return $super().concat( [ "stereotype", "isAbstract", "supers",
+				  "font", "fontColor" ] );
     },
-
-    getStereotype: function() { return this.stereotype; },
-    isAbstract   : function() { return this['abstract'];},
-    getSupers    : function() { return this.supers;     },
+    getClassHierarchy : function($super) {
+	return $super().concat( UmlCanvas.Class );
+    },
 
     addSuper: function(zuper) {
 	if( ! this.supers ) { this.supers = [] }
@@ -29,6 +18,8 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	this.attributes  = new Array();
 	this.operations  = new Array();
 	this.markUnprepared();
+	// keep short-hand local reference
+	this.config = UmlCanvas.Class.Defaults;
     },
 
     prepare: function(sheet) {
@@ -46,7 +37,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	});
 
 	var maxWidth = 0;
-	sheet.font = this.config.font;
+	sheet.font = this.getFont();
 	strings.each(function(string) {
 	    var width = sheet.measureText(string);
 	    maxWidth = width >= maxWidth ? width : maxWidth;
@@ -55,7 +46,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	// calculate width ...
 	this.width = ( 2 * this.config.padding ) + maxWidth;
 
-	var lineSize = parseInt(this.config.font) + this.config.lineSpacing;
+	var lineSize = parseInt(this.getFont()) + this.config.lineSpacing;
 	var attributesHeight = this.attributes.length > 0 ?
 	    ( this.attributes.length * lineSize )
 	    + ( 2 * this.config.compartmentSpacing )
@@ -103,7 +94,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	sheet.strokeStyle = this.config.lineColor;
 	sheet.lineWidth   = this.config.lineWidth;
 
-	var lineSize = parseInt(this.config.font) + this.config.lineSpacing
+	var lineSize = parseInt(this.getFont()) + this.config.lineSpacing
 
 	// className compartment
 	var classCompHeight = ( this.config.padding 
@@ -131,11 +122,12 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 				  this.getWidth(), methCompHeight );
 	}
 	// TEXT
-	sheet.strokeStyle = this.config.fontColor;
+	sheet.useCrispLines  = this.getUseCrispLines();
+	sheet.fillStyle      = this.getFontColor();
 
 	// stereotype
-	sheet.font = this.isAbstract() ? 
-	    this.config.fontAbstract : this.config.font;
+	sheet.font = this.getIsAbstract() ? 
+	    this.config.fontAbstract : this.getFont();
 
 	sheet.textAlign = "center";
 
@@ -143,18 +135,18 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	    sheet.fillText( "<<" + this.getStereotype() + ">>",
 			    left + ( this.getWidth()/2),
 			    top  + ( this.config.padding + 
-				     parseInt(this.config.font) ));
+				     parseInt(this.getFont()) ));
 	}
 	// className
 	sheet.fillText( this.getName(),
 			left + ( this.getWidth()/2 ), 
 			top  + ( this.config.padding + 
-				 parseInt(this.config.font)
+				 parseInt(this.getFont())
 				 + ( this.getStereotype() ? lineSize : 0 ) ) );
 	
 	// attributes
 	sheet.textAlign = "left";
-	sheet.font = this.config.font;
+	sheet.font = this.getFont();
 	for( var i=0; i<this.attributes.length; i++ ) {
 	    sheet.textDecoration = this.attributes[i].isStatic() ?
 		this.config.decorationStatic : this.config.decoration;
@@ -177,7 +169,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
     asConstruct: function($super) {
 	var construct = $super();
 	delete construct.modifiers.geo;
-	delete construct.modifiers[this.getColor()];
+	delete construct.modifiers[this.getFontColor()];
 
 	if( this.getSupers() ) {
 	    construct.supers = this.getSupers();
@@ -185,7 +177,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	if( this.getStereotype() ) {
 	    construct.modifiers.stereotype = this.getStereotype();
 	}
-	if( this.isAbstract() ) {
+	if( this.getIsAbstract() ) {
 	    construct.modifiers['isAbstract'] = null;
 	}
 	this.attributes.each(function(attribute) {
