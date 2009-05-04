@@ -7,7 +7,7 @@ var UmlCanvasBase = Class.create( {
 
 // mix-in event handling
 UmlCanvasBase = Class.create( UmlCanvasBase,
-			      Canvas2D.Factory.extensions.EventHandling );
+			      Canvas2D.Factory.extensions.all.EventHandling );
 
 var UmlCanvas = new UmlCanvasBase();
 
