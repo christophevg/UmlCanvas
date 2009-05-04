@@ -20,5 +20,3 @@ UmlCanvas.Class.Defaults = {
     lineSpacing        : 5,
     compartmentSpacing : 3
 };
-
-
