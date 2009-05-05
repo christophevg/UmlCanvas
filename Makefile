@@ -12,7 +12,7 @@ APP=UmlCanvas
 TARGETS=build/${APP}.shared.min.js build/${APP}.standalone.min.js \
         build/${APP}.css 
 VERSION=$(shell git describe --tags | cut -d'-' -f1,2)
-SRCS=src/SanityChecks.js \
+SRCS=src/DepCheck.js \
      src/UmlCanvas.js \
      src/Common.js \
      src/Manager.js \
@@ -89,8 +89,8 @@ ${COMPRESS-JAR}:
 build/${APP}.shared.js: ${SRCS}
 	@echo "*** building $@"
 	@mkdir -p build
-	@cat ${SRCS} > $@
-	@echo "\nUmlCanvas.version = \"${VERSION}\";\n" >> $@;
+	@echo "var UMLCANVAS_VERSION = \"${VERSION}\";\n" > $@;
+	@cat ${SRCS} >> $@
 
 build/${APP}.standalone.js: build/${APP}.shared.js ${LIBS}
 	@echo "*** building $@"

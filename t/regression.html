@@ -1,0 +1,100 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script src="../build/UmlCanvas.standalone.js"></script>
+    <script>
+function setBrowser() {
+  document.getElementById("001").src = 
+    "001." + document.getElementById("browserSelection").value + ".png";
+  document.getElementById("002").src = 
+    "002." + document.getElementById("browserSelection").value + ".png";
+}
+    </script>
+</head>
+<body>
+
+<table>
+<tr>
+  <th>#</th>
+  <th>Canvas2D (Live)</th>
+  <th>
+<select id="browserSelection" onchange="setBrowser();">
+<option value="webkit.525.27">WebKit</option>
+<option value="gecko.1.9">Gecko 1.9</option>
+<option value="gecko.1.9.1">Gecko 1.9.1</option>
+<option value="ie.silverlight">IE</option>
+</select>
+</th>
+</tr>
+
+<!-- all-in-one -->
+
+<tr>
+  <td>001</td>
+  <td>
+    <canvas class="UmlCanvas" id="myDiagram" width="300" height="250"></canvas>
+    <pre id="myDiagramSource" style="display:none;">  
+
+Diagram myDiagram +dynamic {
+  [@12,19]
+  interface Interface1 +stereotype="base" {
+    operation op1 : Int +protected;
+  }
+
+  [@27,132]
+  class SubClass1 : Interface1 +stereotype="sub" {
+    attribute attr1 : String +private;
+    operation op1 : Int +protected {
+      parameter param1 : String;
+    }
+  }
+
+  [@199,19]
+  class BaseClass1 +abstract {
+    operation op1 : Int +protected;
+  }
+
+  [@190,132]
+  class SubClass2 : BaseClass1 {
+    attribute attr1 : String +private;
+    operation op1 : Int +protected {
+      parameter param1 : String;
+    }
+  }
+
+  [@vertical]
+  association myInterface1s {
+    role baseclass : BaseClass1 +composite;
+    role interface : Interface1 +navigable;
+  }
+
+  [@vertical]
+  dependency mySubClasses1 {
+    client subclass : SubClass2;
+    supplier othersubclass : SubClass1;
+  }
+}
+    </pre>  
+  </td>
+<td><img id="001" src=""></td>
+<td><textarea id="myDiagramConsole" cols="50" rows="19"></textarea></td>
+</tr>
+
+<!-- TabbedCanvas Extension -->
+
+<tr>
+  <td>002</td>
+  <td>
+    <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
+	    id="myDiagram2" width="300" height="250"></canvas>
+  </td>
+  <td><img id="002" src=""></td>  
+  <td><textarea id="myDiagram2Console" cols="50" rows="19"></textarea></td>
+</tr>
+
+</table>
+
+<script>setBrowser();</script>
+</body>
+</html>
+

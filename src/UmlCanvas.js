@@ -10,9 +10,10 @@ UmlCanvasBase = Class.create( UmlCanvasBase,
 			      Canvas2D.Factory.extensions.all.EventHandling );
 
 var UmlCanvas = new UmlCanvasBase();
+UmlCanvas.version = UMLCANVAS_VERSION;
 
 // register this extension with Canvas2D
 Canvas2D.extensions.push(
-    { name: "UmlCanvas",
+    { name: "UmlCanvas " + UMLCANVAS_VERSION,
       author: "<a href=\"http://christophe.vg\">Christophe VG</a>",
       info: "Visit <a href=\"http://thesoftwarefactory.be/wiki/UmlCanvas\">http://thesoftwarefactory.be/wiki/UmlCanvas</a> for more info." } );
