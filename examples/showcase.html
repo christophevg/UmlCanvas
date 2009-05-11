@@ -44,27 +44,27 @@
     <div class="box">
       <h2>The Canvas2D/UmlCanvas Model</h2>
       <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
-	      id="myTabbedDiagram" width="450" height="350"></canvas>
+	      id="myTabbedDiagram" width="550" height="250"></canvas>
     </div>
     <pre id="myTabbedDiagramSource" style="display:none;">  
 Diagram myDiagram +dynamic {
-  [@105,165]
+  [@105,65]
   class User { }
   
-  [@15,235]
+  [@15,135]
   class Blogger : User {}
-  [@70,275]  
+  [@70,175]  
   class WikiEditor : User {}
-  [@125,235]
+  [@125,135]
   class HtmlEditor : User {}
-  [@180,275]
+  [@180,175]
   class JavaScriptDeveloper : User {}
 
-  [@300,10]
+  [@390,65]
   interface Html5Canvas {}
-  [@308,90]
+  [@290,65]
   class Canvas2D : Html5Canvas {}
-  [@308,165]
+  [@190,65]
   class UmlCanvas : Canvas2D {}
 
   [@vertical]

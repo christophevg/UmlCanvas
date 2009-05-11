@@ -1,7 +1,7 @@
 UmlCanvas.Defaults = {}
 
 UmlCanvas.Class.Defaults = { 
-    stereotype        : "public",
+    stereotype        : "",
     supers            : [],
     
     useCrispLines     : false,
