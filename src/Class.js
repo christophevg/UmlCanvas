@@ -58,7 +58,6 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	// ... and height
 	this.height = attributesHeight + operationsHeight
 	    + 2 * lineSize
-//	    + ( ( this.getStereotype() ? 2 : 1 ) * lineSize )
 	    + ( 2 * this.config.padding );
 	
 	this.prepared = true;
@@ -100,7 +99,6 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	// className compartment
 	var classCompHeight = ( this.config.padding
 	                        + lineSize * 2
-				// + (lineSize * (this.getStereotype() ? 2 : 1)) 
 				+ this.config.compartmentSpacing );
 	sheet.fillStrokeRect( left, top, this.getWidth(), classCompHeight );
 	
