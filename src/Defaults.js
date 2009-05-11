@@ -5,9 +5,9 @@ UmlCanvas.Class.Defaults = {
     supers            : [],
     
     useCrispLines     : false,
-    font              : "7pt Sans",
+    font              : "7pt Verdana",
     fontColor         : "black",
-    fontAbstract      : "italic 7pt Sans",
+    fontAbstract      : "italic 7pt Verdana",
     abstractColor     : "black",
     decoration        : "none",
     decorationStatic  : "underline",
