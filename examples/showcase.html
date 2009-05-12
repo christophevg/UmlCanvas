@@ -60,12 +60,12 @@ Diagram myDiagram +dynamic {
   [@180,255]
   class JavaScriptDeveloper : User {}
 
-  [@179,10]
-  interface Html5Canvas {}
-  [@193,75]
-  class Canvas2D : Html5Canvas {}
+  [@190,10]
+  interface Html5Canvas +minimumWidth=100 {}
+  [@190,75]
+  class Canvas2D : Html5Canvas +minimumWidth=100 {}
   [@190,145]
-  class UmlCanvas : Canvas2D {}
+  class UmlCanvas : Canvas2D +minimumWidth=100 {}
 
   [@vertical]
   dependency umlcanvasusage { 

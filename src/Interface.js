@@ -1,6 +1,6 @@
 UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
     getType: function() { return "interface"; },
-
+    
     preprocess: function( props ) {
 	if( props['stereotype'] ) {
 	    props['stereotype'] = "interface " + props['stereotype'];
@@ -29,6 +29,12 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
     // NAME
     props.name = construct.name;
 
+    // MINIMUM WIDTH
+    var minimumWidth = construct.modifiers.get( "minimumWidth" );
+    if( minimumWidth ) {
+        props.minimumWidth = parseInt(minimumWidth.value.value);
+    }
+    
     // STEREOTYPE
     var stereotype = construct.modifiers.get("stereotype" );
     if( stereotype ) {

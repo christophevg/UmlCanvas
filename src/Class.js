@@ -3,7 +3,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
     getType  : function() { return "class"; },
     getAllProperties: function($super) {
 	return $super().concat( [ "stereotype", "isAbstract", "supers",
-				  "font", "fontColor" ] );
+				  "font", "fontColor", "minimumWidth" ] );
     },
     getClassHierarchy : function($super) {
 	return $super().concat( UmlCanvas.Class );
@@ -45,6 +45,8 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 
 	// calculate width ...
 	this.width = ( 2 * this.config.padding ) + maxWidth;
+	this.width = this.width < this.getMinimumWidth() 
+	    ? this.getMinimumWidth() : this.width;
 
 	var lineSize = parseInt(this.getFont()) + this.config.lineSpacing;
 	var attributesHeight = this.attributes.length > 0 ?
@@ -171,6 +173,9 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	delete construct.modifiers.geo;
 	delete construct.modifiers[this.getFontColor()];
 
+	if( this.getMinimumWidth() ) {
+	    construct.modifiers['minimumSize'] = this.getMinimumWidth();
+	}
 	if( this.getSupers() ) {
 	    construct.supers = this.getSupers();
 	}
@@ -200,6 +205,12 @@ UmlCanvas.Class.from = function( construct, diagram ) {
 
     // NAME
     props.name = construct.name;
+    
+    // MINIMUM WIDTH
+    var minimumWidth = construct.modifiers.get( "minimumWidth" );
+    if( minimumWidth ) {
+        props.minimumWidth = parseInt(minimumWidth.value.value);
+    }
 
     // STEREOTYPE
     var stereotype = construct.modifiers.get("stereotype" );
