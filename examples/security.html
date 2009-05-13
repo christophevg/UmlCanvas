@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <style>
+      .box {
+        border: 2px solid #000;
+        float:left;
+        margin:10px; 
+        height: 505px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+<!--    <script src="../build/UmlCanvas.standalone.js"></script> -->
+
+    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
+
+    <script src="../src/DepCheck.js"></script>
+    <script src="../src/UmlCanvas.js"></script>
+    <script src="../src/Common.js"></script>
+    <script src="../src/Manager.js"></script>
+    <script src="../src/Model.js"></script>
+    <script src="../src/Diagram.js"></script>
+    <script src="../src/Class.js"></script>
+    <script src="../src/Attribute.js"></script>
+    <script src="../src/Operation.js"></script>
+    <script src="../src/Parameter.js"></script>
+    <script src="../src/ConnectorHeads.js"></script>
+    <script src="../src/Association.js"></script>
+    <script src="../src/Role.js"></script>
+    <script src="../src/Dependency.js"></script>
+    <script src="../src/ClientSupplier.js"></script>
+    <script src="../src/Interface.js"></script>
+    <script src="../src/Inheritance.js"></script>
+    <script src="../src/Realization.js"></script>
+    <script src="../src/KickStart.js"></script>
+    <script src="../src/Defaults.js"></script>
+
+  </head>
+  
+  <body>
+    
+    <h1>Security</h1>
+    <div class="box">
+      <h2>The Canvas2D/UmlCanvas Model</h2>
+      <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
+	      id="myTabbedDiagram" width="300" height="300"></canvas>
+    </div>
+    <pre id="myTabbedDiagramSource" style="display:none;">  
+Diagram myDiagram +dynamic {  
+  [@15,24] 
+  class Group {
+    attribute name : String +private;
+  }
+
+  [@145,15] 
+  class User {
+    attribute name : String +private;
+    operation hasRole : Boolean +public {
+      parameter role : Role;
+    }
+  }
+  
+  [@150,120] 
+  class Role {
+    attribute name : String +private;
+  }
+  
+  [@150,215] 
+  class Permission {
+    attribute name : String +private;
+  }
+
+  [@vertical]
+  association permissionsOfRole {
+    role role : Role +shared;
+    role permissions : Permission +navigable;
+  }
+  
+  [@vertical]
+  association usersOfGroup {
+    role group : Group +shared;
+    role users : User +navigable;
+  }
+
+  [@vertical]
+  association rolesOfUser {
+    role user : User;
+    role roles : Role +navigable;
+  }
+}
+    </pre>  
+  </body>
+</html>
