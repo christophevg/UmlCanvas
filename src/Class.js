@@ -150,6 +150,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	sheet.textAlign = "left";
 	sheet.font = this.getFont();
 	for( var i=0; i<this.attributes.length; i++ ) {
+	    sheet.strokeStyle    = this.getFontColor();
 	    sheet.textDecoration = this.attributes[i].isStatic() ?
 		this.config.decorationStatic : this.config.decoration;
 	    sheet.fillText( this.attributes[i].toString(),
@@ -159,7 +160,8 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 
 	// operations
 	for( var i=0; i<this.operations.length; i++ ) {
-	    sheet.font = this.getFontFor( this.operations[i] );
+	    sheet.font           = this.getFontFor( this.operations[i] );
+	    sheet.strokeStyle    = this.getFontColor();
 	    sheet.textDecoration = this.operations[i].isStatic() ?
 		this.config.decorationStatic : this.config.decoration;
 	    sheet.fillText( this.operations[i].toString(),
