@@ -10,12 +10,14 @@ UmlCanvas.Operation = Class.create( {
 		this.addParameter(operation.arguments[p]);
 	    }
 	}
+	this.abztract   = operation.isAbstract;
     },
 
     getName:       function() { return this.name;       },
     getReturnType: function() { return this.returnType; },
     getVisibility: function() { return this.visibility; },
     isStatic:      function() { return this.ztatic;     },
+    isAbstract:    function() { return this.abztract;   },
 
     addParameter: function(parameter) {
 	this.parameters.push( new UmlCanvas.Parameter(parameter) );
@@ -62,6 +64,7 @@ UmlCanvas.Operation.from = function(construct, clazz) {
 	props['visibility'] = visibility;
     }
     props['isStatic'] = UmlCanvas.Common.extractStatic(construct);
+    props['isAbstract'] = UmlCanvas.Common.extractAbstract(construct);
 
     return clazz.addOperation( props );
 };

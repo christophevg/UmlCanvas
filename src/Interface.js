@@ -10,6 +10,10 @@ UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
 	props.isAbstract = true;
 	return props;
     },
+    
+    getFontFor : function(operation) {
+        return this.config.fontAbstract;
+    },
 
     asConstruct: function($super) {
 	var construct = $super();

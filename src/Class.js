@@ -159,6 +159,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 
 	// operations
 	for( var i=0; i<this.operations.length; i++ ) {
+	    sheet.font = this.getFontFor( this.operations[i] );
 	    sheet.textDecoration = this.operations[i].isStatic() ?
 		this.config.decorationStatic : this.config.decoration;
 	    sheet.fillText( this.operations[i].toString(),
@@ -166,6 +167,12 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 			   top + classCompHeight 
 			   + attrCompHeight + (lineSize*(i+1)) );
 	}
+    },
+    
+    getFontFor : function(operation) {
+        return operation.isAbstract() 
+            ? this.config.fontAbstract
+            : this.getFont();
     },
 
     asConstruct: function($super) {

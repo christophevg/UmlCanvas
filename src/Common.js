@@ -13,6 +13,10 @@ UmlCanvas.Common = {
     extractStatic: function(construct) {
 	return construct.modifiers.get( "static" );
     },
+    
+    extractAbstract: function(construct) {
+        return construct.modifiers.get( "abstract" );
+    },
 
     determineVisibility: function(visibility) {
 	switch(visibility) {
