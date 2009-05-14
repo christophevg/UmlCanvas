@@ -219,7 +219,7 @@ UmlCanvas.Class.from = function( construct, diagram ) {
     }
 
     // ABSTRACT
-    props['abstract'] = construct.modifiers.get( "abstract" ) != null;
+    props['isAbstract'] = construct.modifiers.get( "abstract" ) != null;
 
     var elem = new UmlCanvas.Class( props );
 
