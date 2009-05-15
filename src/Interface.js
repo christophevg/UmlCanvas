@@ -11,10 +11,14 @@ UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
 	return props;
     },
     
-    getFontFor : function(operation) {
-        return this.config.fontAbstract;
+    getFontForClassName : function() {
+        return this.getFont();
     },
-
+    
+    getFontForOperationName : function(operation) {
+        return this.getFont();
+    },
+    
     asConstruct: function($super) {
 	var construct = $super();
 	// TODO

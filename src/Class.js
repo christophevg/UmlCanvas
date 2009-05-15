@@ -128,8 +128,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	sheet.fillStyle      = this.getFontColor();
 
 	// stereotype
-	sheet.font = this.getIsAbstract() ? 
-	    this.config.fontAbstract : this.getFont();
+	sheet.font = this.getFontForClassName();
 
 	sheet.textAlign = "center";
 
@@ -160,7 +159,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 
 	// operations
 	for( var i=0; i<this.operations.length; i++ ) {
-	    sheet.font           = this.getFontFor( this.operations[i] );
+	    sheet.font           = this.getFontForOperationName( this.operations[i] );
 	    sheet.strokeStyle    = this.getFontColor();
 	    sheet.textDecoration = this.operations[i].isStatic() ?
 		this.config.decorationStatic : this.config.decoration;
@@ -171,7 +170,13 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	}
     },
     
-    getFontFor : function(operation) {
+    getFontForClassName : function() {
+        return this.getIsAbstract() 
+            ? this.config.fontAbstract
+            : this.getFont();
+    },
+    
+    getFontForOperationName : function(operation) {
         return operation.isAbstract() 
             ? this.config.fontAbstract
             : this.getFont();
