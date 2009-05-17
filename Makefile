@@ -55,7 +55,7 @@ all: build
 build: .check-deps ${TARGETS}
 
 update-libs:
-	@(cd lib/Canvas2D; ${GIT-PULL}; ${MAKE} clean; ${MAKE} update-libs; make)
+	@(cd lib/Canvas2D; ${GIT-PULL}; ${MAKE} clean; ${MAKE} update-libs; ${MAKE})
 
 .check-deps:
 	@echo "*** checking dependencies"
@@ -78,7 +78,7 @@ lib/Canvas2D/build/Canvas2D.css: lib/Canvas2D
 lib/Canvas2D:
 	@echo "*** importing $@"
 	@${GIT-CLONE} ${CANVAS2D-URL} lib/Canvas2D
-	@(cd lib/Canvas2D; make)
+	@(cd lib/Canvas2D; ${MAKE})
 
 ${COMPRESS-JAR}:
 	@echo "*** importing yuicompressor"
