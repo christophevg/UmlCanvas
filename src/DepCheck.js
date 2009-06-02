@@ -39,6 +39,6 @@ if( typeof iRequire != "function" ) {
     }
 }
     
-if( ! iRequire( Canvas2D, "0.2" ) ) {
-    alert( "UmlCanvas requires at least Canvas2D version 0.2." );
+if( ! iRequire( Canvas2D, "0.2-5" ) ) {
+    alert( "UmlCanvas requires at least Canvas2D version 0.2-5" );
 }

@@ -51,34 +51,34 @@
 Diagram myDiagram +dynamic {
   [@22,19]
   interface Interface1 +stereotype="base" {
-    operation op1 : Int +protected;
+    +protected operation op1 : Int;
   }
 
   [@37,150]
   class SubClass1 : Interface1 +stereotype="sub" {
-    attribute attr1 : String +private;
-    operation op1 : Int +protected {
+     +private attribute attr1 : String;
+     +protected operation op1 : Int {
       parameter param1 : String;
     }
   }
 
   [@329,19]
   class BaseClass1 +abstract {
-    operation op1 : Int +protected +abstract;
+    +protected +abstract operation op1 : Int;
   }
 
   [@320,150]
   class SubClass2 : BaseClass1 {
-    attribute attr1 : String +private;
-    operation op1 : Int +protected {
+    +private attribute attr1 : String;
+    +protected operation op1 : Int {
       parameter param1 : String;
     }
   }
 
   [@vertical]
   association myInterface1s {
-    role baseclass : BaseClass1 +composite;
-    role interface : Interface1 +navigable;
+    +composite role baseclass : BaseClass1;
+    +navigable role interface : Interface1;
   }
 
   [@vertical]
