@@ -50,10 +50,6 @@ UmlCanvas.Operation = Class.create( {
     }
 } );
 
-UmlCanvas.Operation.getNames = function() {
-    return ["operation", "method"];
-}
-
 UmlCanvas.Operation.from = function(construct, clazz) {
     var props =  { name: construct.name }; 
     if( construct.zuper ) { 
@@ -69,4 +65,9 @@ UmlCanvas.Operation.from = function(construct, clazz) {
     return clazz.addOperation( props );
 };
 
-Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Operation);
+UmlCanvas.Operation.MANIFEST = {
+    name     : "operation",
+    aliasses : [ "method" ]
+}
+
+Canvas2D.registerShape(UmlCanvas.Operation);

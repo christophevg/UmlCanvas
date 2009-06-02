@@ -8,3 +8,11 @@ UmlCanvas.Inheritance = Class.create( Canvas2D.Connector, {
 	return 25;
     }
 });
+
+UmlCanvas.Inheritance.MANIFEST = {
+    name         : "inheritance",
+    propertyPath : [ Canvas2D.Connector ],
+    libraries    : [ "UmlCanvas" ]
+}
+
+Canvas2D.registerShape( UmlCanvas.Inheritance );

@@ -12,8 +12,22 @@ UmlCanvasBase = Class.create( UmlCanvasBase,
 var UmlCanvas = new UmlCanvasBase();
 UmlCanvas.version = UMLCANVAS_VERSION;
 
+UmlCanvas.activate = function activate(canvasId) {
+    var canvas = document.getElementById(canvasId);
+    if(canvas) {
+	var manager = new UmlCanvas.Manager();
+	var model   = manager.setupModel(canvasId);
+	var diagram = canvas.addDiagram();
+	manager.startAll();
+	return diagram;
+    }
+    throw( canvasId + " does not reference a known id on the document." );
+};
+
 // register this extension with Canvas2D
 Canvas2D.extensions.push(
-    { name: "UmlCanvas " + UMLCANVAS_VERSION,
+    { name: "UmlCanvas",
+      version: UMLCANVAS_VERSION,
       author: "<a href=\"http://christophe.vg\">Christophe VG</a>",
-      info: "Visit <a href=\"http://thesoftwarefactory.be/wiki/UmlCanvas\">http://thesoftwarefactory.be/wiki/UmlCanvas</a> for more info." } );
+      info: "Visit <a href=\"http://thesoftwarefactory.be/wiki/UmlCanvas\">" +
+            "http://thesoftwarefactory.be/wiki/UmlCanvas</a> for more info." });

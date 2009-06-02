@@ -20,3 +20,11 @@ UmlCanvas.Class.Defaults = {
     lineSpacing        : 5,
     compartmentSpacing : 3
 };
+
+UmlCanvas.Interface.Defaults   = {}
+
+UmlCanvas.Association.Defaults = {}
+UmlCanvas.Dependency.Defaults  = {}
+
+UmlCanvas.Inheritance.Defaults = {}
+UmlCanvas.Realization.Defaults = {}

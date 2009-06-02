@@ -25,14 +25,15 @@ UmlCanvas.Parameter = Class.create( {
     }
 } );
 
-UmlCanvas.Parameter.getNames = function() {
-    return ["parameter", "argument"];
-}
-
 UmlCanvas.Parameter.from = function(construct, operation) {
     return operation.addParameter( 
 	new UmlCanvas.Parameter( { name: construct.name, 
 				   type: construct.supers[0] } ) );
 };
 
-Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Parameter);
+UmlCanvas.Parameter.MANIFEST = {
+    name : "parameter",
+    aliasses : [ "argument" ]
+}
+
+Canvas2D.registerShape(UmlCanvas.Parameter);

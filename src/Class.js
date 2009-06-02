@@ -1,20 +1,10 @@
 UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
-    getClass : function() { return UmlCanvas.Class; },
-    getType  : function() { return "class"; },
-    getAllProperties: function($super) {
-	return $super().concat( [ "stereotype", "isAbstract", "supers",
-				  "font", "fontColor", "minimumWidth" ] );
-    },
-    getClassHierarchy : function($super) {
-	return $super().concat( UmlCanvas.Class );
-    },
-
     addSuper: function(zuper) {
 	if( ! this.supers ) { this.supers = [] }
 	this.supers.push(zuper);
     },
 
-    setup: function(props) {
+    postInitialize: function(props) {
 	this.attributes  = new Array();
 	this.operations  = new Array();
 	this.markUnprepared();
@@ -23,7 +13,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
     },
 
     prepare: function(sheet) {
-	if( this.prepared    ) { return; }
+	if( this.prepared ) { return; }
 
 	// className and stereotype
 	var strings = [ this.getName(), "<<" + this.getStereotype() + ">>" ];
@@ -159,7 +149,7 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 
 	// operations
 	for( var i=0; i<this.operations.length; i++ ) {
-	    sheet.font           = this.getFontForOperationName( this.operations[i] );
+	    sheet.font = this.getFontForOperationName( this.operations[i] );
 	    sheet.strokeStyle    = this.getFontColor();
 	    sheet.textDecoration = this.operations[i].isStatic() ?
 		this.config.decorationStatic : this.config.decoration;
@@ -210,10 +200,6 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
     }
 } );
     
-UmlCanvas.Class.getNames = function() {
-    return [ "class" ];
-}
-
 UmlCanvas.Class.from = function( construct, diagram ) {
     var props = {};
 
@@ -265,4 +251,12 @@ UmlCanvas.Class.from = function( construct, diagram ) {
     return elem;
 };
     
-Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Class);
+UmlCanvas.Class.MANIFEST = {
+    name         : "class",
+    properties   : [ "stereotype", "isAbstract", "supers",
+		    "font", "fontColor", "minimumWidth" ],
+    propertyPath : [ Canvas2D.Rectangle ],
+    libraries    : [ "UmlCanvas" ]
+}
+
+Canvas2D.registerShape(UmlCanvas.Class);

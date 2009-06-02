@@ -1,13 +1,4 @@
 UmlCanvas.Dependency = Class.create( Canvas2D.Connector, {
-    getType: function() { return "dependency"; },
-
-    myProperties: function($super) {
-	return $super().concat([ "client", "supplier" ]);
-    },
-
-    getClient  : function() { return this.client;   },
-    getSupplier: function() { return this.supplier; },
-
     preprocess: function(props) {
 	props.end = UmlCanvas.ConnectorHeads.Arrow;
 	props.lineStyle = "dashed";
@@ -21,10 +12,6 @@ UmlCanvas.Dependency = Class.create( Canvas2D.Connector, {
 	return construct;
     }
 });
-
-UmlCanvas.Dependency.getNames = function() {
-    return ["dependency"];
-}
 
 UmlCanvas.Dependency.from = function(construct, diagram) {
     var client, supplier, props;
@@ -50,5 +37,12 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
     elem = new UmlCanvas.Dependency( props );
     return diagram.addRelation(elem);
 };
+
+UmlCanvas.Dependency.MANIFEST = {
+    name : "dependency",
+    properties : [ "client", "supplier" ],
+    propertyPath : [ Canvas2D.Connector ],
+    libraries : [ "UmlCanvas" ]
+}
     
-Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Dependency);
+Canvas2D.registerShape(UmlCanvas.Dependency);

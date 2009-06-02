@@ -29,10 +29,6 @@ UmlCanvas.Attribute = Class.create( {
     }
 } );
 
-UmlCanvas.Attribute.getNames = function() {
-    return ["attribute", "property"];
-}
-
 UmlCanvas.Attribute.from = function(construct, clazz) {
     var props =  { name: construct.name, 
 	           type: construct.supers[0].toString() };
@@ -45,5 +41,9 @@ UmlCanvas.Attribute.from = function(construct, clazz) {
     return clazz.addAttribute(props);
 };
 
-Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Attribute);
+UmlCanvas.Attribute.MANIFEST = {
+    name: "attribute",
+    aliasses: [ "property" ],
+}
 
+Canvas2D.registerShape(UmlCanvas.Attribute);

@@ -1,13 +1,4 @@
 UmlCanvas.Association = Class.create( Canvas2D.Connector, {
-    getType: function() { return "association"; },
-
-    myProperties: function($super) {
-	return $super().concat([ "kind", "navigability" ]);
-    },
-
-    getKind        : function() { return this.kind;         },
-    getNavigability: function() { return this.navigability; },
-
     preprocess: function(props) {
 	if( props.kind && props.kind == "aggregation" ) {
 	    props.begin = UmlCanvas.ConnectorHeads.Diamond;	    
@@ -98,5 +89,12 @@ UmlCanvas.Association.from = function(construct, diagram) {
 
     return diagram.addRelation(elem);
 };
+
+UmlCanvas.Association.MANIFEST = {
+    name         : "association",
+    properties   : [ "kind", "navigability" ],
+    propertyPath : [ Canvas2D.Connector ],
+    libraries    : [ "UmlCanvas" ]
+}
     
-Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Association);
+Canvas2D.registerShape(UmlCanvas.Association);

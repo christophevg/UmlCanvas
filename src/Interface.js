@@ -1,6 +1,4 @@
 UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
-    getType: function() { return "interface"; },
-    
     preprocess: function( props ) {
 	if( props['stereotype'] ) {
 	    props['stereotype'] = "interface " + props['stereotype'];
@@ -26,10 +24,6 @@ UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
     }
 
 } );
-
-UmlCanvas.Interface.getNames = function() {
-    return [ "interface" ];
-}
 
 UmlCanvas.Interface.from = function( construct, diagram ) {
     var props = {};
@@ -76,4 +70,10 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
     return elem;
 };
 
-Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Interface);
+UmlCanvas.Interface.MANIFEST = {
+    name         : "interface",
+    propertyPath : [ Canvas2D.Rectangle, UmlCanvas.Class ],
+    libraries    : [ "UmlCanvas" ]
+}
+
+Canvas2D.registerShape(UmlCanvas.Interface);

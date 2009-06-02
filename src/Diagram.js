@@ -44,11 +44,6 @@ UmlCanvas.Diagram = Class.create( Canvas2D.Sheet, {
     }
 } );
 
-
-UmlCanvas.Diagram.getNames = function() {
-    return [ "diagram" ];
-}
-
 UmlCanvas.Diagram.from = function(construct, model) {
     var style = "static";
     var styleModifier = construct.modifiers.get( "style" );
@@ -68,4 +63,10 @@ UmlCanvas.Diagram.from = function(construct, model) {
     return diagram;
 };
 
-Canvas2D.ADLVisitor.registerConstruct(UmlCanvas.Diagram);
+UmlCanvas.Diagram.MANIFEST = {
+    name         : "diagram",
+    propertyPath : [ Canvas2D.Sheet ],
+    libraries    : [ "UmlCanvas" ]
+}
+
+Canvas2D.registerShape(UmlCanvas.Diagram);
