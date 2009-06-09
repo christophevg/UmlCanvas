@@ -17,7 +17,10 @@ UmlCanvas.Attribute = Class.create( {
     },
 
     asConstruct: function() {
-	var modifiers = { visibility: this.getVisibility() };
+	var modifiers = {};
+	if( this.getVisibility() ) {
+	    modifiers["visibility"] = this.getVisibility();
+	};
 	if( this.isStatic() ) { modifiers.isStatic = true; }
 	return { annotations : [],
 		 type        : "Attribute",

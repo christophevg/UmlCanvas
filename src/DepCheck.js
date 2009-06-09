@@ -1,7 +1,9 @@
 if( typeof decomposeVersion != "function" ) {
     function decomposeVersion( version ) {
 	var result = version.match(/([0-9]+)\.([0-9]+)(-([0-9]+))?/);
-	return { major: result[0], minor: result[1], build: result[2] || 0 };
+	return { major: parseInt(result[1]),
+		 minor: parseInt(result[2]),
+		 build: parseInt(result[4]) || 0 };
     }
 }
 
@@ -40,5 +42,6 @@ if( typeof iRequire != "function" ) {
 }
     
 if( ! iRequire( Canvas2D, "0.2-5" ) ) {
-    alert( "UmlCanvas requires at least Canvas2D version 0.2-5" );
+    alert( "UmlCanvas requires at least Canvas2D version 0.2-5. " +
+	   "Current Canvas2D is " + Canvas2D.version );
 }

@@ -38,7 +38,10 @@ UmlCanvas.Operation = Class.create( {
 	this.parameters.each(function(parameter) {
 	    parameters.push(parameter.asConstruct());
 	});
-	var modifiers = { visibility: this.getVisibility() };
+	var modifiers = {};
+	if( this.getVisibility() ) {
+	    modifiers["visibility"] = this.getVisibility();
+	};
 	if( this.isStatic() ) { modifiers.isStatic = true; }
 	return { annotations : [],
 		 type        : "Operation",
@@ -52,8 +55,8 @@ UmlCanvas.Operation = Class.create( {
 
 UmlCanvas.Operation.from = function(construct, clazz) {
     var props =  { name: construct.name }; 
-    if( construct.zuper ) { 
-	props.returnType = construct.zuper.toString(); 
+    if( construct.supers[0] ) {
+	props.returnType = construct.supers[0].toString();
     }
     var visibility = UmlCanvas.Common.extractVisibility(construct);
     if( visibility ) {
