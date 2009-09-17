@@ -45,8 +45,8 @@ UmlCanvas.Diagram = Canvas2D.Sheet.extend( {
 	return s;
     },
 
-    asConstruct: function($super) {
-	var construct = $super();
+    asConstruct: function() {
+	var construct = this._super();
 
 	this.shapes.iterate(function(shape) { 
 	    construct.push(shape.asConstruct());

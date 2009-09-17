@@ -1,6 +1,5 @@
 UmlCanvas.Association = Canvas2D.Connector.extend( {
     preprocess: function(props) {
-	//console.log( "preprocess Association" );
 	if( props.kind && props.kind == "aggregation" ) {
 	    props.begin = UmlCanvas.ConnectorHeads.Diamond;	    
 	} else if( props.kind && props.kind == "composition" ) {
@@ -11,9 +10,10 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
 	{
 	    props.begin = UmlCanvas.ConnectorHeads.Arrow;
 	}
-
-	if( props.navigablity && 
-	    ( props.navigability == "bi" || props.navigability=="destination") )
+	
+	if( props.navigability &&
+	    ( props.navigability == "bi" || 
+	      props.navigability == "destination" ) )
 	{
 	    props.end = UmlCanvas.ConnectorHeads.Arrow;
 	}
@@ -21,8 +21,8 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
 	return props;
     },
 
-    asConstruct: function($super) {
-	var construct = $super();
+    asConstruct: function() {
+	var construct = this._super();
 	// TODO
 	return construct;
     }
@@ -33,7 +33,6 @@ UmlCanvas.Association.getNames = function() {
 }
 
 UmlCanvas.Association.from = function(construct, diagram) {
-    //console.log( "association.from" );
     var from = construct.children[0];
     var to   = construct.children[1];
     var kind = "association";
@@ -87,7 +86,6 @@ UmlCanvas.Association.from = function(construct, diagram) {
 	      style: treeStyle, navigability: navigability,
 	      from: src, to: dst, kind: kind };
     
-    //console.log( "new Association" );
     elem = new UmlCanvas.Association( props );
 
     return diagram.addRelation(elem);

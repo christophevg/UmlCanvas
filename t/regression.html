@@ -10,6 +10,8 @@ function setBrowser() {
     "002." + document.getElementById("browserSelection").value + ".png";
   document.getElementById("003").src = 
     "003." + document.getElementById("browserSelection").value + ".png";
+  document.getElementById("004").src = 
+    "004." + document.getElementById("browserSelection").value + ".png";
 }
     </script>
 </head>
@@ -97,7 +99,7 @@ Diagram myDiagram +dynamic {
 <!-- Inheritance of Interfaces -->
 
 <tr>
-  <td>002</td>
+  <td>003</td>
   <td>
     <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
 	    id="myDiagram3" width="300" height="250"></canvas>
@@ -118,6 +120,36 @@ Diagram Example +dynamic {
     Operation log{
       Argument data : String;
     }
+  }
+}
+</pre>
+  </td>
+  <td><img id="004" src=""></td>  
+  <td><textarea id="myDiagram4Console" cols="50" rows="19"></textarea></td>
+</tr>
+
+<tr>
+  <td>004</td>
+  <td>
+    <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
+	    id="myDiagram4" width="300" height="250"></canvas>
+    <pre id="myDiagram4Source" style="display:none;">  
+Diagram Prototype +dynamic {
+  [@16,41]
+  class Client {
+  }
+  [@184,32]
+  interface Prototype {
+    operation clone : Prototype +public;
+  }
+  [@192,164]
+  class PrototypeA : Prototype {
+    operation clone : Prototype +public;
+  }
+  [@vertical]
+  association a6508 {
+    role Client : Client;
+    role Prototype : Prototype +navigable;
   }
 }
 </pre>

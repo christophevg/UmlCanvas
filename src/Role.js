@@ -1,7 +1,5 @@
 UmlCanvas.Role = Class.extend({
-
     setparent: function setParent() {}
-
 });
 
 UmlCanvas.Role.from = function(construct, diagram) {
