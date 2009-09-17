@@ -1,21 +1,26 @@
-UmlCanvas.Interface = UmlCanvas.Class.extend( {
+UmlCanvas.Enumeration = UmlCanvas.Class.extend( {
     preprocess: function( props ) {
 	props = this._super(props);
 
 	if( props['stereotype'] ) {
-	    props['stereotype'] = "interface " + props['stereotype'];
+	    props['stereotype'] = "enumeration " + props['stereotype'];
 	} else {
-	    props['stereotype'] = "interface";
+	    props['stereotype'] = "enumeration";
 	}
 	props.isAbstract = true;
 	return props;
     },
     
-    getFontForClassName : function() {
-        return this.getFont();
+    addAttribute: function(attribute) {
+	attribute.visibility = "__HIDE__";
+	return this._super(attribute);
     },
-    
-    getFontForOperationName : function(operation) {
+
+    addOperation: function(operation) {
+	return null;
+    },
+
+    getFontForClassName : function() {
         return this.getFont();
     },
     
@@ -27,7 +32,7 @@ UmlCanvas.Interface = UmlCanvas.Class.extend( {
     }
 } );
 
-UmlCanvas.Interface.from = function( construct, diagram ) {
+UmlCanvas.Enumeration.from = function( construct, diagram ) {
     var props = {};
     
     // NAME
@@ -45,7 +50,7 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
 	props.stereotype = stereotype.value.value;
     }
 
-    var elem = new UmlCanvas.Interface( props );
+    var elem = new UmlCanvas.Enumeration( props );
 
     // SUPERCLASS
     if( construct.supers && construct.supers.length > 0 ) {
@@ -53,11 +58,7 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
 	    var zuper = diagram.getDiagramClass(superName);
 	    elem.addSuper(zuper);
 	    var relation;
-	    if( zuper instanceof UmlCanvas.Interface ) {
-		relation = new UmlCanvas.Realization( {from: zuper, to: elem} );
-	    } else {
-		relation = new UmlCanvas.Inheritance( {from:zuper, to: elem} );
-	    }
+	    relation = new UmlCanvas.Inheritance( {from:zuper, to: elem} );
 	    diagram.addRelation(relation);
 	});
     }
@@ -65,10 +66,10 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
     return elem;
 };
 
-UmlCanvas.Interface.MANIFEST = {
-    name         : "interface",
+UmlCanvas.Enumeration.MANIFEST = {
+    name         : "enumeration",
     propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle, UmlCanvas.Class ],
     libraries    : [ "UmlCanvas" ]
 }
 
-Canvas2D.registerShape(UmlCanvas.Interface);
+Canvas2D.registerShape(UmlCanvas.Enumeration);

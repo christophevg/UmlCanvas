@@ -23,6 +23,7 @@ SRCS=src/DepCheck.js \
      src/Association.js src/Role.js \
      src/Dependency.js src/ClientSupplier.js \
      src/Interface.js \
+     src/Enumeration.js \
      src/Inheritance.js \
      src/Realization.js \
      src/KickStart.js \

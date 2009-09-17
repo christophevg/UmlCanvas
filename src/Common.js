@@ -20,6 +20,7 @@ UmlCanvas.Common = {
 
     determineVisibility: function(visibility) {
 	switch(visibility) {
+	case "__HIDE__" : return "";
 	case "protected": return "#";
 	case "private"  : return "-";
 	case "package"  : return "~";

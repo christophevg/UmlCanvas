@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <style>
+      .box {
+        border: 2px solid #000;
+        float:left;
+        margin:10px; 
+        height: 505px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+<!--    <script src="../build/UmlCanvas.standalone.js"></script> -->
+
+    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
+
+    <script>var UMLCANVAS_VERSION = "development";</script>
+    <script src="../src/DepCheck.js"></script>
+    <script src="../src/UmlCanvas.js"></script>
+    <script src="../src/Common.js"></script>
+    <script src="../src/Manager.js"></script>
+    <script src="../src/Model.js"></script>
+    <script src="../src/Diagram.js"></script>
+    <script src="../src/Class.js"></script>
+    <script src="../src/Attribute.js"></script>
+    <script src="../src/Operation.js"></script>
+    <script src="../src/Parameter.js"></script>
+    <script src="../src/ConnectorHeads.js"></script>
+    <script src="../src/Association.js"></script>
+    <script src="../src/Role.js"></script>
+    <script src="../src/Dependency.js"></script>
+    <script src="../src/ClientSupplier.js"></script>
+    <script src="../src/Interface.js"></script>
+    <script src="../src/Enumeration.js"></script>
+    <script src="../src/Inheritance.js"></script>
+    <script src="../src/Realization.js"></script>
+    <script src="../src/KickStart.js"></script>
+    <script src="../src/Defaults.js"></script>
+
+  </head>
+  
+  <body>
+    
+    <h1>DSL</h1>
+    <div class="box">
+      <h2>The Canvas2D/UmlCanvas Model</h2>
+      <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
+	      id="myTabbedDiagram" width="800" height="400"></canvas>
+    </div>
+    <pre id="myTabbedDiagramSource" style="display:none;">  
+Diagram myDiagram +dynamic {
+  [@100,100]
+  Enumeration myEnum {
+    attribute value1;
+    attribute value2;
+    attribute value3;
+  }
+}
+    </pre>  
+  </body>
+</html>

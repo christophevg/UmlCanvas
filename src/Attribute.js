@@ -36,7 +36,7 @@ UmlCanvas.Attribute = Class.extend( {
 
 UmlCanvas.Attribute.from = function(construct, clazz) {
     var props =  { name: construct.name, 
-	           type: construct.supers[0].toString() };
+	type: construct.supers[0] ? construct.supers[0].toString() : null };
     var visibility = UmlCanvas.Common.extractVisibility(construct);
     if( visibility ) {
 	props['visibility'] = visibility;

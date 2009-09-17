@@ -22,6 +22,7 @@ UmlCanvas.Class.Defaults = {
 };
 
 UmlCanvas.Interface.Defaults   = {}
+UmlCanvas.Enumeration.Defaults = {}
 
 UmlCanvas.Association.Defaults = {}
 UmlCanvas.Dependency.Defaults  = {}
