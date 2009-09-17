@@ -151,6 +151,10 @@ Diagram Prototype +dynamic {
     role Client : Client;
     role Prototype : Prototype +navigable;
   }
+  association recursive {
+    role Client1 : Client +navigable;
+    role Client2 : Client +composite;
+  }
 }
 </pre>
   </td>

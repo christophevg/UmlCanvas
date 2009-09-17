@@ -1,5 +1,6 @@
 UmlCanvas.Association = Canvas2D.Connector.extend( {
     preprocess: function(props) {
+	props = this._super(props);
 	if( props.kind && props.kind == "aggregation" ) {
 	    props.begin = UmlCanvas.ConnectorHeads.Diamond;	    
 	} else if( props.kind && props.kind == "composition" ) {
