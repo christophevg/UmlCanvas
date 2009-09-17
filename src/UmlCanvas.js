@@ -1,13 +1,12 @@
 // namespace for holding all UmlCanvas related classes, functions and extensions
-var UmlCanvasBase = Class.create( {
+var UmlCanvasBase = Class.extend( {
     getModel : function(id) {
 	return UmlCanvas.KickStarter.manager.getModel(id);
     }
 } );
-
+    
 // mix-in event handling
-UmlCanvasBase = Class.create( UmlCanvasBase,
-			      Canvas2D.Factory.extensions.all.EventHandling );
+ProtoJS.mix( Canvas2D.Factory.extensions.all.EventHandling, UmlCanvasBase );
 
 var UmlCanvas = new UmlCanvasBase();
 UmlCanvas.version = UMLCANVAS_VERSION;
@@ -23,6 +22,9 @@ UmlCanvas.activate = function activate(canvasId) {
     }
     throw( canvasId + " does not reference a known id on the document." );
 };
+
+// mix-in event handling to UmlCanvas
+ProtoJS.mix( Canvas2D.Factory.extensions.all.EventHandling, UmlCanvas );
 
 // register this extension with Canvas2D
 Canvas2D.extensions.push(

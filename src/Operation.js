@@ -1,5 +1,5 @@
-UmlCanvas.Operation = Class.create( {
-    initialize: function( operation ) {
+UmlCanvas.Operation = Class.extend( {
+    init: function( operation ) {
 	this.visibility = operation.visibility;
 	this.ztatic     = operation.isStatic;
 	this.name       = operation.name;
@@ -13,6 +13,8 @@ UmlCanvas.Operation = Class.create( {
 	this.abztract   = operation.isAbstract;
     },
 
+    setParent: function setParent() {},
+
     getName:       function() { return this.name;       },
     getReturnType: function() { return this.returnType; },
     getVisibility: function() { return this.visibility; },
@@ -25,7 +27,7 @@ UmlCanvas.Operation = Class.create( {
 
     toString: function() {
 	var params = [];
-	this.parameters.each(function(param) {
+	this.parameters.iterate(function(param) {
 	    params.push( param.type.toString() );
 	});
 	return UmlCanvas.Common.determineVisibility(this.visibility)
@@ -35,7 +37,7 @@ UmlCanvas.Operation = Class.create( {
 
     asConstruct: function() {
 	var parameters = [];
-	this.parameters.each(function(parameter) {
+	this.parameters.iterate(function(parameter) {
 	    parameters.push(parameter.asConstruct());
 	});
 	var modifiers = {};

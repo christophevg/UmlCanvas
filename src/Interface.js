@@ -1,5 +1,7 @@
-UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
+UmlCanvas.Interface = UmlCanvas.Class.extend( {
     preprocess: function( props ) {
+	props = this._super(props);
+
 	if( props['stereotype'] ) {
 	    props['stereotype'] = "interface " + props['stereotype'];
 	} else {
@@ -17,9 +19,10 @@ UmlCanvas.Interface = Class.create( UmlCanvas.Class, {
         return this.getFont();
     },
     
-    asConstruct: function($super) {
-	var construct = $super();
-	// TODO
+    asConstruct: function() {
+	var construct = this._super();
+	delete construct.modifiers.isAbstract;
+	delete construct.modifiers.stereotype;
 	return construct;
     }
 
@@ -47,7 +50,7 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
 
     // SUPERCLASS
     if( construct.zuper ) {
-	var zuper = diagram.getClass(construct.zuper.constructName);
+	var zuper = diagram.getDiagramClass(construct.zuper.constructName);
 	var relation;
 	if( zuper instanceof UmlCanvas.Interface ) {
 	    relation = new UmlCanvas.Realization( zuper, elem );
@@ -57,22 +60,12 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
 	diagram.addRelation(relation);
     }
 
-    var left, top;
-    if( construct.annotation ) {    
-	var pos = construct.annotation.data.split(",");
-	left = parseInt(pos[0]);
-	top  = parseInt(pos[1]);
-    } else {
-	left = this.offset * ( this.unknownIndex++ );
-	top = left;
-    }
-    diagram.at(left,top).put(elem);
     return elem;
 };
 
 UmlCanvas.Interface.MANIFEST = {
     name         : "interface",
-    propertyPath : [ Canvas2D.Rectangle, UmlCanvas.Class ],
+    propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle, UmlCanvas.Class ],
     libraries    : [ "UmlCanvas" ]
 }
 

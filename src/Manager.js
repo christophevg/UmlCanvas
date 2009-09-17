@@ -1,5 +1,5 @@
 // we also provide a manager, but with a context-specific signature
-UmlCanvas.Manager = Class.create( Canvas2D.Manager, {
+UmlCanvas.Manager = Canvas2D.Manager.extend( {
     setupModel : function(model) {
 	return this.addBook(new UmlCanvas.Model(model));
     },

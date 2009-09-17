@@ -1,9 +1,10 @@
-UmlCanvas.Inheritance = Class.create( Canvas2D.Connector, {
+UmlCanvas.Inheritance = Canvas2D.Connector.extend( {
     preprocess: function( props ) {
 	props.begin = UmlCanvas.ConnectorHeads.Triangle;
 	props.routing = props.routing || "vertical";
 	return props;
     },
+
     initialBranchLength: function(top, bottom) {
 	return 25;
     }

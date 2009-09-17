@@ -1,4 +1,4 @@
-UmlCanvas.Dependency = Class.create( Canvas2D.Connector, {
+UmlCanvas.Dependency = Canvas2D.Connector.extend( {
     preprocess: function(props) {
 	props.end = UmlCanvas.ConnectorHeads.Arrow;
 	props.lineStyle = "dashed";
@@ -6,8 +6,8 @@ UmlCanvas.Dependency = Class.create( Canvas2D.Connector, {
 	return props;
     },
 
-    asConstruct: function($super) {
-	var construct = $super();
+    asConstruct: function() {
+	var construct = this._super();
 	// TODO
 	return construct;
     }
@@ -29,8 +29,8 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
 	}
     }
    
-    var src = diagram.getClass(client.supers[0].constructName);
-    var dst = diagram.getClass(supplier.supers[0].constructName);
+    var src = diagram.getDiagramClass(client.supers[0].constructName);
+    var dst = diagram.getDiagramClass(supplier.supers[0].constructName);
 
     props = { name: construct.name, style: treeStyle, from: src, to: dst };
 

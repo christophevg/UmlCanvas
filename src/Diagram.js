@@ -1,8 +1,8 @@
-UmlCanvas.Diagram = Class.create( Canvas2D.Sheet, {
-    initialize: function($super, props) {
-	$super(props);
-	this.on( "shapeSelected", this.handleElementSelected.bind(this) );
-	this.on( "shapeChanged",  this.handleElementChanged.bind(this) );
+UmlCanvas.Diagram = Canvas2D.Sheet.extend( {
+    init: function(props) {
+	this._super(props);
+	this.on( "shapeSelected", this.handleElementSelected.scope(this) );
+	this.on( "shapeChanged",  this.handleElementChanged.scope(this) );
     },
 
     handleElementSelected: function(element) {
@@ -25,7 +25,7 @@ UmlCanvas.Diagram = Class.create( Canvas2D.Sheet, {
 	return this.add(clazz);
     },
 
-    getClass: function(name) {
+    getDiagramClass: function(name) {
 	return this.shapesMap[name];
     },
 
@@ -37,7 +37,7 @@ UmlCanvas.Diagram = Class.create( Canvas2D.Sheet, {
 	var s = "";
 	s += "Diagram "  + this.name;
 	s += " +" + this.style + " {\n";
-	this.positions.each(function(shape) {
+	this.positions.iterate(function(shape) {
 	    var t = shape.toADL("  ");
 	    if( t ) { s += t + "\n"; }
 	} );
@@ -48,7 +48,7 @@ UmlCanvas.Diagram = Class.create( Canvas2D.Sheet, {
     asConstruct: function($super) {
 	var construct = $super();
 
-	this.shapes.each(function(shape) { 
+	this.shapes.iterate(function(shape) { 
 	    construct.push(shape.asConstruct());
 	} );
 
@@ -63,10 +63,9 @@ UmlCanvas.Diagram.from = function(construct, model) {
 	style = styleModifier.value.value.toLowerCase();
     }
     
-    construct.modifiers.each(function(pair) {
-	if( pair.key.toLowerCase() == "static" 
-	    || pair.key.toLowerCase() == "dynamic" ) {
-	    style = pair.key.toLowerCase();
+    construct.modifiers.iterate(function(key, value) {
+	if( key.toLowerCase() == "static" || key.toLowerCase() == "dynamic" ) {
+	    style = key.toLowerCase();
 	}
     });
 

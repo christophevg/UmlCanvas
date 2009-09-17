@@ -4,7 +4,7 @@ UmlCanvas.Class.Defaults = {
     stereotype        : "",
     supers            : [],
     
-    useCrispLines     : false,
+    useCrispLines     : true,
     font              : "7pt Verdana",
     fontColor         : "black",
     fontAbstract      : "italic 7pt Verdana",

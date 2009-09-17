@@ -1,4 +1,4 @@
-UmlCanvas.Realization = Class.create( Canvas2D.Connector, {
+UmlCanvas.Realization = Canvas2D.Connector.extend( {
     preprocess: function( props ) {
 	props.begin = UmlCanvas.ConnectorHeads.Triangle;
 	props.lineStyle = "dashed";

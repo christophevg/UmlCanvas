@@ -1,7 +1,7 @@
 UmlCanvas.KickStart = {};
 
-UmlCanvas.KickStart.Starter = Class.create( Canvas2D.KickStart.Starter, {
-    initialize: function() {
+UmlCanvas.KickStart.Starter = Canvas2D.KickStart.Starter.extend( {
+    init: function() {
 	this.manager = new UmlCanvas.Manager();
     },
     
@@ -20,4 +20,5 @@ UmlCanvas.KickStarter = new UmlCanvas.KickStart.Starter();
 UmlCanvas.KickStarter.on( "ready",
 			  function() { UmlCanvas.fireEvent( "ready" );} );
 
-Event.observe(window, 'load', function() { UmlCanvas.KickStarter.start(); } );
+ProtoJS.Event.observe(window, 'load', 
+		      function() { UmlCanvas.KickStarter.start(); } );

@@ -1,10 +1,12 @@
-UmlCanvas.Attribute = Class.create( {
-    initialize: function( attribute ) {
+UmlCanvas.Attribute = Class.extend( {
+    init: function( attribute ) {
 	this.visibility = attribute.visibility;
 	this.ztatic     = attribute.isStatic;
 	this.name       = attribute.name;
 	this.type       = attribute.type;
     },
+
+    setParent: function setParent() {},
 
     getName:       function() { return this.name;       },
     getType:       function() { return this.type;       },

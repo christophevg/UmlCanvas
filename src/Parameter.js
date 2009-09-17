@@ -1,11 +1,13 @@
-UmlCanvas.Parameter = Class.create( {
+UmlCanvas.Parameter = Class.extend( {
     name: null,
     type: null,
 
-    initialize: function( props ) {
+    init: function( props ) {
 	this.name = props.name;
 	this.type = props.type;
     },
+
+    setparent: function setParent() {},
 
     getName: function() { return this.name; },
     getType: function() { return this.type; },

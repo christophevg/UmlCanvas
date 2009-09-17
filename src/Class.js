@@ -1,4 +1,4 @@
-UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
+UmlCanvas.Class = Canvas2D.Rectangle.extend( {
     addSuper: function(zuper) {
 	if( ! this.supers ) { this.supers = [] }
 	this.supers.push(zuper);
@@ -18,20 +18,20 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	// className and stereotype
 	var strings = [ this.getName(), "<<" + this.getStereotype() + ">>" ];
 	// attributes
-	this.attributes.each(function(attribute) {
+	this.attributes.iterate(function(attribute) {
 	    strings.push(attribute.toString());
 	});
 	// operations
-	this.operations.each(function(operation) {
+	this.operations.iterate(function(operation) {
 	    strings.push(operation.toString());
 	});
 
 	var maxWidth = 0;
 	sheet.font = this.getFont();
-	strings.each(function(string) {
+	strings.iterate(function(string) {
 	    var width = sheet.measureText(string);
 	    maxWidth = width >= maxWidth ? width : maxWidth;
-	}.bind(this) );
+	}.scope(this) );
 
 	// calculate width ...
 	this.width = ( 2 * this.config.padding ) + maxWidth;
@@ -60,6 +60,9 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	this.fireEvent("changed");
     },
 
+    add: function add(child) {}, // FIXME: short-circuit CompositeShape
+
+
     addAttribute: function(attribute) {
 	// allowing shorthand hash notation, objectifying on the fly
 	if( !(attribute instanceof UmlCanvas.Attribute) ) {
@@ -82,9 +85,10 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 
     draw: function(sheet, left, top) {
 	this.prepare(sheet);
-	sheet.fillStyle   = this.config.backgroundColor;
-	sheet.strokeStyle = this.config.lineColor;
-	sheet.lineWidth   = this.config.lineWidth;
+	sheet.useCrispLines = this.config.useCrispLines;
+	sheet.fillStyle     = this.config.backgroundColor;
+	sheet.strokeStyle   = this.config.lineColor;
+	sheet.lineWidth     = this.config.lineWidth;
 
 	var lineSize = parseInt(this.getFont()) + this.config.lineSpacing
 
@@ -172,8 +176,8 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
             : this.getFont();
     },
 
-    asConstruct: function($super) {
-	var construct = $super();
+    asConstruct: function() {
+	var construct = this._super();
 	delete construct.modifiers.geo;
 	delete construct.modifiers[this.getFontColor()];
 
@@ -184,15 +188,15 @@ UmlCanvas.Class = Class.create( Canvas2D.Rectangle, {
 	    construct.supers = this.getSupers();
 	}
 	if( this.getStereotype() ) {
-	    construct.modifiers.stereotype = this.getStereotype();
+	    construct.modifiers.stereotype = '"' + this.getStereotype() + '"';
 	}
 	if( this.getIsAbstract() ) {
 	    construct.modifiers['isAbstract'] = null;
 	}
-	this.attributes.each(function(attribute) {
+	this.attributes.iterate(function(attribute) {
 	    construct.children.push(attribute.asConstruct());
 	});
-	this.operations.each(function(operation) {
+	this.operations.iterate(function(operation) {
 	    construct.children.push(operation.asConstruct());
 	});
 	
@@ -225,8 +229,8 @@ UmlCanvas.Class.from = function( construct, diagram ) {
 
     // SUPERCLASS
     if( construct.supers && construct.supers.length > 0 ) {
-	construct.supers.each(function(superName) {
-	    var zuper = diagram.getClass(superName);
+	construct.supers.iterate(function(superName) {
+	    var zuper = diagram.getDiagramClass(superName);
 	    elem.addSuper(zuper);
 	    var relation;
 	    if( zuper instanceof UmlCanvas.Interface ) {
@@ -238,24 +242,14 @@ UmlCanvas.Class.from = function( construct, diagram ) {
 	});
     }
 
-    var left, top;
-    if( construct.annotation ) {    
-	var pos = construct.annotation.data.split(",");
-	left = parseInt(pos[0]);
-	top  = parseInt(pos[1]);
-    } else {
-	left = this.offset * ( this.unknownIndex++ );
-	top = left;
-    }
-    diagram.at(left,top).put(elem);
     return elem;
 };
     
 UmlCanvas.Class.MANIFEST = {
     name         : "class",
     properties   : [ "stereotype", "isAbstract", "supers",
-		    "font", "fontColor", "minimumWidth" ],
-    propertyPath : [ Canvas2D.Rectangle ],
+		     "font", "fontColor", "minimumWidth" ],
+    propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
     libraries    : [ "UmlCanvas" ]
 }
 

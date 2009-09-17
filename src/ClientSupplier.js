@@ -1,5 +1,5 @@
-UmlCanvas.Client = Class.create({});
-UmlCanvas.Supplier = Class.create({});
+UmlCanvas.Client = Class.extend({});
+UmlCanvas.Supplier = Class.extend({});
 
 UmlCanvas.Client.from = function(construct, diagram) {
     return null;
