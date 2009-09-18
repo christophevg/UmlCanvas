@@ -142,7 +142,7 @@ UmlCanvas.Note.from = function( construct, diagram ) {
     
 UmlCanvas.Note.MANIFEST = {
     name         : "note",
-    properties   : [ "text", "width", "height" ],
+    properties   : [ "text", "width", "height", "linkedTo" ],
     propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
     libraries    : [ "UmlCanvas" ]
 }
