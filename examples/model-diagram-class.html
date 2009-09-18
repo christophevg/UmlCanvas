@@ -5,26 +5,7 @@
     <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
 
     <script>var UMLCANVAS_VERSION = "development";</script>
-    <script src="../src/DepCheck.js"></script>
-    <script src="../src/UmlCanvas.js"></script>
-    <script src="../src/Common.js"></script>
-    <script src="../src/Manager.js"></script>
-    <script src="../src/Model.js"></script>
-    <script src="../src/Diagram.js"></script>
-    <script src="../src/Class.js"></script>
-    <script src="../src/Attribute.js"></script>
-    <script src="../src/Operation.js"></script>
-    <script src="../src/Parameter.js"></script>
-    <script src="../src/ConnectorHeads.js"></script>
-    <script src="../src/Association.js"></script>
-    <script src="../src/Role.js"></script>
-    <script src="../src/Dependency.js"></script>
-    <script src="../src/ClientSupplier.js"></script>
-    <script src="../src/Interface.js"></script>
-    <script src="../src/Inheritance.js"></script>
-    <script src="../src/Realization.js"></script>
-    <script src="../src/KickStart.js"></script>
-    <script src="../src/Defaults.js"></script>
+    <script type="text/javascript" src="includes.js"></script>
   </head>
   
   <body onload="drawIt();">
@@ -33,37 +14,35 @@
     
     <script>
     function drawIt() {
-	var class1 = new UmlCanvas.Class( { name: "TestClass", 
+        var manager = new UmlCanvas.Manager();
+        var model = manager.setupModel("myModel");
+		model.makeTabbed( ["console","source","about"] );
+	  	var diagram = model.addDiagram();
+        diagram.makeDynamic();
+        
+		var class1 = new UmlCanvas.Class( { name: "TestClass", 
                                             stereotype: "entity",
                                             abstract: true } );
-	with( class1  ) {
-	    addAttribute( { name: "Attribute1", visibility: "public", 
-			    type: "Integer", isStatic: true } );
-	    addAttribute( { name: "Attribute2", visibility: "private", 
-			    type: "String" } );
-	    addAttribute( { name: "Attribute3", visibility: "protected", 
-			    type: "Boolean" } );
-	    addOperation( { name: "Operation1", visibility: "public", 
-			    returnType: "Integer", isStatic: true,
-			    arguments: [{ name: "arg1", type: "Integer[20]"  },
-					{ name: "arg2", type: "String[1..2]" }]
-			  } );
-	    addOperation( { name: "Operation2", visibility: "protected", 
-			    returnType: "Boolean",
-			    arguments: [{ name: "arg1", type: "Object"    },
-					{ name: "arg2", type: "Something" }]
-			  } );
-	}
+		with( class1  ) {
+		    addAttribute( { name: "Attribute1", visibility: "public", 
+				    type: "Integer", isStatic: true } );
+		    addAttribute( { name: "Attribute2", visibility: "private", 
+				    type: "String" } );
+		    addAttribute( { name: "Attribute3", visibility: "protected", 
+				    type: "Boolean" } );
+		    addOperation( { name: "Operation1", visibility: "public", 
+				    returnType: "Integer", isStatic: true,
+				    arguments: [{ name: "arg1", type: "Integer[20]"  },
+						{ name: "arg2", type: "String[1..2]" }]
+				  } );
+		    addOperation( { name: "Operation2", visibility: "protected", 
+				    returnType: "Boolean",
+				    arguments: [{ name: "arg1", type: "Object"    },
+						{ name: "arg2", type: "Something" }]
+				  } );
+		}
 
-        var manager = new UmlCanvas.Manager();
-
-        with( manager.setupModel("myModel") ) {
-          makeTabbed( ["console","source","about"] );
-	  with( addDiagram() ) {
-	    at(50,50).put(class1);
-            makeDynamic();
-	  }
-        }
+	   	diagram.at(50,50).put(class1);
 
         manager.startAll();
     }

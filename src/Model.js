@@ -4,6 +4,6 @@ UmlCanvas.Model = Canvas2D.Book.extend( {
 	unless( diagram instanceof UmlCanvas.Diagram, function() {
 	    diagram = new UmlCanvas.Diagram();
 	} );
-	return diagram;
+	return this.addSheet(diagram);
     }
 } );
