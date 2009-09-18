@@ -26,7 +26,7 @@ UmlCanvas.Diagram = Canvas2D.Sheet.extend( {
     },
 
     getDiagramClass: function(name) {
-	return this.shapesMap[name];
+	return this.shapesMap[name.replace(/<.*$/,'')];
     },
 
     addRelation: function(relation) {
