@@ -31,12 +31,12 @@ function UmlCanvasInit() {
 
   if( !$wgOut->hasHeadItem("Canvas2D-JS") ) {
     $wgOut->addHeadItem('Canvas2D-JS', 
-			"<script src=\"$path/Canvas2D.standalone.min.js\">".
-			"</script>");
+			"<script src=\"$path/Canvas2D.standalone.min.js\" " .
+			"type=\"text/javascript\"></script>");
   }
   $wgOut->addHeadItem('UmlCanvas-JS', 
-		      "<script src=\"$path/UmlCanvas.shared.min.js\">".
-		      "</script>");
+		      "<script src=\"$path/UmlCanvas.shared.min.js\" ".
+		      "type=\"text/javascript\"></script>");
 
   $wgOut->addHeadItem('UmlCanvas-CSS', 
 		      "<link href=\"$path/UmlCanvas.css\" ".
