@@ -21,13 +21,13 @@ UmlCanvas.Attribute = Class.extend( {
     asConstruct: function() {
 	var modifiers = {};
 	if( this.getVisibility() ) {
-	    modifiers["visibility"] = this.getVisibility();
+	    modifiers[this.getVisibility()] = null;
 	};
-	if( this.isStatic() ) { modifiers.isStatic = true; }
+	if( this.isStatic() ) { modifiers["static"] = null; }
 	return { annotations : [],
 		 type        : "Attribute",
 		 name        : this.getName(),
-		 supers      : [ this.getType() ],
+		 supers      : this.getType() ? [ this.getType() ] : [],
 		 modifiers   : modifiers,
 		 children    : []
 	       };

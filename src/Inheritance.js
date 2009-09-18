@@ -7,6 +7,10 @@ UmlCanvas.Inheritance = Canvas2D.Connector.extend( {
 
     initialBranchLength: function(top, bottom) {
 	return 25;
+    },
+
+    asConstruct : function asConstruct() {
+	return null;
     }
 });
 

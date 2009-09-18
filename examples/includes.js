@@ -20,6 +20,7 @@ var scripts = [
     "../src/KickStart.js",
     "../src/Enumeration.js",
     "../src/Note.js",
+    "../src/NoteLink.js",
     "../src/Defaults.js"
 ];
 

@@ -27,6 +27,7 @@ SRCS=src/DepCheck.js \
      src/Inheritance.js \
      src/Realization.js \
      src/Note.js \
+     src/NoteLink.js \
      src/KickStart.js \
      src/Defaults.js
 CSSSRCS=src/${APP}.css lib/Canvas2D/build/Canvas2D.css

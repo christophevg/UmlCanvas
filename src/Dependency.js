@@ -3,12 +3,22 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
 	props.end = UmlCanvas.ConnectorHeads.Arrow;
 	props.lineStyle = "dashed";
 	props['routing'] = props['routing'] || "horizontal";
+
+	this.srcName = props.sname;
+	this.dstName = props.dname;
+
 	return props;
     },
 
     asConstruct: function() {
 	var construct = this._super();
-	// TODO
+	construct.modifiers = null;
+	construct.children.push( { annotations: [], 
+				   supers: [ this.from.getName() ], children: [], 
+				   type: "client", name: this.srcName } );
+	construct.children.push( { annotations: [], 
+				   supers: [ this.to.getName() ], children: [], 
+				   type: "supplier", name: this.dstName } );
 	return construct;
     }
 });
@@ -29,13 +39,16 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
 	}
     }
    
+    var srcName = client.name;
+    var dstName = supplier.name;
+
     var src = diagram.getDiagramClass(client.supers[0].constructName);
     var dst = diagram.getDiagramClass(supplier.supers[0].constructName);
 
-    props = { name: construct.name, style: treeStyle, from: src, to: dst };
+    props = { name: construct.name, style: treeStyle, from: src, to: dst, 
+	      sname: srcName, dname: dstName };
 
-    elem = new UmlCanvas.Dependency( props );
-    return diagram.addRelation(elem);
+    return new UmlCanvas.Dependency( props );
 };
 
 UmlCanvas.Dependency.MANIFEST = {

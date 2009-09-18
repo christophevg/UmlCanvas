@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
+
+    <script>var UMLCANVAS_VERSION = "development";</script>
+    <script type="text/javascript" src="includes.js"></script>
+  </head>
+  
+  <body>
+    <table>
+      <tr>
+	<td>
+	  <canvas class="UmlCanvas Tabbed withConsole withAbout" 
+		  id="myModel" width="500" height="400"></canvas>
+	  <pre id="myModelSource" style="display:none">
+Diagram myDiagram +dynamic {
+  [@38,29]
+  class myBaseClass +stereotype="special" +abstract {
+    Attribute attrib1 : String +public +static;
+    Attribute attrib2 : Integer +private;
+  }
+  [@221,23]
+  interface myInterface {
+    Operation method1;
+    Operation method2 : void;
+    Operation method3 +static {
+      Argument x;
+      Argument y : String;
+    }
+  }
+  association anAssoc {
+    role begin : myBaseClass +shared;
+    role end : myInterface +navigable;
+  }
+  [@338,135]
+  interface myInterface2 : myInterface {
+    Operation method3 : Range;
+  }
+  [@343,194]
+  enumeration myEnum +abstract {
+    Attribute value1;
+    Attribute value2;
+    Attribute value3;
+  }
+  [@159,200]
+  class myClass&lt;T> : myBaseClass : myInterface {
+    Attribute attrib3 : Date +protected;
+    Attribute attrib4 +private;
+  }
+  [@124,296]
+  class myClass2 : myClass&lt;T> {
+    Attribute myPosition : Position;
+    Attribute myDirection : Direction;
+    Operation calculate : Speed +protected {
+      Argument velocity : Integer;
+    }
+  }
+  association recursive {
+    role self : myClass&lt;T> +composite;
+    role me : myClass&lt;T> +navigable;
+  }
+  dependency myEnumDep {
+    client cl : myClass&lt;T>;
+    supplier enum : myEnum;
+  }
+  [@329,312]
+  note myNote +text="A nice note showing of,\nwhat we can do." +linkedTo="myEnum";
+}	  </pre>
+	</td>
+	<td>
+	  <h1>Generated Source</h1>
+	  <textarea id="myModelGenerated" rows="31" cols="80"></textarea>
+	</td>
+      </tr>
+    </table>
+
+  </body>
+</html>

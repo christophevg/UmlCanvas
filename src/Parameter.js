@@ -20,7 +20,7 @@ UmlCanvas.Parameter = Class.extend( {
 	return { annotations : [],
 		 type        : "Argument",
 		 name        : this.getName(),
-		 supers      : [ this.getType() ],
+		 supers      : this.getType() ? [ this.getType() ] : [],
 		 modifiers   : {},
 		 children    : []
 	       };
@@ -30,7 +30,7 @@ UmlCanvas.Parameter = Class.extend( {
 UmlCanvas.Parameter.from = function(construct, operation) {
     return operation.addParameter( 
 	new UmlCanvas.Parameter( { name: construct.name, 
-				   type: construct.supers[0] } ) );
+				   type: construct.supers[0] || null } ) );
 };
 
 UmlCanvas.Parameter.MANIFEST = {

@@ -176,7 +176,7 @@ UmlCanvas.Class = Canvas2D.Rectangle.extend( {
             : this.getFont();
     },
 
-    asConstruct: function() {
+    asConstruct: function asConstruct () {
 	var construct = this._super();
 	delete construct.modifiers.geo;
 	delete construct.modifiers[this.getFontColor()];
@@ -185,13 +185,17 @@ UmlCanvas.Class = Canvas2D.Rectangle.extend( {
 	    construct.modifiers['minimumSize'] = this.getMinimumWidth();
 	}
 	if( this.getSupers() ) {
-	    construct.supers = this.getSupers();
+	    var supers = [];
+	    this.getSupers().iterate(function(zuper) {
+		supers.push(zuper.getName());
+	    });
+	    construct.supers = supers;
 	}
 	if( this.getStereotype() ) {
 	    construct.modifiers.stereotype = '"' + this.getStereotype() + '"';
 	}
 	if( this.getIsAbstract() ) {
-	    construct.modifiers['isAbstract'] = null;
+	    construct.modifiers['abstract'] = null;
 	}
 	this.attributes.iterate(function(attribute) {
 	    construct.children.push(attribute.asConstruct());

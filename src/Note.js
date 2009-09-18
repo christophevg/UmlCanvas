@@ -1,5 +1,4 @@
 UmlCanvas.Note = Canvas2D.Rectangle.extend( {
-    
     prepare: function(sheet) {
     	if( this.prepared ) { return; }
     	this.width = this.getBoxWidth(sheet);
@@ -7,27 +6,6 @@ UmlCanvas.Note = Canvas2D.Rectangle.extend( {
     	this.prepared = true;
     },
     
-    getText: function getText() {
-    	if (!this.text) {
-    	    return this.config.text;
-    	}
-    	return this.text;
-    },
-    
-    getWidth: function getWidth() {
-	if (!this.width) {
-    	    return this.config.width;
-    	}
-    	return this.width;
-    },
-    
-    getHeight: function getHeight() {
-	if (!this.height) {
-    	    return this.config.height;
-    	}
-    	return this.height;
-    },
-
     postInitialize: function(props) {
 	// keep short-hand local reference
 	this.config = UmlCanvas.Note.Defaults;
@@ -40,9 +18,9 @@ UmlCanvas.Note = Canvas2D.Rectangle.extend( {
     },
     
     renderTextBox: function renderTextBox(sheet, left, top) {
-	sheet.fillStyle     = this.config.backgroundColor;
-	sheet.strokeStyle   = this.config.lineColor;
-	sheet.lineWidth     = this.config.lineWidth;
+	sheet.fillStyle      = this.config.backgroundColor;
+	sheet.strokeStyle    = this.config.lineColor;
+	sheet.lineWidth      = this.config.lineWidth;
 	sheet.useCrispLines  = this.config.useCrispLines;
 	
 	sheet.fillStrokeRect( left, top, 
@@ -92,14 +70,14 @@ UmlCanvas.Note = Canvas2D.Rectangle.extend( {
     asConstruct: function() {
 	var construct = this._super();
 
+	delete construct.modifiers.geo;
+
 	if( this.getText() ) {
-	    construct.modifiers['text'] = this.getText();
+	    construct.modifiers.text = '"' + this.getText() + '"';
 	}
-	if( this.getWidth() ) {
-	    construct.modifiers['width'] = this.getWidth();
-	}
-	if( this.getHeight() ) {
-	    construct.modifiers['height'] = this.getHeight();
+
+	if( this.getLinkedTo() ) {
+	    construct.modifiers.linkedTo = '"' + this.getLinkedTo() + '"';
 	}
 	
 	return construct;
@@ -122,18 +100,17 @@ UmlCanvas.Note.from = function( construct, diagram ) {
     if( height ) {
 	props.height= height.value.value;
     }
-    
-    var elem = new UmlCanvas.Note( props );
 
     var linkedTo = construct.modifiers.get("linkedTo");
+    if (linkedTo) { props.linkedTo = linkedTo.value.value; }
+    
+    var elem = new UmlCanvas.Note( props );
     if (linkedTo) {
 	linkedTo.value.value.split(",").iterate(function(elementName) {
 	    var element = diagram.getDiagramClass(elementName);
-	    diagram.addRelation(new Canvas2D.Connector( {
-		from      : elem,
-		to        : element,
-		routing   : "horizontal",
-		lineStyle : "dashed"
+	    diagram.addRelation(new UmlCanvas.NoteLink( {
+		note    : elem, 
+		element : element
 	    } ));
 	} );
     }

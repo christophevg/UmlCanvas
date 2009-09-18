@@ -11,11 +11,6 @@ UmlCanvas.Enumeration = UmlCanvas.Class.extend( {
 	return props;
     },
     
-    addAttribute: function(attribute) {
-	attribute.visibility = "__HIDE__";
-	return this._super(attribute);
-    },
-
     addOperation: function(operation) {
 	return null;
     },

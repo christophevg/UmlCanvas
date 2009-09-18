@@ -21,7 +21,7 @@ UmlCanvas.Interface = UmlCanvas.Class.extend( {
     
     asConstruct: function() {
 	var construct = this._super();
-	delete construct.modifiers.isAbstract;
+	delete construct.modifiers["abstract"];
 	delete construct.modifiers.stereotype;
 	return construct;
     }
@@ -52,13 +52,7 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
 	construct.supers.iterate(function(superConstruct) {
 	    var zuper = diagram.getDiagramClass(superConstruct.constructName);
 	    elem.addSuper(zuper);
-	    var relation;
-	    if( zuper instanceof UmlCanvas.Interface ) {
-		relation = new UmlCanvas.Realization( {from: zuper, to: elem} );
-	    } else {
-		relation = new UmlCanvas.Inheritance( {from:zuper, to: elem} );
-	    }
-	    diagram.addRelation(relation);
+	    diagram.addRelation(new UmlCanvas.Inheritance({from:zuper, to: elem}));
 	});
     }
 

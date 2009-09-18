@@ -28,7 +28,9 @@ UmlCanvas.Operation = Class.extend( {
     toString: function() {
 	var params = [];
 	this.parameters.iterate(function(param) {
-	    params.push( param.type.toString() );
+	    if( param.type ) {
+		params.push( param.type.toString() );
+	    }
 	});
 	return UmlCanvas.Common.determineVisibility(this.visibility)
 	    + this.name + "(" + params.join( ", " ) + ")"
@@ -42,13 +44,13 @@ UmlCanvas.Operation = Class.extend( {
 	});
 	var modifiers = {};
 	if( this.getVisibility() ) {
-	    modifiers["visibility"] = this.getVisibility();
+	    modifiers[this.getVisibility()] = null;
 	};
-	if( this.isStatic() ) { modifiers.isStatic = true; }
+	if( this.isStatic() ) { modifiers["static"] = null; }
 	return { annotations : [],
 		 type        : "Operation",
 		 name        : this.getName(),
-		 supers      : [ this.getReturnType() ],
+		 supers      : this.getReturnType() ? [ this.getReturnType() ] : [],
 		 modifiers   : modifiers,
 		 children    : parameters
 	       };
