@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
+
+    <script>var UMLCANVAS_VERSION = "development";</script>
+    <script type="text/javascript" src="includes.js"></script>
+  </head>
+  
+  <body>
+    
+    <h1>Generics</h1>
+    <div class="box">
+      <h2>Declaration and Instantiation</h2>
+      <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
+	      id="myTabbedDiagram" width="400" height="350"></canvas>
+    </div>
+    <pre id="myTabbedDiagramSource" style="display:none;">
+Diagram myDiagram +dynamic {
+  [@45,34]
+  interface myInterface&lt;T> {
+    operation doSomething : T;
+  }
+
+  [@37,150]
+  class Class1 : myInterface&lt;Date> {
+     operation doSomething : Date;
+  }
+
+  [@200,34]
+  class Class2 {
+    attribute impl : myInterface&lt;Date>;
+  }
+
+  Dependency myImpl {
+    client myClass : Class2;
+    supplier myIf: myInterface;
+  }
+}
+    </pre>  
+  </body>
+</html>

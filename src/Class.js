@@ -229,8 +229,8 @@ UmlCanvas.Class.from = function( construct, diagram ) {
 
     // SUPERCLASS
     if( construct.supers && construct.supers.length > 0 ) {
-	construct.supers.iterate(function(superName) {
-	    var zuper = diagram.getDiagramClass(superName);
+	construct.supers.iterate(function(superConstruct) {
+	    var zuper = diagram.getDiagramClass(superConstruct.constructName);
 	    elem.addSuper(zuper);
 	    var relation;
 	    if( zuper instanceof UmlCanvas.Interface ) {
