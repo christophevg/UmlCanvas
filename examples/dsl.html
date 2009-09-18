@@ -47,6 +47,11 @@ Diagram myDiagram +dynamic {
   class BaseClass1 +abstract {
     +protected +abstract operation op1 : Int;
   }
+  
+  [@470, 250]
+  note BaseClass1Note 
+    +text="This is BaseClass1.\nIt has a reference to Interface1,\nwhich executes the op1 method for BaseClass1."
+    +linkedTo="BaseClass1,Interface1";
 
   [@320,150]
   class SubClass2 : BaseClass1 {

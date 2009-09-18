@@ -29,3 +29,16 @@ UmlCanvas.Dependency.Defaults  = {}
 
 UmlCanvas.Inheritance.Defaults = {}
 UmlCanvas.Realization.Defaults = {}
+
+UmlCanvas.Note.Defaults = {
+    text		: "TODO",
+    width		: 100,
+    height		: 40,
+    padding		: 5,
+    font		: "7pt Verdana",
+    fontColor		: "black",
+    lineColor		: "grey",
+    backgroundColor	: "rgba(240,240,240,1)",
+    lineWidth		: 1,
+    useCrispLines	: true
+};

@@ -19,6 +19,7 @@ var scripts = [
     "../src/Realization.js",
     "../src/KickStart.js",
     "../src/Enumeration.js",
+    "../src/Note.js",
     "../src/Defaults.js"
 ];
 

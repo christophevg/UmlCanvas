@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+<!--    <script src="../build/UmlCanvas.standalone.min.js"></script> -->
+    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
+
+    <script>var UMLCANVAS_VERSION = "development";</script>
+    <script type="text/javascript" src="includes.js"></script>
+  </head>
+  
+  <body onload="drawIt();">
+    
+    <canvas id="myModel" width="400" height="250"></canvas>
+    
+    <script>
+    function drawIt() {
+        var manager = new UmlCanvas.Manager();
+        var model = manager.setupModel("myModel");
+		model.makeTabbed( ["console","source","about"] );
+	  	var diagram = model.addDiagram();
+        diagram.makeDynamic();
+        
+		var personClass = new UmlCanvas.Class( { name: "Person", 
+                                            abstract: true } );
+		with( personClass  ) {
+		    addAttribute( { name: "name", visibility: "private", 
+				    type: "String", isStatic: false } );
+		}
+
+		var note = new UmlCanvas.Note( { 
+			text: "TODO - design Person class",
+			width: 50,
+			height: 20 
+		} );
+
+		var noteWithoutText = new UmlCanvas.Note();
+
+		var longNote = new UmlCanvas.Note( {
+		    text: "line one\\nline two\\nline three",
+			width: 50,
+			height: 20
+		} );
+
+	   	diagram.at(30,50).put(personClass);
+	   	diagram.at(30,10).put(note);
+	   	diagram.at(40,120).put(noteWithoutText);
+	   	diagram.at(200,120).put(longNote);
+
+        manager.startAll();
+    }
+    </script>
+  </body>
+</html>
