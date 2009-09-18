@@ -54,6 +54,7 @@ UmlCanvas.Note = Canvas2D.Rectangle.extend( {
 	sheet.font           = this.config.font;
 	sheet.fillStyle      = this.config.fontColor;
 	sheet.textAlign      = "left";
+	sheet.lineStyle      = "solid";
 
 	var lines = this.getLines();
 	for ( var i=1, len=lines.length; i<=len; ++i ){
