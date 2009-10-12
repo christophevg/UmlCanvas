@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+<!--    <script src="../build/UmlCanvas.standalone.min.js"></script> -->
+    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
+
+    <script>var UMLCANVAS_VERSION = "development";</script>
+    <script type="text/javascript" src="includes.js"></script>
+
+  </head>
+  
+  <body>
+<h1>Before</h1>
+    <canvas id="myModelBefore" 
+            class="UmlCanvas" width="500" height="300"></canvas>
+    <pre id="myModelBeforeSource" style="display:none;">
+Diagram DecoratorPattern +dynamic {
+  [@76,30]
+  interface Component {
+    Operation doSomething;
+  }
+  [@76,128]
+  class RealComponent : Component {
+    Operation doSomething;
+  }
+  [@208,118]
+  class Decorator : Component +abstract {
+    Attribute aComponent : Component +private;
+    Operation doSomething;
+  }
+  association x {
+    role decorator : Decorator +composite;
+    role decorated : Component +navigable;
+  }
+  [@175,222]
+  class RealDecoratorA : Decorator {
+    Operation doSomething;
+  }
+  [@295,222]
+  class RealDecoratorB : Decorator {
+    Operation doSomething;
+  }
+}
+</pre>
+
+<h1>After</h1>
+    <canvas id="myModel" class="UmlCanvas" width="500" height="300"></canvas>
+        <pre id="myModelSource" style="display:none;">
+Diagram DecoratorPattern +dynamic {
+  [@76,30]
+  interface Component {
+    Operation doSomething;
+  }
+  [@76,128]
+  class RealComponent : Component {
+    Operation doSomething;
+  }
+  [@208,118]
+  class Decorator : Component +abstract {
+    Attribute aComponent : Component +private;
+    Operation doSomething;
+  }
+  [@corner:nne-e] association x {
+    role decorator : Decorator +composite;
+    role decorated : Component +navigable;
+  }
+  [@175,222]
+  class RealDecoratorA : Decorator {
+    Operation doSomething;
+  }
+  [@295,222]
+  class RealDecoratorB : Decorator {
+    Operation doSomething;
+  }
+}
+</pre>
+ 
+  </body>
+</html>
