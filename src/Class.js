@@ -231,22 +231,28 @@ UmlCanvas.Class.from = function( construct, diagram ) {
 
     var elem = new UmlCanvas.Class( props );
 
-    // SUPERCLASS
-    if( construct.supers && construct.supers.length > 0 ) {
-	construct.supers.iterate(function(superConstruct) {
-	    var zuper = diagram.getDiagramClass(superConstruct.constructName);
-	    elem.addSuper(zuper);
-	    var relation;
-	    if( zuper instanceof UmlCanvas.Interface ) {
-		relation = new UmlCanvas.Realization( {from: zuper, to: elem} );
-	    } else {
-		relation = new UmlCanvas.Inheritance( {from:zuper, to: elem} );
-	    }
-	    diagram.addRelation(relation);
-	});
-    }
+  // SUPERCLASS
+  if( construct.supers && construct.supers.length > 0 ) {
+    construct.supers.iterate(function(superConstruct) {
+      var zuper = diagram.getDiagramClass(superConstruct.constructName);
+      if( zuper ) {
+        elem.addSuper(zuper);
+        var relation;
+        if( zuper instanceof UmlCanvas.Interface ) {
+          relation = new UmlCanvas.Realization( {from: zuper, to: elem} );
+        } else {
+          relation = new UmlCanvas.Inheritance( {from: zuper, to: elem} );
+        }
+        diagram.addRelation(relation);
+      } else {
+        // TODO: needs to be activated when errorreposting at this level 
+        // is available in Canvas2D
+        // alert( "unknown superclass: " + superConstruct.constructName);
+      }
+    });
+  }
 
-    return elem;
+  return elem;
 };
     
 UmlCanvas.Class.MANIFEST = {
