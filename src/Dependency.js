@@ -24,38 +24,47 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
 });
 
 UmlCanvas.Dependency.from = function(construct, diagram) {
-    var client, supplier, props;
-    if( construct.children[0].type == "client" ) {
-	client   = construct.children[0];
-	supplier = construct.children[1];
-    } else {
-	client   = construct.children[1];
-	supplier = construct.children[0];
+  var props = { name: construct.name };
+  var client, supplier;
+  
+  if( construct.children[0].type == "client" ) {
+    client   = construct.children[0];
+    supplier = construct.children[1];
+  } else {
+    client   = construct.children[1];
+    supplier = construct.children[0];
+  }
+
+  props['style'] = "horizontal";
+  if( construct.annotation ) {
+    if( construct.annotation.data == "vertical" ) {
+      props['style'] = "vertical";
+    } else if( construct.annotation.data.contains(":") &&
+               construct.annotation.data.contains("-") ) 
+    {
+      var parts = construct.annotation.data.split(":");
+      props["routing"] = "custom";
+      props["routeStyle"] = parts[0];
+      var ends = parts[1].split("-");
+      props["routeBegin"] = ends[0];
+      props["routeEnd"]   = ends[1];
     }
-    var treeStyle = "horizontal";
-    if( construct.annotation ) {
-	if( construct.annotation.data == "vertical" ) {
-	    treeStyle = "vertical";
-	}
-    }
-   
-    var srcName = client.name;
-    var dstName = supplier.name;
+  }
 
-    var src = diagram.getDiagramClass(client.supers[0].constructName);
-    var dst = diagram.getDiagramClass(supplier.supers[0].constructName);
+  props['sname'] = client.name;
+  props['dname'] = supplier.name;
 
-    props = { name: construct.name, style: treeStyle, from: src, to: dst, 
-	      sname: srcName, dname: dstName };
+  props['from'] = diagram.getDiagramClass(client.supers[0].constructName);
+  props['to'] = diagram.getDiagramClass(supplier.supers[0].constructName);
 
-    return new UmlCanvas.Dependency( props );
+  return new UmlCanvas.Dependency( props );
 };
 
-UmlCanvas.Dependency.MANIFEST = {
+  UmlCanvas.Dependency.MANIFEST = {
     name : "dependency",
     properties : [ "client", "supplier" ],
     propertyPath : [ Canvas2D.Connector ],
     libraries : [ "UmlCanvas" ]
-}
-    
-Canvas2D.registerShape(UmlCanvas.Dependency);
+  }
+
+  Canvas2D.registerShape(UmlCanvas.Dependency);

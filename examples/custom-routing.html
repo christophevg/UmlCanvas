@@ -40,6 +40,10 @@ Diagram DecoratorPattern +dynamic {
   class RealDecoratorB : Decorator {
     Operation doSomething;
   }
+  dependency d {
+    supplier sup : Decorator;
+    client cl : RealDecoratorB;
+  }
 }
 </pre>
 
@@ -71,6 +75,11 @@ Diagram DecoratorPattern +dynamic {
   [@295,222]
   class RealDecoratorB : Decorator {
     Operation doSomething;
+  }
+  [@corner:nne-e]
+  dependency d {
+    supplier sup : Decorator;
+    client cl : RealDecoratorB;
   }
 }
 </pre>
