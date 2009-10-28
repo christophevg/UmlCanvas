@@ -17,7 +17,7 @@ UmlCanvas.Parameter = Class.extend( {
     },
 
     asConstruct: function() {
-	return { annotations : [],
+	return {
 		 type        : "Argument",
 		 name        : this.getName(),
 		 supers      : this.getType() ? [ this.getType() ] : [],

@@ -13,10 +13,10 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
     asConstruct: function() {
 	var construct = this._super();
 	construct.modifiers = null;
-	construct.children.push( { annotations: [], 
+	construct.children.push( {
 				   supers: [ this.from.getName() ], children: [], 
 				   type: "client", name: this.srcName } );
-	construct.children.push( { annotations: [], 
+	construct.children.push( {
 				   supers: [ this.to.getName() ], children: [], 
 				   type: "supplier", name: this.dstName } );
 	return construct;

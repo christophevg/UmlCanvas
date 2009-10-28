@@ -24,7 +24,7 @@ UmlCanvas.Attribute = Class.extend( {
 	    modifiers[this.getVisibility()] = null;
 	};
 	if( this.isStatic() ) { modifiers["static"] = null; }
-	return { annotations : [],
+	return {
 		 type        : "Attribute",
 		 name        : this.getName(),
 		 supers      : this.getType() ? [ this.getType() ] : [],

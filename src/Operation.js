@@ -47,7 +47,7 @@ UmlCanvas.Operation = Class.extend( {
 	    modifiers[this.getVisibility()] = null;
 	};
 	if( this.isStatic() ) { modifiers["static"] = null; }
-	return { annotations : [],
+	return {
 		 type        : "Operation",
 		 name        : this.getName(),
 		 supers      : this.getReturnType() ? [ this.getReturnType() ] : [],

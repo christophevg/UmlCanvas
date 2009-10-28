@@ -42,15 +42,13 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     construct.modifiers = null;
 
     construct.children.push( 
-      { annotations: [], 
-        modifiers: this._determineChildModifiers(),
+      { modifiers: this._determineChildModifiers(),
         supers: [ this.from.getName() ], children: [], 
         type: "role", name: this.srcName 
       }
     );
     construct.children.push( 
-      { annotations: [], 
-        modifiers: this._determineChildModifiers(true),
+      { modifiers: this._determineChildModifiers(true),
         supers: [ this.to.getName() ], children: [], 
         type: "role", name: this.dstName 
       } 
