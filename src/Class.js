@@ -231,6 +231,9 @@ UmlCanvas.Class.from = function( construct, diagram ) {
 
     var elem = new UmlCanvas.Class( props );
 
+    var errors = [];
+    var warnings = [];
+
   // SUPERCLASS
   if( construct.supers && construct.supers.length > 0 ) {
     construct.supers.iterate(function(superConstruct) {
@@ -245,14 +248,18 @@ UmlCanvas.Class.from = function( construct, diagram ) {
         }
         diagram.addRelation(relation);
       } else {
-        // TODO: needs to be activated when errorreposting at this level 
-        // is available in Canvas2D
-        // alert( "unknown superclass: " + superConstruct.constructName);
+        warnings.push( "unknown superclass: " + superConstruct.constructName +
+                       ", referenced by " + construct.name );
       }
     });
   }
 
-  return elem;
+  if( errors.length > 0 ) {
+    return { errors: errors, warnings: warnings };
+  } else {
+    elem.warnings = warnings.length > 0 ? warnings : null;
+    return elem;
+  }
 };
     
 UmlCanvas.Class.MANIFEST = {

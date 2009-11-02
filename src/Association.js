@@ -63,9 +63,16 @@ UmlCanvas.Association.getNames = function() {
 
 UmlCanvas.Association.from = function(construct, diagram) {
   var props = { name: construct.name };
-
-  var child0 = construct.children[0];
-  var child1 = construct.children[1];
+  var child1, child2;
+  
+  var errors = [];
+  if( construct.children && construct.children.length > 1 ) {
+    child0 = construct.children[0];
+    child1 = construct.children[1];
+  } else {
+    errors.push( "association " + construct.name + " needs two roles");
+    return { errors: errors };
+  }
 
   props["kind"]   = "association";
 
@@ -105,15 +112,13 @@ UmlCanvas.Association.from = function(construct, diagram) {
   if( construct.annotation ) {
     if( construct.annotation.data == "horizontal" ) {
       props["style"] = "horizontal";
-    } else if( construct.annotation.data.contains(":") &&
-               construct.annotation.data.contains("-") ) 
+    } else if( parts = 
+        construct.annotation.data.match("([a-zA-Z]+):([nesw]+)-([nesw]+)" ) )
     {
-      var parts = construct.annotation.data.split(":");
       props["routing"] = "custom";
-      props["routeStyle"] = parts[0];
-      var ends = parts[1].split("-");
-      props["routeBegin"] = ends[0];
-      props["routeEnd"]   = ends[1];
+      props["routeStyle"] = parts[1];
+      props["routeBegin"] = parts[2];
+      props["routeEnd"]   = parts[3];
     }
   }
 
@@ -123,7 +128,21 @@ UmlCanvas.Association.from = function(construct, diagram) {
   props["from"] = diagram.getDiagramClass(from.supers[0].constructName);
   props["to"]   = diagram.getDiagramClass(to.supers[0].constructName);
 
-  return new UmlCanvas.Association( props );
+  if( !props['from'] ) {
+    errors.push( "Unknown FROM property " + from.supers[0].constructName + 
+                 "  on " + construct.name );
+  }
+
+  if( !props['to'] ) {
+    errors.push( "Unknown TO property " + to.supers[0].constructName + 
+                 "  on " + construct.name );    
+  }
+  
+  if( errors.length > 0 ) {
+    return { errors: errors };
+  } else {
+    return new UmlCanvas.Association( props );
+  }
 };
 
 UmlCanvas.Association.MANIFEST = {

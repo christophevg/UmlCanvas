@@ -27,12 +27,28 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
   var props = { name: construct.name };
   var client, supplier;
   
-  if( construct.children[0].type == "client" ) {
+  if( construct.children && construct.children.length > 0 &&
+      construct.children[0].type == "client" ) 
+  {
     client   = construct.children[0];
     supplier = construct.children[1];
   } else {
     client   = construct.children[1];
     supplier = construct.children[0];
+  }
+  
+  errors = [];
+  
+  if( !client ) {
+    errors.push( "missing dependency client" );
+  }
+
+  if( !supplier ) {
+    errors.push( "missing dependency supplier" );
+  }
+  
+  if( errors.length > 0 ) {
+    return { errors: errors };
   }
 
   props['style'] = "horizontal";
@@ -57,7 +73,21 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
   props['from'] = diagram.getDiagramClass(client.supers[0].constructName);
   props['to'] = diagram.getDiagramClass(supplier.supers[0].constructName);
 
-  return new UmlCanvas.Dependency( props );
+  if( !props['from'] ) {
+    errors.push( "Unknown FROM property " + client.supers[0].constructName + 
+                 "  on " + construct.name );
+  }
+
+  if( !props['to'] ) {
+    errors.push( "Unknown TO property " + supplier.supers[0].constructName + 
+                 "  on " + construct.name );    
+  }
+  
+  if( errors.length > 0 ) {
+    return { errors: errors };
+  } else {
+    return new UmlCanvas.Dependency( props );
+  }
 };
 
   UmlCanvas.Dependency.MANIFEST = {

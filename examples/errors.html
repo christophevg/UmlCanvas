@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="examples.css" />
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+
+    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
+
+    <script>var UMLCANVAS_VERSION = "development";</script>
+    <script type="text/javascript" src="includes.js"></script>
+  </head>
+  <body>
+    <h1>Error Handling</h1>
+    <div class="box">
+      <h2>Logging</h2>
+      <canvas id="canvas" width="300" height="250"></canvas>
+    </div>
+    <div class="box">
+      <textarea id="source" cols="80" style="display:none;">  
++dynamic diagram myDiagram {
+  [@10,10] class myClass1;
+  [@10,100] class myClass2;
+  association assoc1 {
+    role from : myClass1;
+    role to : myClass2;
+  }
+  association assoc2 {
+    role from : myClass1;
+    role to : myClassX;
+  }
+}
+      </textarea>  
+      <textarea id="canvasConsole" cols="80" rows="23"></textarea>
+    </div>
+    <center><textarea id="errors" cols="80" rows="7"></textarea></center>
+    <script>
+    UmlCanvas.on( "ready", function() {
+      myManager = new UmlCanvas.Manager();
+      myModel   = myManager.setupModel("canvas");
+      myModel.load( document.getElementById("source").value );
+      document.getElementById("errors").value = myModel.errors;
+      myManager.startAll();
+    });
+    </script>
+  </body>
+</html>
