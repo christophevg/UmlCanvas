@@ -11,7 +11,7 @@
     <table>
       <tr>
 	<td>
-	  <canvas class="UmlCanvas Tabbed withConsole withAbout" 
+	  <canvas class="UmlCanvas Tabbed withConsole withAbout withSource" 
 		  id="myModel" width="500" height="400"></canvas>
 	  <pre id="myModelSource" style="display:none">
 Diagram myDiagram +dynamic {
@@ -47,6 +47,9 @@ Diagram myDiagram +dynamic {
   class myClass&lt;T> : myBaseClass : myInterface {
     Attribute attrib3 : Date +protected;
     Attribute attrib4 +private;
+    Operation calculate : Speed +protected +abstract {
+      Argument velocity : Integer;
+    }
   }
   [@124,296]
   class myClass2 : myClass&lt;T> {

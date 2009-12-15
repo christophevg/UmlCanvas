@@ -46,6 +46,9 @@ UmlCanvas.Operation = Class.extend( {
 	if( this.getVisibility() ) {
 	    modifiers[this.getVisibility()] = null;
 	};
+	if( this.isAbstract() ) {
+	    modifiers['abstract'] = null;
+	}
 	if( this.isStatic() ) { modifiers["static"] = null; }
 	return {
 		 type        : "Operation",
