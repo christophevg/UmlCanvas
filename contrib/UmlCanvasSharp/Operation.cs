@@ -70,6 +70,10 @@ namespace TSF.UmlCanvas {
       this.addChild( argument );  
     }
     
+    public void addStereotype( String stereotype ) {
+      this.addModifier( new Modifier( "stereotype", stereotype ) );
+    }
+    
     public override  void prepare() {
       if( this.returnType != null ) {
         this.addSuper( this.returnType );

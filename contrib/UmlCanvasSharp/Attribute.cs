@@ -28,6 +28,10 @@ namespace TSF.UmlCanvas {
       this.isStatic = true;
     }
     
+    public void addStereotype( String stereotype ) {
+      this.addModifier( new Modifier( "stereotype", stereotype ) );
+    }
+    
     public override  void prepare() {
       if( this.superType != null ) {
         this.addSuper( this.superType );

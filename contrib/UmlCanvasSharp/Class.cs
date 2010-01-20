@@ -45,6 +45,10 @@ namespace TSF.UmlCanvas {
       this.isAbstract = true;
     }
     
+    public void addStereotype( String stereotype ) {
+      this.addModifier( new Modifier( "stereotype", stereotype ) );
+    }
+    
     public override void prepare() {
       base.prepare();
       if( this.isAbstract ) {

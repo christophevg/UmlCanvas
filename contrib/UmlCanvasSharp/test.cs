@@ -24,6 +24,7 @@ public class test {
 
     Class class1 = new Class();
     class1.setName( "myClass" );
+    class1.addStereotype( "someStereotype" );
     class1.implement( interface1 );
     class1.setPosition( 194, 106 );
     
@@ -43,6 +44,7 @@ public class test {
     TSF.UmlCanvas.Attribute attribute2 = new TSF.UmlCanvas.Attribute();
     attribute2.setName( "attribute2" );
     attribute2.setType( class1 );
+    attribute2.addStereotype( "stereotyped" );
     attribute2.setVisibility( "protected" );
     attribute2.makeStatic();
     
@@ -52,6 +54,7 @@ public class test {
     operation2.setName( "myOtherOperation" );
     operation2.add( new Argument( "arg1", "argType" ) );
     operation2.add( new Argument( "arg2", interface1 ) );
+    operation2.addStereotype( "alsoStereotyped" );
     operation2.makeAbstract();
     
     class2.add( operation2 );
