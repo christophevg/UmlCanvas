@@ -2,6 +2,7 @@
   display: none;
   position: absolute;
   background-color: black;
+  z-index: 999;
 }
 
 .UC_inspector_close {
