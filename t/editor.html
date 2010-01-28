@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <script src="../build/UmlCanvas.standalone.js"></script>
+    <style type="text/css">
+      .UmlCanvas { border: 1px solid #999; }
+    </style>
+  </head>
+  <body>
+    <canvas class="UmlCanvas" width="300" height="300"></canvas>
+    <script>
+      UmlCanvas.on( "ready", function() {
+        var uc = UmlCanvas.getModel();
+        with( uc.getPlugin("Inspector") ) {
+          moveTo( uc.getLeft() + uc.getWidth() + 20, uc.getTop() );
+          resizeTo( uc.getWidth(), uc.getHeight() );
+          show();
+        }
+      });
+    </script>
+  </body>
+</html>

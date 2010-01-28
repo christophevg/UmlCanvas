@@ -18,10 +18,18 @@ var scripts = [
     "../src/Inheritance.js",
     "../src/Realization.js",
     "../src/KickStart.js",
+    "../src/plugins/PluginManagerRepository",
+    "../src/plugins/Widget.js",
+    "../src/plugins/Inspector.js",
+    "../src/plugins/Sheet.js",
+    "../src/plugins/HuC.js",
     "../src/Enumeration.js",
     "../src/Note.js",
     "../src/NoteLink.js",
-    "../src/Defaults.js"
+    "../src/Defaults.js",
+    "../src/Config.js",
+    "http://static.thesoftwarefactory.be/js/tsf.js",
+    "../src/plugins/inspector.css.js"
 ];
 
 function addScript(url, callback) {

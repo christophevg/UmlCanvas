@@ -43,4 +43,4 @@ UmlCanvas.Note.Defaults = {
     useCrispLines	: true
 };
 
-UmlCanvas.NoteLink.Defaults = {}
+UmlCanvas.NoteLink.Defaults = {};

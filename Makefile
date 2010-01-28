@@ -14,6 +14,7 @@ TARGETS=build/${APP}.shared.min.js build/${APP}.standalone.min.js \
 VERSION=$(shell git describe --tags | cut -d'-' -f1,2)
 SRCS=src/DepCheck.js \
      src/UmlCanvas.js \
+	 src/Config.js \
      src/Common.js \
      src/Manager.js \
      src/Model.js \
@@ -29,7 +30,14 @@ SRCS=src/DepCheck.js \
      src/Note.js \
      src/NoteLink.js \
      src/KickStart.js \
-     src/Defaults.js
+	 src/plugins/PluginManagerRepository.js \
+	 src/plugins/Widget.js \
+	 src/plugins/Sheet.js \
+	 src/plugins/Inspector.js \
+	 src/plugins/inspector.css.js \
+	 src/plugins/HuC.js \
+     src/Defaults.js \
+     src/Config.js
 CSSSRCS=src/${APP}.css lib/Canvas2D/build/Canvas2D.css
 LIBS=lib/Canvas2D/build/Canvas2D.standalone.js
 

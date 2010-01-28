@@ -1,0 +1,252 @@
+/* 
+  Container 
+  
+  A container is the most basic viewstyle and only shows the canvas itself. 
+  It also prepares all elements that are not visible. That way other styles
+  can just make certain elements visible. 
+*/
+
+.UC_container {
+  display: inline-block;
+  font-family: Helvetica,Arial,Sans-serif;  
+}
+
+.UC_container .UC_tabs {
+  display: none;
+}
+
+.UC_container .tab, 
+.UC_container .button {
+    font-size: 7pt;
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    background-color: #ddd;
+    text-decoration: none;
+    color: #000;
+}
+
+.UC_container .tab {
+  width: 30px;
+}
+
+.UC_container .button {
+  width: 25px;
+}
+
+.UC_container .button.view, 
+.UC_container .button.edit, 
+.UC_container .button.save {
+  display: none;
+}
+
+.UC_container .button.edit {
+  position: relative;
+  top: -7px;
+  left: +2px;
+}
+
+.UC_container .tab:hover {
+  background-color: #ccc;
+}
+
+.UC_container .tab:active {
+  background-color: #ffc;
+}
+
+.UC_container .tab.selected {
+  background-color: #eee;
+}
+
+.UC_container .tab.hidden {
+  display: none;
+}
+
+.UC_container .button {
+  float: right;
+  background-color: #eef;
+  border: 1px solid #aaf;
+  color: #66f;
+  padding: 3px;
+  margin: 2px;
+  margin-right: 0px;
+  width: 25px;
+}
+
+.UC_container .button:hover {
+  background-color: #aaf;
+  border: 1px solid #aaf;
+  color: #33f;
+}
+
+.UC_container .button:active {
+  background-color: #faa;
+  border: 1px solid #faa;
+  color: #f33;  
+}
+
+.UC_container .UC_sheets,
+.UC_container .sheet,
+.UC_container .UC_header,
+.UC_container .UC_footer {
+  background-color: rgba(0,0,0,0.0);  
+}
+
+.UC_container .sheet.hidden {
+  display: none;
+}
+
+.UC_container .UC_header {
+  padding-top: 7px;
+  padding-left: 7px;
+  text-align: left;
+  font-size: 11px;
+  display: none;
+}
+
+.UC_container .diagram, 
+.UC_container .author {
+  font-size: 12pt;
+}
+
+.UC_container .UC_diagram {
+  position: relative;
+  border: 0px;
+  margin: 5px;
+}
+
+.UC_container .UC_source,
+.UC_container .UC_generated,
+.UC_container .UC_editor,
+.UC_container .UC_errors,
+.UC_container .UC_info,
+.UC_container .UC_notes,
+.UC_container .UC_console,
+.UC_container .UC_about {
+  width: 95%;
+  height: 95%;
+  margin: 5px;
+}
+
+.UC_container .UC_info,
+.UC_container .UC_about {
+  overflow: auto;
+  margin-top: 0px;
+  padding: 10px;
+}
+
+.UC_container .UC_footer {
+  text-align:right;
+  color:#777;
+  font-size: 11px;
+  padding-bottom:3px;
+  padding-right:7px;
+  display: none;
+}
+
+.UC_container .UC_footer .UC_banner {
+  display: none;
+}
+
+.UC_container .UC_resizer {
+  display: none;
+}
+
+.UC_container .UC_resizer {
+  cursor: se-resize;
+}
+
+/* Editable */
+
+.UC_editable .UC_header,
+.UC_editable .UC_footer,
+.UC_editable .button.edit {
+    display: block;
+}
+
+/* Viewer */
+
+
+/* Editor */
+
+.UC_editor .UC_tabs,
+.UC_editor .button.view {
+  display: block;
+}
+
+.UC_editor .button.edit {
+  display: none;
+}
+
+.UC_editor .UC_sheets,
+.UC_editor .sheet,
+.UC_editor .UC_header,
+.UC_editor .UC_footer {
+  background-color: #eee;  
+}
+
+.UC_editor .UC_diagram {
+  border: 1px solid #ddd;
+}
+
+.UC_editor .UC_resizer {
+  display: inline-block;
+}
+
+/* Hosted */
+.UC_hosted .UC_header,
+.UC_hosted .UC_footer {
+  display: block;
+}
+
+.UC_hosted .UC_footer .UC_banner {
+  display: inline-block;
+}
+
+/* Owner */
+.UC_owner .button.save {
+  display: block;
+}
+
+/* Author */
+
+/* Anonymous */
+
+/* About */
+.UC_about {
+  font: 9pt Verdana, sans-serif;  
+}
+
+/* Info */
+.UC_info {
+  font: 9pt Verdana, sans-serif;
+}
+
+.UC_info TH {
+  width: 50px;
+  padding: 5px;
+  text-align:right;
+  font: 9pt Verdana, sans-serif;
+}
+
+.UC_info TD {
+  padding: 5px;
+  vertical-align: top;
+}
+
+/* Form Validation */
+
+.UC_info INPUT.invalid {
+  background-color: #faa;
+  border: 2px solid red;
+}
+
+.UC_info SPAN.message {
+  display: none;  
+}
+
+.UC_info SPAN.invalid.message {
+  display: inline;
+  color: red;
+  font: 9pt Verdana, sans-serif;
+}

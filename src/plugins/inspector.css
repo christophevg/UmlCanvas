@@ -1,0 +1,157 @@
+.UC_inspector {
+  display: none;
+  position: absolute;
+  background-color: black;
+}
+
+.UC_inspector_close {
+  float:left;
+  background: url("http://static.thesoftwarefactory.be/images/inspector/left.png") no-repeat;
+  height:18px;
+  width:18px;
+  cursor:pointer;
+}
+
+.UC_inspector_corner {
+  float:right;
+  background: url("http://static.thesoftwarefactory.be/images/inspector/right.png") no-repeat;
+  height:18px;
+  width:12px;
+}
+
+.UC_inspector_header {
+  background-color: #494949;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.UC_inspector H1 {
+  color: white;
+  background-color: #494949;
+  margin-top: 0px;
+  padding: 3px 0px 0px 0px;
+  width: 100%;
+  text-align: center;
+  font: 8pt Arial;
+  cursor: move;
+}
+
+.UC_inspector_tabs {
+  text-align: center; 
+  height: 20px;
+}
+
+.UC_inspector_tab {
+  display: inline-block;
+  text-align: center;
+  width: 55px;
+  background-color: #333;  
+  margin: 0px;
+  padding: 3px;
+  text-decoration: none;
+  color: white;
+  font: 10pt Arial;
+  border-top: 1px solid #888;
+  border-right: 1px solid #555;
+}
+
+.UC_inspector_tab {
+  display: inline-block;
+  text-align: center;
+  width: 55px;
+  background-color: #333;  
+  margin: 0px;
+  padding: 3px;
+  text-decoration: none;
+  color: white;
+  font: 10pt Arial;
+  border-top: 1px solid #888;
+  border-right: 1px solid #555;
+}
+
+.UC_inspector_tab_selected {
+  display: inline-block;
+  text-align: center;
+  width: 55px;
+  margin: 0px;
+  padding: 3px;
+  text-decoration: none;
+  color: white;
+  font: 10pt Arial;
+  border-top: 1px solid #888;
+  border-right: 1px solid #555;
+  background-color: #888;
+}
+
+.UC_inspector_tab:hover {
+  background-color: #888;
+}
+
+.UC_inspector_content {
+  padding: 5px;
+}
+
+.UC_inspector_tab_content {
+ display: none;
+}
+
+.UC_inspector_tab_content_selected {
+ display: block;
+}
+
+.UC_inspector_content TEXTAREA {
+  width: 100%;
+  height: 100%;
+}
+
+.UC_inspector_content DIV {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  overflow: auto;
+  font: 9pt Arial;  
+}
+
+.UC_inspector_resize {
+ cursor: se-resize;
+ background: url("http://static.thesoftwarefactory.be/images/resize.png") no-repeat;
+ height: 15px;
+ width: 15px;
+ padding-right: 3px;
+}
+
+.UC_inspector_status {
+  padding-left: 5px;
+  font: 8pt Arial;
+  color: #777;  
+}
+
+.UC_inspector_content DIV.UC_toolbar {
+ height:18px;
+ background-color: #CCC;
+ border-bottom: 1px solid #777;
+ overflow: hidden;
+} 
+
+.UC_inspector_properties {
+  width: 95%;
+}
+
+.UC_inspector TH {
+  font-size:8pt;
+  text-align:right;
+  vertical-align:top;
+  padding-top:5px;
+  width: 1%;
+}
+
+.UC_inspector TD INPUT {
+  font: 8pt Arial;
+  width: 80%;
+}
+
+.UC_inspector TD TEXTAREA {
+  font: 8pt Arial;
+  width: 80%;
+  height: 50px;
+}
