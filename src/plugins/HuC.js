@@ -81,37 +81,39 @@ UmlCanvas.KickStart.plugins.HuC = Class.extend( {
       
       this.props.iterate(function (prop) {
         var tb = document.createElement('tbody');
-	      var tr = document.createElement('tr');
-	      var th = document.createElement('th');
-	      var td = document.createElement('td');
+        var tr = document.createElement('tr');
+        var th = document.createElement('th');
+	var td = document.createElement('td');
 
-	      var field;
-	      if ('string' == prop.type && 100 < prop.maxlength) {
-	        field = document.createElement('textarea');
-	      } else if ('string' == prop.type || 'integer' == prop.type) {
-	        field = document.createElement('input');
-	        field.name = "text";
-	      }
+	var field;
+	if ('string' == prop.type && 100 < prop.maxlength) {
+	    field = document.createElement('textarea');
+	} else if ('string' == prop.type || 'integer' == prop.type) {
+	    field = document.createElement('input');
+	    field.name = "text";
+	} else if ('author' == prop.id) {
+	    field = document.createElement('a');
+	    field.href = 'http://hosted.umlcanvas.org';
+	    field.target = '_blank';
+	}
 	  
-	      // FIXME: find other solution for setAttribute (eg onkeypress)
-	      // field.setAttribute('maxlength', prop.maxlength);
+	// FIXME: find other solution for setAttribute (eg onkeypress)
+	// field.setAttribute('maxlength', prop.maxlength);
 	  
-	      th.innerHTML = prop.label;
-	      field.id = "UC_" + prop.id + "_for_" + this.umlcanvas.name;
-	      // FIXME: find other solution (IE)
-	      // field.type = prop.type;
-	      ProtoJS.Event.observe(field, 'blur', function() {
-	        this.validateField(field, prop);
-	        this.updateDiagram();
-	      }.scope(this) );
+	th.innerHTML = prop.label;
+	field.id = "UC_" + prop.id + "_for_" + this.umlcanvas.name;
+	ProtoJS.Event.observe(field, 'blur', function() {
+	    this.validateField(field, prop);
+	    this.updateDiagram();
+	}.scope(this) );
 	  
-	      td.appendChild(field);
-	      tr.appendChild(th);
-	      tr.appendChild(td);
-	      tb.appendChild(tr);
-	      table.appendChild(tb);
+	td.appendChild(field);
+	tr.appendChild(th);
+	tr.appendChild(td);
+	tb.appendChild(tr);
+	table.appendChild(tb);
 	      
-    	  this.propertyFields[prop.id] = field;
+    	this.propertyFields[prop.id] = field;
       }.scope(this) );
       
       this.propertiesForm.appendChild(table);
@@ -135,7 +137,8 @@ UmlCanvas.KickStart.plugins.HuC = Class.extend( {
         { id : 'descr', label : 'Description', type : 'string', minlength : 1, maxlength : 1000 },
         { id : 'width', label : 'Width', type : 'integer', minlength : 2, maxlength : 3 },
         { id : 'height', label : 'Height', type : 'integer', minlength : 2, maxlength : 3 },
-        { id : 'notes', label : 'Notes', type : 'string' , minlength : 0, maxlength : 1000 }
+        { id : 'notes', label : 'Notes', type : 'string' , minlength : 0, maxlength : 1000 },
+        { id : 'author', label : 'Author', type : 'link' , minlength : 0, maxlength : 1000 }
       ];
   },
   
@@ -320,6 +323,12 @@ UmlCanvas.KickStart.plugins.HuC = Class.extend( {
     this.propertiesForm.reset();
     $H(props).iterate(function(name) {
 	    if ( this.propertyFields[name] != null) {
+	      //FIXME encapsulate when properties sheet is extracted to its own class
+	      if ('author' == name) {
+		  this.propertyFields[name].innerHTML = props[name];
+		  this.propertyFields[name].href = 
+		      UmlCanvas.Config.HuC.repository_url + '~'  + props[name];
+	      }
 	      this.propertyFields[name].value = props[name];
 	    }
     }.scope(this) );
