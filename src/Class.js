@@ -223,7 +223,7 @@ UmlCanvas.Class.from = function( construct, diagram ) {
     // STEREOTYPE
     var stereotype = construct.modifiers.get("stereotype" );
     if( stereotype ) {
-	props.stereotype = stereotype.value.value;
+	props.stereotype = stereotype.value;
     }
 
     // ABSTRACT
