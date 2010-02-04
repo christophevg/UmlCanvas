@@ -161,7 +161,7 @@ UmlCanvas.KickStart.plugins.HuC = Class.extend( {
   validateField : function validateField(field, prop) {
       var valid = true;
       
-      if (field.type != 'link') {
+      if (prop.type != 'link') {
         field.style.backgroundColor = '#FFF';
         if ('integer' == prop.type) {
 	    if (isNaN(parseInt(field.value, 10))) {
