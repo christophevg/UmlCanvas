@@ -161,20 +161,22 @@ UmlCanvas.KickStart.plugins.HuC = Class.extend( {
   validateField : function validateField(field, prop) {
       var valid = true;
       
-      field.style.backgroundColor = '#FFF';
-      if ('integer' == prop.type) {
-	  if (isNaN(parseInt(field.value, 10))) {
-	      field.value = 0;
-	  } else {
-	      field.value = parseInt(field.value, 10);
-	  }
-      }
-      if (field.value.length > prop.maxlength) {
-        field.value = field.value.substring(0, prop.maxlength);
-      }
-      if (field.value.length < prop.minlength) {
-	field.style.backgroundColor = '#faa';
-	valid = false;
+      if (field.type != 'link') {
+        field.style.backgroundColor = '#FFF';
+        if ('integer' == prop.type) {
+	    if (isNaN(parseInt(field.value, 10))) {
+	        field.value = 0;
+  	    } else {
+	        field.value = parseInt(field.value, 10);
+	    }
+        }
+        if (field.value.length > prop.maxlength) {
+          field.value = field.value.substring(0, prop.maxlength);
+        }
+        if (field.value.length < prop.minlength) {
+	  field.style.backgroundColor = '#faa';
+	  valid = false;
+        }
       }
       
       return valid;
