@@ -1,15 +1,19 @@
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="examples.css" />
     <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
-<!--    <script src="../build/UmlCanvas.standalone.min.js"></script> -->
-    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
-
-    <script>var UMLCANVAS_VERSION = "development";</script>
     <script type="text/javascript" src="includes.js"></script>
   </head>
   
   <body onload="drawIt();">
-    
+
+    <h1>Model / Diagram / Class</h1>
+    <p>
+      This example shows the usage of the UmlCanvas API to turn a Canvas 
+      element into a UmlCanvas, create a Model, add a Diagram and create a
+      Class with Attributes and Operations.
+    </p>
+
     <canvas id="myModel" width="400" height="250"></canvas>
     
     <script>

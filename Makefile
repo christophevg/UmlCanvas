@@ -47,7 +47,7 @@ COMPRESSOR-URL=http://www.julienlecomte.net/yuicompressor/${COMPRESSOR-DIST}
 CANVAS2D-URL=http://git.thesoftwarefactory.be/pub/Canvas2D.git
 
 DIST=${APP}-${VERSION}.zip
-DISTSRCS=${TARGETS} examples/*.html LICENSE README
+DISTSRCS=${TARGETS} examples/*.html examples/*.css LICENSE README
 
 DIST-SRC=${APP}-${VERSION}-src.zip
 DIST-SRCSRCS=LICENSE README examples Makefile doc src
@@ -129,7 +129,10 @@ dist/${DIST}: ${DISTSRCS}
 	@echo "*** packaging ${APP} distribution"
 	@mkdir -p dist/js/${APP}/{examples,build}
 	@for f in ${DISTSRCS}; do \
-	    cat $$f | sed -e 's/\.\.\/build/../' > dist/js/${APP}/$$f; done
+	    cat $$f \
+	    | sed -e 's/includes\.js/..\/UmlCanvas.standalone.min.js/' \
+	    | sed -e 's/\.\.\/build/../' \
+	    > dist/js/${APP}/$$f; done
 	@mv dist/js/${APP}/build/* dist/js/${APP}/; rm -rf dist/js/${APP}/build
 	@(cd dist/js; ${ZIP} ../${DIST} ${APP})
 

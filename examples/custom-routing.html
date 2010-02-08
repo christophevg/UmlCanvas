@@ -1,18 +1,27 @@
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="examples.css" />
     <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
-<!--    <script src="../build/UmlCanvas.standalone.min.js"></script> -->
-    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
-
-    <script>var UMLCANVAS_VERSION = "development";</script>
     <script type="text/javascript" src="includes.js"></script>
-
   </head>
   
   <body>
-<h1>Before</h1>
+    <h1>Custom Routing</h1>
+    
+    <p>
+      UmlCanvas is build on top of Canvas2D. Recent improvements have added
+      the possibility to influence the routing of connectors.
+    </p>
+
+    <table>
+      <tr>
+        <td width="50%">
+    
+    <h2>Before</h2>
+
     <canvas id="myModelBefore" 
             class="UmlCanvas" width="500" height="300"></canvas>
+
     <pre id="myModelBeforeSource" style="display:none;">
 Diagram DecoratorPattern +dynamic {
   [@76,30]
@@ -47,7 +56,9 @@ Diagram DecoratorPattern +dynamic {
 }
 </pre>
 
-<h1>After</h1>
+</td><td width="50%">
+
+<h2>After</h2>
     <canvas id="myModel" class="UmlCanvas" width="500" height="300"></canvas>
         <pre id="myModelSource" style="display:none;">
 Diagram DecoratorPattern +dynamic {
@@ -83,6 +94,8 @@ Diagram DecoratorPattern +dynamic {
   }
 }
 </pre>
+
+</td></tr></table>
  
   </body>
 </html>

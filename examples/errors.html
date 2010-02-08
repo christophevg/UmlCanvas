@@ -2,20 +2,20 @@
   <head>
     <link rel="stylesheet" type="text/css" href="examples.css" />
     <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
-
-    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
-
-    <script>var UMLCANVAS_VERSION = "development";</script>
     <script type="text/javascript" src="includes.js"></script>
   </head>
+  
   <body>
+    
     <h1>Error Handling</h1>
-    <div class="box">
-      <h2>Logging</h2>
-      <canvas id="canvas" width="300" height="250"></canvas>
-    </div>
-    <div class="box">
-      <textarea id="source" cols="80" style="display:none;">  
+
+    <p>
+      This example shows how to use the UmlCanvas API to get error feedback.
+    </p>
+
+    <canvas id="canvas" width="300" height="250"></canvas>
+
+    <textarea id="source" cols="80" style="display:none;">  
 +dynamic diagram myDiagram {
   [@10,10] class myClass1;
   [@10,100] class myClass2;
@@ -28,10 +28,11 @@
     role to : myClassX;
   }
 }
-      </textarea>  
-      <textarea id="canvasConsole" cols="80" rows="23"></textarea>
-    </div>
-    <center><textarea id="errors" cols="80" rows="7"></textarea></center>
+    </textarea>  
+
+    <textarea id="canvasConsole" cols="80" rows="16"></textarea>
+
+    <textarea id="errors" cols="80" rows="7"></textarea>
     <script>
     UmlCanvas.on( "ready", function() {
       myManager = new UmlCanvas.Manager();

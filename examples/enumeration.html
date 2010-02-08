@@ -1,33 +1,21 @@
 <html>
   <head>
-    <style>
-      .box {
-        border: 2px solid #000;
-        float:left;
-        margin:10px; 
-        height: 505px;
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="examples.css" />
     <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
-<!--    <script src="../build/UmlCanvas.standalone.js"></script> -->
-
-    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
-
-    <script>var UMLCANVAS_VERSION = "development";</script>
     <script type="text/javascript" src="includes.js"></script>
-
   </head>
   
   <body>
     
     <h1>Enumerations</h1>
-    <div class="box">
-      <h2>Basic Enumeration support</h2>
-      <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
-	      id="myTabbedDiagram" width="800" height="400"></canvas>
-    </div>
+
+    <p>
+      This example shows how to create an Enumeration using the UmlCanvas DSL.
+    </p>
+
+    <canvas class="UmlCanvas Tabbed withSource withConsole withAbout" 
+	             id="myTabbedDiagram" width="300" height="250"></canvas>
+
     <pre id="myTabbedDiagramSource" style="display:none;">  
 Diagram myDiagram +dynamic {
   [@100,100]

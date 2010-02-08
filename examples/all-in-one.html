@@ -1,18 +1,22 @@
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="examples.css" />
     <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
-    <script src="../lib/Canvas2D/build/Canvas2D.standalone.js"></script>
-
-    <script>var UMLCANVAS_VERSION = "development";</script>
     <script type="text/javascript" src="includes.js"></script>
   </head>
   
   <body>
-    <table>
-      <tr>
-	<td>
+
+    <h1>All-in-one</h1>
+    
+    <p>
+      This diagrams shows most of the currently available functionality in 
+      the UmlCanvas DSL.
+    </p>
+    
 	  <canvas class="UmlCanvas Tabbed withConsole withAbout withSource" 
 		  id="myModel" width="500" height="400"></canvas>
+
 	  <pre id="myModelSource" style="display:none">
 Diagram myDiagram +dynamic {
   [@38,29]
@@ -51,7 +55,7 @@ Diagram myDiagram +dynamic {
       Argument velocity : Integer;
     }
   }
-  [@124,296]
+  [@159,313]
   class myClass2 : myClass&lt;T> {
     Attribute myPosition : Position;
     Attribute myDirection : Direction;
@@ -70,13 +74,6 @@ Diagram myDiagram +dynamic {
   [@329,312]
   note myNote +text="A nice note showing of,\nwhat we can do." +linkedTo="myEnum";
 }	  </pre>
-	</td>
-	<td>
-	  <h1>Generated Source</h1>
-	  <textarea id="myModelGenerated" rows="31" cols="80"></textarea>
-	</td>
-      </tr>
-    </table>
 
   </body>
 </html>
