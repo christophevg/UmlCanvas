@@ -22,7 +22,7 @@ UmlCanvas.activate = function activate(canvasId) {
     if(canvas) {
 	var manager = new UmlCanvas.Manager();
 	var model   = manager.setupModel(canvasId);
-	var diagram = canvas.addDiagram();
+	var diagram = model.addDiagram();
 	manager.startAll();
 	return diagram;
     }
