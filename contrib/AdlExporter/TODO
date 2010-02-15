@@ -1,9 +1,0 @@
-- move adl part to adl repo and include that
-- change Namespace to AdlExporter
-- change driver class name from Main to Addin
-- add check for availability Interop.EA.dll
-- improve reg.bat to check for dependencies : .NET 2.0 and mono
-- make WiX based MSI installer dist
-- add better checks to see if currentdiagram is available
-- allow right click selection of diagram and execution of addin
-- add more details: cardinality,...
