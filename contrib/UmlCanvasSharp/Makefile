@@ -1,13 +1,17 @@
-SRCS=src/Diagram.cs \
-     src/Class.cs \
-     src/Interface.cs \
-     src/Enumeration.cs \
-     src/Attribute.cs \
-     src/Operation.cs \
-     src/Relations.cs \
-     src/Note.cs
+SRCS=src/*.cs src/Hosted/*.cs
+UTF_SRCS=src/UTF/*.cs
 
-all: build/UmlCanvasSharp.dll
+ADL_GIT=http://git.thesoftwarefactory.be/pub/ADL.git
+
+UTF_GIT=http://git.thesoftwarefactory.be/pub/UmlToolingFramework.git
+UTF_LIBS=lib/UmlToolingFramework/build/UmlToolingFramework.dll \
+         lib/ADL/src/cs/ADLSharp.dll \
+         build/UmlCanvasSharp.dll
+UTF_REFS=-r:lib/UmlToolingFramework/build/UmlToolingFramework.dll \
+         -r:lib/ADL/src/cs/ADLSharp.dll \
+         -r:build/UmlCanvasSharp.dll
+
+all: build/UmlCanvasSharp.dll build/UmlCanvasSharp.UTF.dll
 
 test: t/test.exe
 	@MONO_PATH=build:lib/ADL/src/cs/ mono $<
@@ -17,14 +21,25 @@ t/test.exe: t/test.cs build/UmlCanvasSharp.dll
 
 build/UmlCanvasSharp.dll: ${SRCS} lib/ADL/src/cs/ADLSharp.dll
 	@mkdir -p build	
-	@gmcs -target:library -out:$@ -r:lib/ADL/src/cs/ADLSharp.dll ${SRCS}
+	@gmcs -target:library -out:$@ -r:lib/ADL/src/cs/ADLSharp.dll -r:System.Web ${SRCS}
 
 lib/ADL/src/cs/ADLSharp.dll: lib/ADL
 	@(cd lib/ADL/src/cs; make)
 
 lib/ADL:
 	@mkdir -p lib
-	@(cd lib; git clone http://git.thesoftwarefactory.be/pub/ADL.git )
+	@(cd lib; git clone ${ADL_GIT})
+
+build/UmlCanvasSharp.UTF.dll: ${UTF_SRCS}  ${UTF_LIBS}
+	@mkdir -p build
+	gmcs -target:library -out:$@ ${UTF_REFS} ${UTF_SRCS}
+
+lib/UmlToolingFramework/build/UmlToolingFramework.dll: lib/UmlToolingFramework
+	@(cd $<; make )
+
+lib/UmlToolingFramework:
+	@mkdir -p lib
+	@(cd lib; git clone ${UTF_GIT})
 
 clean:
 	@rm -f *.dll *.exe
