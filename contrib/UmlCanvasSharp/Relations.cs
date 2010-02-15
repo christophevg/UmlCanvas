@@ -4,9 +4,30 @@ using TSF.ADL;
 namespace TSF.UmlCanvas {
   public class Role : Construct {
     private Class target;
-    private Boolean isNavigable;
-    private Boolean isShared;
-    private Boolean isComposite;
+
+    public Boolean isNavigable { get; set; }
+
+    private Boolean _isShared { get; set; }
+    public Boolean isShared {
+      get { return this._isShared; }
+      set { 
+        this._isShared = value;
+        if( value ) {
+          this._isComposite = false;
+        }
+      }
+    }
+
+    private Boolean _isComposite { get; set; }
+    public Boolean isComposite {
+      get { return this._isComposite; }
+      set { 
+        this._isComposite = value; 
+        if( value ) {
+          this._isShared = false;
+        }
+      }
+    }
     
     public Role() {
       this.setType( "Role" );
@@ -30,19 +51,19 @@ namespace TSF.UmlCanvas {
     
     public void makeShared() {
       this.isShared = true;
-      this.isComposite = false;
     }
 
     public void makeComposite() {
-      this.isShared = false;
       this.isComposite = true;
     }
 
     public override void prepare() {
+      base.prepare();
       if( this.getName() == null ) {
         this.setName( this.target.getName() );
       }
       if( this.target != null ) {
+        this.supers.Clear();
         this.addSuper( this.target.getName() ); 
       }
       if( this.isShared ) {
@@ -71,10 +92,10 @@ namespace TSF.UmlCanvas {
   }
 
   public class Dependency : Relation {
-    private Class client;
-    private String clientRoleName;
-    private Class supplier;
-    private String supplierRoleName;
+    public Class client { get; set; }
+    public String clientRoleName { get; set; }
+    public Class supplier { get; set; }
+    public String supplierRoleName { get; set; }
     
     public Dependency() {
       this.setType( "Dependency" );
@@ -100,6 +121,8 @@ namespace TSF.UmlCanvas {
     }
     
     public override void prepare() {
+      base.prepare();
+      this.children.Clear();
       if( this.client != null ) {
         Role clientRole = new Role( this.client );
         clientRole.setType( "client" );

@@ -3,9 +3,9 @@ using TSF.ADL;
 
 namespace TSF.UmlCanvas {
   public class Attribute : Construct {
-    String superType;
-    String visibility;
-    Boolean isStatic;
+    public String  superType  { get; set; }
+    public String  visibility { get; set; }
+    public Boolean isStatic   { get; set; }
         
     public Attribute() {
       base.setType( "Attribute" );
@@ -33,6 +33,8 @@ namespace TSF.UmlCanvas {
     }
     
     public override  void prepare() {
+      base.prepare();
+      this.supers.Clear();
       if( this.superType != null ) {
         this.addSuper( this.superType );
       }

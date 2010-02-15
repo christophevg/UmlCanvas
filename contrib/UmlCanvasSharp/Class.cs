@@ -2,8 +2,10 @@ using System;
 using TSF.ADL;
 
 namespace TSF.UmlCanvas {
+  
   public class Positionable : Construct {
-    int? x = null, y = null;
+    public int? x { get; set; }
+    public int? y { get; set; }
 
     public void setPosition( int x, int y ) {
       this.x = x;
@@ -11,6 +13,8 @@ namespace TSF.UmlCanvas {
     }
 
     public override void prepare() {
+      base.prepare();
+      this.annotations.Clear();
       if( this.x != null && this.y != null ) {
         this.addAnnotation( this.x + "," + this.y );
       }
@@ -18,7 +22,7 @@ namespace TSF.UmlCanvas {
   }
   
   public class Class : Positionable {
-    Boolean isAbstract;
+    public Boolean isAbstract { get; set; }
     
     public Class() {
       this.setType( "Class" );

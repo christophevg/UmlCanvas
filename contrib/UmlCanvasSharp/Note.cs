@@ -3,8 +3,8 @@ using TSF.ADL;
 
 namespace TSF.UmlCanvas {
   public class Note : Positionable {
-    private String text;
-    private Class target;
+    public String text   { get; set; }
+    public Class  target { get; set; }
     
     public Note() {
       this.setType( "Note" );

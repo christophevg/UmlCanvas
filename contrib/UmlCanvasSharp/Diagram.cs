@@ -27,6 +27,7 @@ namespace TSF.UmlCanvas {
     }
     
     public override void prepare() {
+      base.prepare();
       if( this.dynamic ) {
         this.addModifier( new Modifier("dynamic") );
       }

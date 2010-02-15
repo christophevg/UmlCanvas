@@ -29,6 +29,7 @@ namespace TSF.UmlCanvas {
     }
     
     public override void prepare() {
+      this.supers.Clear();
       if( this.superType != null ) {
         this.addSuper( this.superType );
       }
@@ -37,9 +38,9 @@ namespace TSF.UmlCanvas {
   
   public class Operation : Construct {
     private String returnType;
-    private String visibility;
-    private Boolean isStatic;
-    private Boolean isAbstract;
+    public String  visibility { get; set; }
+    public Boolean isStatic   { get; set; }
+    public Boolean isAbstract { get; set; }
         
     public Operation() {
       base.setType( "Operation" );
@@ -75,6 +76,8 @@ namespace TSF.UmlCanvas {
     }
     
     public override  void prepare() {
+      base.prepare();
+      this.supers.Clear();
       if( this.returnType != null ) {
         this.addSuper( this.returnType );
       }
