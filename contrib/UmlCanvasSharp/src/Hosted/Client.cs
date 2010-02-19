@@ -8,9 +8,10 @@ namespace TSF.UmlCanvas.Hosted {
   public class Diagram {
     public String id;
     public String name;
+    private String _descr;
     public String descr  { 
-      get { return this.descr; }
-      set { this.descr = value.Replace( "\r", String.Empty ); } 
+      get { return this._descr; }
+      set { this._descr = value.Replace( "\r", String.Empty ); }
     }
     public int    width  { get; set; }
     public int    height { get; set; }

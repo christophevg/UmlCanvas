@@ -34,7 +34,7 @@ namespace TSF.UmlCanvas.UTF {
 
     public int height {
       get { return this._height; }
-      set { this.height = value < 1000 ? value : 999; }
+      set { this._height = value < 1000 ? value : 999; }
     }
     
     public int width {
