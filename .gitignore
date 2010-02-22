@@ -1,6 +1,7 @@
-Interop.EA.dll
 build
 dist
 lib
 .check-deps
-addin.dll
+*.dll
+*.tmproj
+
