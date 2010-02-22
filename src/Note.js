@@ -89,7 +89,10 @@ UmlCanvas.Note.from = function( construct, diagram ) {
 
     props.name = construct.name;
     
-    props.text = construct.modifiers.get("text").value.value;
+    var text = construct.modifiers.get("text" );
+    if( text && text.value ) {
+	props.text = text.value.value;
+    }
     
     var width = construct.modifiers.get( "width" );
     if( width ) {
