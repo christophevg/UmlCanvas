@@ -1,31 +1,33 @@
 UmlCanvas.Common = {
-    extractVisibility: function(construct) {
-	var visibility = construct.modifiers.get("visibility" );
-	if( visibility ) { return visibility.value.value; }
-	// short hand
-	if( construct.modifiers.get( "public"    ) ) { return "public"; }
-	if( construct.modifiers.get( "private"   ) ) { return "private"; }
-	if( construct.modifiers.get( "protected" ) ) { return "protected"; }
-	
-	return null;
-    },
-
-    extractStatic: function(construct) {
-	return construct.modifiers.get( "static" );
-    },
+  extractVisibility: function(construct) {
+    // default modifier "visibility"
+    var visibility = construct.modifiers.get("visibility" );
+    if( visibility && visibility.value ) { return visibility.value.value; }
     
-    extractAbstract: function(construct) {
-        return construct.modifiers.get( "abstract" );
-    },
+    // detect short hand versions
+    if( construct.modifiers.get( "public"    ) ) { return "public";    }
+    if( construct.modifiers.get( "private"   ) ) { return "private";   }
+    if( construct.modifiers.get( "protected" ) ) { return "protected"; }
+    if( construct.modifiers.get( "package"   ) ) { return "package";   }
 
-    determineVisibility: function(visibility) {
-	switch(visibility) {
-	case "__HIDE__" : return "";
-	case "protected": return "#";
-	case "private"  : return "-";
-	case "package"  : return "~";
-	}
-	return "+";
+    return null;
+  },
+
+  extractStatic: function(construct) {
+    return construct.modifiers.get( "static" );
+  },
+
+  extractAbstract: function(construct) {
+    return construct.modifiers.get( "abstract" );
+  },
+
+  determineVisibility: function(visibility) {
+    switch(visibility) {
+      case "__HIDE__" : return "";
+      case "protected": return "#";
+      case "private"  : return "-";
+      case "package"  : return "~";
     }
+    return "+";
+  }
 }
-
