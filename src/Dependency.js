@@ -1,26 +1,28 @@
 UmlCanvas.Dependency = Canvas2D.Connector.extend( {
-    preprocess: function(props) {
-	props.end = UmlCanvas.ConnectorHeads.Arrow;
-	props.lineStyle = "dashed";
-	props['routing'] = props['routing'] || "horizontal";
+  preprocess: function(props) {
+    props.end = UmlCanvas.ConnectorHeads.Arrow;
+    props.lineStyle = "dashed";
+    props['routing'] = props['routing'] || "horizontal";
 
-	this.srcName = props.sname;
-	this.dstName = props.dname;
+    this.srcName = props.sname;
+    this.dstName = props.dname;
 
-	return props;
-    },
+    props['centerLabel'] = props.name.substring(0,1) == "_" ? "" : props.name;
 
-    asConstruct: function() {
-	var construct = this._super();
-	construct.modifiers = null;
-	construct.children.push( {
-				   supers: [ this.from.getName() ], children: [], 
-				   type: "client", name: this.srcName } );
-	construct.children.push( {
-				   supers: [ this.to.getName() ], children: [], 
-				   type: "supplier", name: this.dstName } );
-	return construct;
-    }
+    return props;
+  },
+
+  asConstruct: function() {
+    var construct = this._super();
+    construct.modifiers = null;
+    construct.children.push( {
+      supers: [ this.from.getName() ], children: [], 
+      type: "client", name: this.srcName } );
+    construct.children.push( {
+      supers: [ this.to.getName() ], children: [], 
+      type: "supplier", name: this.dstName } );
+    return construct;
+  }
 });
 
 UmlCanvas.Dependency.from = function(construct, diagram) {
@@ -90,11 +92,11 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
   }
 };
 
-  UmlCanvas.Dependency.MANIFEST = {
-    name : "dependency",
-    properties : [ "client", "supplier" ],
-    propertyPath : [ Canvas2D.Connector ],
-    libraries : [ "UmlCanvas" ]
-  }
+UmlCanvas.Dependency.MANIFEST = {
+  name : "dependency",
+  properties : [ "client", "supplier" ],
+  propertyPath : [ Canvas2D.Connector ],
+  libraries : [ "UmlCanvas" ]
+}
 
-  Canvas2D.registerShape(UmlCanvas.Dependency);
+Canvas2D.registerShape(UmlCanvas.Dependency);

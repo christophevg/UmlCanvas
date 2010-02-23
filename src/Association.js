@@ -22,14 +22,17 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     }
     props['routing'] = props['routing'] || "horizontal";
     
-    props['beginLabel'] = props.sname;
+    props['beginLabel'] = props.sname == props.from.name ? "" : props.sname;
     if( props['srcMultiplicity'] ) { 
       props['beginLabel'] += " [" + props['srcMultiplicity'] + "]";
     }
-    props['endLabel']   = props.dname;
+    props['endLabel']   = props.dname == props.to.name ? "" : props.dname;
     if( props['dstMultiplicity'] ) {
       props['endLabel'] += " [" + props['dstMultiplicity'] + "]";
     }
+    
+    props['centerLabel'] = props.name.substring(0,1) == "_" ? "" : props.name;
+
     return props;
   },    
 
@@ -59,13 +62,13 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     construct.children.push( 
       { modifiers: this._determineChildModifiers(),
         supers: [ this.from.getName() ], children: [], 
-        type: "role", name: this.srcName 
+        type: "role", name: this.srcName
       }
     );
     construct.children.push( 
       { modifiers: this._determineChildModifiers(true),
         supers: [ this.to.getName() ], children: [], 
-        type: "role", name: this.dstName 
+        type: "role", name: this.dstName
       } 
     );
     return construct;
