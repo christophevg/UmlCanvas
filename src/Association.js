@@ -22,11 +22,15 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     }
     props['routing'] = props['routing'] || "horizontal";
     
-    props['beginLabel'] = props.sname == props.from.name ? "" : props.sname;
+    props['beginLabel'] = props.sname == props.from.name ? "" 
+      : UmlCanvas.Common.determineVisibility(props['srcVisibility']) 
+        + props.sname;
     if( props['srcMultiplicity'] ) { 
       props['beginLabel'] += " [" + props['srcMultiplicity'] + "]";
     }
-    props['endLabel']   = props.dname == props.to.name ? "" : props.dname;
+    props['endLabel']   = props.dname == props.to.name ? "" 
+      : UmlCanvas.Common.determineVisibility(props['dstVisibility']) 
+        + props.dname;
     if( props['dstMultiplicity'] ) {
       props['endLabel'] += " [" + props['dstMultiplicity'] + "]";
     }
@@ -50,6 +54,11 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     var multi = end ? this.dstMultiplicity : this.srcMultiplicity;
     if( multi ) {
       modifiers['multiplicity'] = '"' + multi + '"';
+    }
+
+    var visi = end ? this.dstVisibility : this.srcVisibility;
+    if( visi ) {
+      modifiers['visibility'] = '"' + visi + '"';
     }
 
     return modifiers;
@@ -154,6 +163,12 @@ UmlCanvas.Association.from = function(construct, diagram) {
     props['dstMultiplicity'] = to.modifiers.get('multiplicity').value.value;
   }
   
+  var visibility = UmlCanvas.Common.extractVisibility(from);
+  if( visibility ) { props['srcVisibility'] = visibility; }
+  
+  visibility = UmlCanvas.Common.extractVisibility(to);
+  if( visibility ) { props['dstVisibility'] = visibility; }
+  
   props["from"] = diagram.getDiagramClass(from.supers[0].constructName);
   props["to"]   = diagram.getDiagramClass(to.supers[0].constructName);
 
@@ -177,7 +192,8 @@ UmlCanvas.Association.from = function(construct, diagram) {
 UmlCanvas.Association.MANIFEST = {
   name         : "association",
   properties   : [ "kind", "navigability", 
-                   "srcMultiplicity", "dstMultiplicity" ],
+                   "srcMultiplicity", "dstMultiplicity",
+                   "srcVisibility", "dstVisibility" ],
   propertyPath : [ Canvas2D.Connector ],
   libraries    : [ "UmlCanvas" ]
 }
