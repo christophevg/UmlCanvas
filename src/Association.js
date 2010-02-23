@@ -21,6 +21,15 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
       props.end = UmlCanvas.ConnectorHeads.Arrow;
     }
     props['routing'] = props['routing'] || "horizontal";
+    
+    props['beginLabel'] = props.sname;
+    if( props['srcMultiplicity'] ) { 
+      props['beginLabel'] += " [" + props['srcMultiplicity'] + "]";
+    }
+    props['endLabel']   = props.dname;
+    if( props['dstMultiplicity'] ) {
+      props['endLabel'] += " [" + props['dstMultiplicity'] + "]";
+    }
     return props;
   },    
 
@@ -34,6 +43,12 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     } else if( head == UmlCanvas.ConnectorHeads.Arrow ) {
       modifiers['navigable'] = null;
     }
+
+    var multi = end ? this.dstMultiplicity : this.srcMultiplicity;
+    if( multi ) {
+      modifiers['multiplicity'] = '"' + multi + '"';
+    }
+
     return modifiers;
   },
 
@@ -125,6 +140,17 @@ UmlCanvas.Association.from = function(construct, diagram) {
   props["sname"] = from.name;
   props["dname"] = to.name;
 
+  if( from.modifiers.get('multiplicity') && 
+      from.modifiers.get('multiplicity').value ) 
+  {
+    props['srcMultiplicity'] = from.modifiers.get('multiplicity').value.value;
+  }
+  if( to.modifiers.get('multiplicity' ) &&
+      to.modifiers.get('multiplicity').value ) 
+  {
+    props['dstMultiplicity'] = to.modifiers.get('multiplicity').value.value;
+  }
+  
   props["from"] = diagram.getDiagramClass(from.supers[0].constructName);
   props["to"]   = diagram.getDiagramClass(to.supers[0].constructName);
 
@@ -147,7 +173,8 @@ UmlCanvas.Association.from = function(construct, diagram) {
 
 UmlCanvas.Association.MANIFEST = {
   name         : "association",
-  properties   : [ "kind", "navigability" ],
+  properties   : [ "kind", "navigability", 
+                   "srcMultiplicity", "dstMultiplicity" ],
   propertyPath : [ Canvas2D.Connector ],
   libraries    : [ "UmlCanvas" ]
 }
