@@ -89,6 +89,10 @@ UmlCanvas.Widget = Class.extend( {
         if( this.UmlCanvasErrors ) {
           this.UmlCanvasErrors.value = this.UmlCanvas.errors;
         }
+        if( this.UmlCanvas.errors == "" ) {
+          this.updatedCanvas  = true;
+          this.updatingCanvas = false;
+        }
       }
       this.inputIsDirty = false;
     }
@@ -113,11 +117,11 @@ UmlCanvas.Widget = Class.extend( {
     if( this.UmlCanvasEditor ) {
       this.UmlCanvasEditor.onkeydown = this.markDirty.scope(this);
       this.UmlCanvas.on( "sourceUpdated", function(newSource) {
-        if(!this.updatingCanvas) {
+        if(!this.updatingCanvas && !this.updatedCanvas) {
           this.setEditorValue(newSource);
           this.inputIsDirty = false;
         }
-        this.updatingCanvas = false;
+        this.updatedCanvas = false;
       }.scope(this) );
       this.inputIsDirty = true;
       this.updatingCanvas = false;
