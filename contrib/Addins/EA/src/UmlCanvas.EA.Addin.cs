@@ -7,6 +7,14 @@ using UTF_UC=TSF.UmlCanvas.UTF;
 
 namespace TSF.UmlCanvas.Addins {
   public class EA {
+    const string menuHeader = "-&UmlCanvas";
+    const string menuCopy   = "&Copy as ADL to Clipboard";
+    const string menuExport = "&Export to Hosted UmlCanvas";
+    const string menuImport = "&Import from Hosted UmlCanvas";
+    const string menuSync   = "&Synchronize with Hosted UmlCanvas";
+
+    private global::EA.Repository repository;
+
     public String EA_Connect(global::EA.Repository Repository) {
       return "a string";
     }
@@ -17,9 +25,9 @@ namespace TSF.UmlCanvas.Addins {
     {
       switch(MenuName) {
         case "":
-          return "-&UMLCanvas";
-        case "-&UMLCanvas":
-          string[] ar = { "&Export", "&Import", "&Synchronize" };
+          return menuHeader;
+        case menuHeader:
+          string[] ar = { menuCopy, menuExport, menuImport, menuSync };
           return ar;
       }
 
@@ -44,7 +52,10 @@ namespace TSF.UmlCanvas.Addins {
           Repository.GetContextItem(out selectedItem);
 
         switch(ItemName) {
-          case "&Export":
+          case menuCopy:
+            IsEnabled = selectedType == global::EA.ObjectType.otDiagram;
+            break;
+          case menuExport:
             IsEnabled = selectedType == global::EA.ObjectType.otDiagram;
             break;
           default:
@@ -61,59 +72,67 @@ namespace TSF.UmlCanvas.Addins {
                               String Location, 
                               String MenuName, String ItemName )
     {
+      this.repository = Repository;
+
       switch(ItemName) {
-        case "&Export":
-          this.export(Repository);
-          break;
-        case "&Import":
-          this.import(Repository);
-          break;
-        case "&Synchronize":
-          this.synchronize(Repository);
-          break;
+        case menuCopy   : this.copy();        break;
+        case menuExport : this.export();      break;
+        case menuImport : this.import();      break;
+        case menuSync   : this.synchronize(); break;
       }
     }
 
-    private void export(global::EA.Repository eaRepository) {
-      UML.UMLModel model = new UTF_EA.Model(eaRepository);
-      UML.Diagrams.Diagram sourceDiagram = model.selectedDiagram;
-      
-      UTF_UC.Factory targetFactory = UTF_UC.Factory.getInstance();
-      UTF_UC.Model   targetModel   = targetFactory.model as UTF_UC.Model;
-      
-      UML.Classes.Kernel.Element targetOwner = 
-        targetFactory.createNewDiagram(sourceDiagram.name);
-      
-      targetFactory.model.selectedDiagram = targetOwner as UTF_UC.Diagram;
+    private void copy() {
+      Clipboard.SetText(this.getDiagram().ADL);
+    }
 
-      UTF_UC.Diagram targetDiagram = 
-        targetFactory.cloneDiagram(targetOwner, sourceDiagram) 
-        as UTF_UC.Diagram;
+    private void export() {
+      UTF_UC.Model   model   = this.getModel();
+      UTF_UC.Diagram diagram = this.getDiagram();
         
       SubmissionForm form = new SubmissionForm();
 
-      form.user        = targetModel.author;
-      form.password    = targetModel.password;
-      form.diagramID   = targetDiagram.diagramID;
-      form.description = targetDiagram.comment;
+      form.user        = model.author;
+      form.password    = model.password;
+      form.diagramID   = diagram.diagramID;
+      form.description = diagram.comment;
 
       if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-        targetModel.author      = form.user;
-        targetModel.password    = form.password;
-        targetDiagram.diagramID = form.diagramID;
-        targetDiagram.comment   = form.description;
+        model.author      = form.user;
+        model.password    = form.password;
+        diagram.diagramID = form.diagramID;
+        diagram.comment   = form.description;
 
-        String diagramUrl = targetModel.saveDiagram(targetDiagram);
-        System.Diagnostics.Process.Start(diagramUrl);
+        String url = model.saveDiagram(diagram);
+        System.Diagnostics.Process.Start(url);
       }
     }
 
-    private void import(global::EA.Repository eaRepository) {
+    private void import() {
       throw new NotImplementedException();
     }
 
-    private void synchronize(global::EA.Repository Repository) {
+    private void synchronize() {
       throw new NotImplementedException();
+    }
+
+    private UTF_UC.Model getModel() {
+      UTF_UC.Factory targetFactory = UTF_UC.Factory.getInstance();
+      return targetFactory.model as UTF_UC.Model;
+    }
+
+    private UTF_UC.Diagram getDiagram() {
+      UML.UMLModel model = new UTF_EA.Model(this.repository);
+      UML.Diagrams.Diagram sourceDiagram = model.selectedDiagram;
+
+      UTF_UC.Factory targetFactory = UTF_UC.Factory.getInstance();
+      UML.Classes.Kernel.Element targetOwner =
+        targetFactory.createNewDiagram(sourceDiagram.name);
+
+      targetFactory.model.selectedDiagram = targetOwner as UTF_UC.Diagram;
+
+      return targetFactory.cloneDiagram(targetOwner, sourceDiagram)
+        as UTF_UC.Diagram;
     }
   }
 }
