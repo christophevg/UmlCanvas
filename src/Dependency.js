@@ -7,7 +7,10 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
     this.srcName = props.sname;
     this.dstName = props.dname;
 
-    props['centerLabel'] = props.name.substring(0,1) == "_" ? "" : props.name;
+    if( props.name ) {
+      props['centerLabel'] = props.name.substring(0,1) == "_" ? 
+        "" : props.name;
+    }
 
     return props;
   },

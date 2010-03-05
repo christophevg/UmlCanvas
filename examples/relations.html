@@ -22,7 +22,7 @@
         with( clazz  ) {
           addAttribute( { name: "Attribute", visibility: "public", 
                           type: "Int" } );
-	  addOperation( { name: "Operation", visibility: "public", 
+	        addOperation( { name: "Operation", visibility: "public", 
                           returnType: "Int" } );
 	}
         return clazz;
@@ -38,11 +38,11 @@
 
         with( manager.setupModel("myModel") ) {
           makeTabbed( ["console","source","about"] );
-	  with( addDiagram() ) {
-	    at( 25, 25).put(class1);
-	    at(250, 25).put(class2);
-	    at( 25,150).put(class3);
-	    at(250,150).put(class4);
+          with( addDiagram() ) {
+            at( 25, 25).put(class1);
+            at(250, 25).put(class2);
+            at( 25,150).put(class3);
+            at(250,150).put(class4);
 
             put(new UmlCanvas.Association({ from: class1, to: class2, 
                                             kind: "association",
@@ -55,7 +55,7 @@
             put(new UmlCanvas.Dependency({ from: class3, to: class4, 
                                            navigability: "destination" } ) );
             makeDynamic();
-	  }
+	        }
         }
 
         manager.startAll();

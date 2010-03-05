@@ -22,20 +22,27 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     }
     props['routing'] = props['routing'] || "horizontal";
     
-    props['beginLabel'] = props.sname == props.from.name ? "" 
-      : UmlCanvas.Common.determineVisibility(props['srcVisibility']) 
-        + props.sname;
+    if( props.sname ) {
+      props['beginLabel'] = props.sname == props.from.name ? "" 
+        : UmlCanvas.Common.determineVisibility(props['srcVisibility']) 
+          + props.sname;
+    }
     if( props['srcMultiplicity'] ) { 
       props['beginLabel'] += " [" + props['srcMultiplicity'] + "]";
     }
-    props['endLabel']   = props.dname == props.to.name ? "" 
-      : UmlCanvas.Common.determineVisibility(props['dstVisibility']) 
-        + props.dname;
+    if( props.dname ) {
+      props['endLabel']   = props.dname == props.to.name ? "" 
+        : UmlCanvas.Common.determineVisibility(props['dstVisibility']) 
+          + props.dname;
+    }
     if( props['dstMultiplicity'] ) {
       props['endLabel'] += " [" + props['dstMultiplicity'] + "]";
     }
     
-    props['centerLabel'] = props.name.substring(0,1) == "_" ? "" : props.name;
+    if( props.name ) {
+      props['centerLabel'] = props.name.substring(0,1) == "_" ? 
+        "" : props.name;
+    }
 
     return props;
   },    
