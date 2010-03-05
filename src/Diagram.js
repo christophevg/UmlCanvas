@@ -69,7 +69,7 @@ UmlCanvas.Diagram.from = function(construct, model) {
 	}
     });
 
-    var diagram = new UmlCanvas.Diagram({ name: construct.name, style: style });
+    var diagram = new UmlCanvas.Diagram({ book: model, name: construct.name, style: style });
     model.addDiagram(diagram);
     return diagram;
 };
