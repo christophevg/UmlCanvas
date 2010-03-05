@@ -18,7 +18,13 @@ UmlCanvas.Common = {
   },
 
   extractAbstract: function(construct) {
-    return construct.modifiers.get( "abstract" );
+    var abstract = construct.modifiers.get("abstract");
+    if( abstract && abstract.value ) {
+      return abstract.value.value;
+    } else if( abstract ) {
+      return true;
+    }
+    return false;
   },
 
   determineVisibility: function(visibility) {

@@ -209,30 +209,29 @@ UmlCanvas.Class = Canvas2D.Rectangle.extend( {
 } );
     
 UmlCanvas.Class.from = function( construct, diagram ) {
-    var props = {};
+  var props = {};
 
-    // NAME
-    props.name = construct.name;
-    
-    // MINIMUM WIDTH
-    var minimumWidth = construct.modifiers.get( "minimumWidth" );
-    if( minimumWidth ) {
-        props.minimumWidth = parseInt(minimumWidth.value.value);
-    }
+  // NAME
+  props.name = construct.name;
 
-    // STEREOTYPE
-    var stereotype = construct.modifiers.get("stereotype" );
-    if( stereotype && stereotype.value ) {
-	props.stereotype = stereotype.value.value;
-    }
+  // MINIMUM WIDTH
+  var minimumWidth = construct.modifiers.get( "minimumWidth" );
+  if( minimumWidth ) {
+    props.minimumWidth = parseInt(minimumWidth.value.value);
+  }
 
-    // ABSTRACT
-    props['isAbstract'] = construct.modifiers.get( "abstract" ) != null;
+  // STEREOTYPE
+  var stereotype = construct.modifiers.get("stereotype" );
+  if( stereotype && stereotype.value ) {
+    props.stereotype = stereotype.value.value;
+  }
 
-    var elem = new UmlCanvas.Class( props );
+  props['isAbstract'] = UmlCanvas.Common.extractAbstract(construct);
 
-    var errors = [];
-    var warnings = [];
+  var elem = new UmlCanvas.Class( props );
+
+  var errors = [];
+  var warnings = [];
 
   // SUPERCLASS
   if( construct.supers && construct.supers.length > 0 ) {
@@ -249,7 +248,7 @@ UmlCanvas.Class.from = function( construct, diagram ) {
         diagram.addRelation(relation);
       } else {
         warnings.push( "unknown superclass: " + superConstruct.constructName +
-                       ", referenced by " + construct.name );
+          ", referenced by " + construct.name );
       }
     });
   }
@@ -261,13 +260,13 @@ UmlCanvas.Class.from = function( construct, diagram ) {
     return elem;
   }
 };
-    
+
 UmlCanvas.Class.MANIFEST = {
-    name         : "class",
-    properties   : [ "stereotype", "isAbstract", "supers",
-		     "font", "fontColor", "minimumWidth" ],
-    propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
-    libraries    : [ "UmlCanvas" ]
+  name         : "class",
+  properties   : [ "stereotype", "isAbstract", "supers",
+  "font", "fontColor", "minimumWidth" ],
+  propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
+  libraries    : [ "UmlCanvas" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Class);
