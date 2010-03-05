@@ -1,8 +1,8 @@
 UmlCanvas.Note = Canvas2D.Rectangle.extend( {
   prepare: function(sheet) {
     if( this.prepared ) { return; }
-    this.width = this.getBoxWidth(sheet);
-    this.height = this.getBoxHeight(sheet);
+    if( !this.width  ) { this.width  = this.getBoxWidth (sheet); }
+    if( !this.height ) { this.height = this.getBoxHeight(sheet); }
     this.prepared = true;
   },
 
@@ -23,8 +23,7 @@ UmlCanvas.Note = Canvas2D.Rectangle.extend( {
     sheet.lineWidth      = this.config.lineWidth;
     sheet.useCrispLines  = this.config.useCrispLines;
 
-    sheet.fillStrokeRect( left, top, 
-      this.getWidth(), this.getHeight() );
+    sheet.fillStrokeRect( left, top, this.getWidth(), this.getHeight() );
   },
 
   renderText: function renderText(sheet, left, top) {
@@ -71,6 +70,8 @@ UmlCanvas.Note = Canvas2D.Rectangle.extend( {
     var construct = this._super();
 
     delete construct.modifiers.geo;
+    construct.modifiers.width  = '"' + this.getWidth() + '"';
+    construct.modifiers.height = '"' + this.getHeight() + '"';
 
     if( this.getText() ) {
       construct.modifiers.text = '"' + this.getText() + '"';
@@ -101,7 +102,7 @@ UmlCanvas.Note.from = function( construct, diagram ) {
 
   var height = construct.modifiers.get("height" );
   if( height && height.value ) {
-    props.height= height.value.value;
+    props.height = parseInt(height.value.value);
   }
 
   var linkedTo = construct.modifiers.get("linkedTo");
@@ -123,11 +124,11 @@ UmlCanvas.Note.from = function( construct, diagram ) {
   return elem;
 };
 
-  UmlCanvas.Note.MANIFEST = {
-    name         : "note",
-    properties   : [ "text", "width", "height", "linkedTo" ],
-    propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
-    libraries    : [ "UmlCanvas" ]
-  }
+UmlCanvas.Note.MANIFEST = {
+  name         : "note",
+  properties   : [ "text", "width", "height", "linkedTo" ],
+  propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
+  libraries    : [ "UmlCanvas" ]
+}
 
-  Canvas2D.registerShape(UmlCanvas.Note);
+Canvas2D.registerShape(UmlCanvas.Note);

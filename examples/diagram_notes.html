@@ -33,7 +33,6 @@
 
 		var note = new UmlCanvas.Note( { 
 			text: "TODO - design Person class",
-			width: 50,
 			height: 20 
 		} );
 
@@ -53,5 +52,18 @@
         manager.startAll();
     }
     </script>
+
+    <p>
+      This example shows how to add notes to a diagram,
+      using the UmlCanvas DSL.
+    </p>
+
+    <canvas id="NoteDSL" class="UmlCanvas" width="400" height="250"></canvas>
+    <pre id="NoteDSLSource" style="display:none;">
+      +dynamic diagram myDiagram {
+        [@100,40] Note myNote +text="Hello World" +height="100" +width="100";
+        [@100,165] Note myOtherNote +text="Hello\nWorld";
+      }
+    </pre>
   </body>
 </html>
