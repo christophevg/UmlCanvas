@@ -48,7 +48,7 @@ UmlCanvas.Attribute.from = function(construct, clazz) {
 
 UmlCanvas.Attribute.MANIFEST = {
     name: "attribute",
-    aliasses: [ "property" ]
+    aliasses: [ "property", "literal" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Attribute);
