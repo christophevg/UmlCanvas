@@ -4,19 +4,19 @@ UmlCanvas.KickStart.Starter = Canvas2D.KickStart.Starter.extend( {
   init: function init() {
     this.manager = new UmlCanvas.Manager();
     this.pluginManagerRepository = 
-	new UmlCanvas.KickStart.plugins.PluginManagerRepository();
+      new UmlCanvas.KickStart.plugins.PluginManagerRepository();
     this.setupPluginsFactories();
   },
-  
+
   setupPluginsFactories : function setupPluginsFactories() {
     $H(UmlCanvas.KickStart.plugins).iterate(function(name, plugin) {
       if( plugin["Manager"] ) {
-	var manager = new (plugin.Manager)();
-	this.pluginManagerRepository.setManager(name, manager);
+        var manager = new (plugin.Manager)();
+        this.pluginManagerRepository.setManager(name, manager);
       }
     }.scope(this) );
   },
-  
+
   getTag: function() {
     return "UmlCanvas";
   },

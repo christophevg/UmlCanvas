@@ -18,11 +18,15 @@
 
     <pre id="myTabbedDiagramSource" style="display:none;">  
 Diagram myDiagram +dynamic {
+  [@37,18]
+  enumeration anEnumeration +abstract;
+  [@184,19]
+  interface anInterface;
   [@100,100]
-  Enumeration myEnum {
-    attribute value1;
-    attribute value2;
-    attribute value3;
+  enumeration myEnum : anInterface : anEnumeration +abstract {
+    Attribute value1;
+    Attribute value2;
+    Attribute value3;
   }
 }
     </pre>  
