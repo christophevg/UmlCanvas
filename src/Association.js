@@ -40,7 +40,9 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     }
     
     if( props.name ) {
-      props['centerLabel'] = ( props.derived ? "/" : "" ) 
+      props['centerLabel'] = 
+        ( props.stereotype ? "<<" + props.stereotype + ">> " : "" ) 
+        + ( props.derived ? "/" : "" ) 
         + ( props.name.substring(0,1) == "_" ? "" : props.name )
     }
 
@@ -84,6 +86,10 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     
     if( this.isDerived() ) {
       construct.modifiers["derived"] = null;
+    }
+    
+    if( this.getStereotype() ) {
+      construct.modifiers["stereotype"] = '"' + this.getStereotype() + '"';
     }
 
     construct.children.push( 
@@ -202,6 +208,12 @@ UmlCanvas.Association.from = function(construct, diagram) {
                  "  on " + construct.name );    
   }
   
+  // STEREOTYPE
+  var stereotype = construct.modifiers.get("stereotype" );
+  if( stereotype && stereotype.value ) {
+    props.stereotype = stereotype.value.value;
+  }
+  
   // DERIVED
   var derived = construct.modifiers.get("derived");
   if( derived && derived.value ) {
@@ -219,7 +231,7 @@ UmlCanvas.Association.from = function(construct, diagram) {
 
 UmlCanvas.Association.MANIFEST = {
   name         : "association",
-  properties   : [ "kind", "navigability", "derived", 
+  properties   : [ "kind", "navigability", "derived", "stereotype",
                    "srcMultiplicity", "dstMultiplicity",
                    "srcVisibility", "dstVisibility" ],
   propertyPath : [ Canvas2D.Connector ],

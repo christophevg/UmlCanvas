@@ -8,8 +8,10 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
     this.dstName = props.dname;
 
     if( props.name ) {
-      props['centerLabel'] = props.name.substring(0,1) == "_" ? 
-        "" : props.name;
+      console.log(props.stereotype);
+      props['centerLabel'] = 
+        ( props.stereotype ? "<<" + props.stereotype + ">> " : "" ) 
+        + ( props.name.substring(0,1) == "_" ? "" : props.name );
     }
 
     return props;
@@ -17,11 +19,15 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
 
   asConstruct: function() {
     var construct = this._super();
-    construct.modifiers = null;
+    construct.modifiers = [];
     
     // add simple routing annotation if not default
     if( this.getRouting() != "horizontal" ) {
       construct.annotation.data = this.getRouting();
+    }
+    
+    if( this.getStereotype() ) {
+      construct.modifiers["stereotype"] = '"' + this.getStereotype() + '"';
     }
     
     construct.children.push( {
@@ -96,6 +102,12 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
                  "  on " + construct.name );    
   }
   
+  // STEREOTYPE
+  var stereotype = construct.modifiers.get("stereotype" );
+  if( stereotype && stereotype.value ) {
+    props.stereotype = stereotype.value.value;
+  }
+  
   if( errors.length > 0 ) {
     return { errors: errors };
   } else {
@@ -105,7 +117,7 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
 
 UmlCanvas.Dependency.MANIFEST = {
   name : "dependency",
-  properties : [ "client", "supplier" ],
+  properties : [ "client", "supplier", "stereotype" ],
   propertyPath : [ Canvas2D.Connector ],
   libraries : [ "UmlCanvas" ]
 }
