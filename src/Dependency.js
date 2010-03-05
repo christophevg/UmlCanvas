@@ -18,12 +18,20 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
   asConstruct: function() {
     var construct = this._super();
     construct.modifiers = null;
+    
+    // add simple routing annotation if not default
+    if( this.getRouting() != "horizontal" ) {
+      construct.annotation.data = this.getRouting();
+    }
+    
     construct.children.push( {
       supers: [ this.from.getName() ], children: [], 
       type: "client", name: this.srcName } );
+
     construct.children.push( {
       supers: [ this.to.getName() ], children: [], 
       type: "supplier", name: this.dstName } );
+
     return construct;
   }
 });
@@ -56,12 +64,10 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
     return { errors: errors };
   }
 
-  props['style'] = "horizontal";
+  props['routing'] = "horizontal";
   if( construct.annotation ) {
-    if( construct.annotation.data == "vertical" ) {
-      props['style'] = "vertical";
-    } else if( construct.annotation.data.contains(":") &&
-               construct.annotation.data.contains("-") ) 
+    if( construct.annotation.data.contains(":") &&
+        construct.annotation.data.contains("-") ) 
     {
       var parts = construct.annotation.data.split(":");
       props["routing"] = "custom";
@@ -69,6 +75,8 @@ UmlCanvas.Dependency.from = function(construct, diagram) {
       var ends = parts[1].split("-");
       props["routeBegin"] = ends[0];
       props["routeEnd"]   = ends[1];
+    } else {
+      props['routing'] = construct.annotation.data;
     }
   }
 

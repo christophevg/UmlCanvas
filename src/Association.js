@@ -75,6 +75,11 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     var construct = this._super();
     construct.modifiers = null;
 
+    // add simple routing annotation if not default
+    if( this.getRouting() != "vertical" ) {
+      construct.annotation.data = this.getRouting();
+    }
+
     construct.children.push( 
       { modifiers: this._determineChildModifiers(),
         supers: [ this.from.getName() ], children: [], 
@@ -142,17 +147,19 @@ UmlCanvas.Association.from = function(construct, diagram) {
     props["navigability"] = "destination";
   }
 
-  props["style"] = "vertical";
+  props['routing'] = "vertical";
   if( construct.annotation ) {
-    if( construct.annotation.data == "horizontal" ) {
-      props["style"] = "horizontal";
-    } else if( parts = 
-        construct.annotation.data.match("([a-zA-Z]+):([nesw]+)-([nesw]+)" ) )
+    if( construct.annotation.data.contains(":") &&
+        construct.annotation.data.contains("-") ) 
     {
+      var parts = construct.annotation.data.split(":");
       props["routing"] = "custom";
-      props["routeStyle"] = parts[1];
-      props["routeBegin"] = parts[2];
-      props["routeEnd"]   = parts[3];
+      props["routeStyle"] = parts[0];
+      var ends = parts[1].split("-");
+      props["routeBegin"] = ends[0];
+      props["routeEnd"]   = ends[1];
+    } else {
+      props['routing'] = construct.annotation.data;
     }
   }
 
