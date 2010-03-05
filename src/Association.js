@@ -40,8 +40,8 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
     }
     
     if( props.name ) {
-      props['centerLabel'] = props.name.substring(0,1) == "_" ? 
-        "" : props.name;
+      props['centerLabel'] = ( props.derived ? "/" : "" ) 
+        + ( props.name.substring(0,1) == "_" ? "" : props.name )
     }
 
     return props;
@@ -70,14 +70,20 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
 
     return modifiers;
   },
+  
+  isDerived: function() { return this.derived; },
 
   asConstruct: function() {
     var construct = this._super();
-    construct.modifiers = null;
+    construct.modifiers = [];
 
     // add simple routing annotation if not default
     if( this.getRouting() != "vertical" ) {
       construct.annotation.data = this.getRouting();
+    }
+    
+    if( this.isDerived() ) {
+      construct.modifiers["derived"] = null;
     }
 
     construct.children.push( 
@@ -196,6 +202,14 @@ UmlCanvas.Association.from = function(construct, diagram) {
                  "  on " + construct.name );    
   }
   
+  // DERIVED
+  var derived = construct.modifiers.get("derived");
+  if( derived && derived.value ) {
+    props.derived = derived.value.value;
+  } else if( derived ) {
+    props.derived = true;
+  }
+  
   if( errors.length > 0 ) {
     return { errors: errors };
   } else {
@@ -205,7 +219,7 @@ UmlCanvas.Association.from = function(construct, diagram) {
 
 UmlCanvas.Association.MANIFEST = {
   name         : "association",
-  properties   : [ "kind", "navigability", 
+  properties   : [ "kind", "navigability", "derived", 
                    "srcMultiplicity", "dstMultiplicity",
                    "srcVisibility", "dstVisibility" ],
   propertyPath : [ Canvas2D.Connector ],

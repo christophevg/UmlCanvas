@@ -5,6 +5,7 @@ UmlCanvas.Attribute = Class.extend( {
     this.name       = attribute.name;
     this.type       = attribute.type;
     this.stereotype = attribute.stereotype;
+    this.derived    = attribute.derived;
   },
 
   setParent: function setParent() {},
@@ -12,13 +13,15 @@ UmlCanvas.Attribute = Class.extend( {
   getName:       function() { return this.name;       },
   getType:       function() { return this.type;       },
   getVisibility: function() { return this.visibility; },
-  isStatic:      function() { return this.ztatic;     },
   getStereotype: function() { return this.stereotype; },
+  isStatic:      function() { return this.ztatic;     },
+  isDerived:     function() { return this.derived;    },
 
   toString: function() {
     return ( this.getStereotype() ? "<<" + this.getStereotype() + ">> " : "" ) 
       + UmlCanvas.Common.determineVisibility(this.visibility)
-      + this.name + (this.type ? " : " + this.type.toString() : "");
+      + ( this.isDerived() ? "/" : "" ) + this.name 
+      + (this.type ? " : " + this.type.toString() : "");
   },
 
   asConstruct: function() {
@@ -31,6 +34,10 @@ UmlCanvas.Attribute = Class.extend( {
 
     if( this.getStereotype() ) {
       modifiers["stereotype"] = '"' + this.getStereotype() + '"';
+    }
+
+    if( this.isDerived() ) {
+      modifiers["derived"] = null; // shorthand prefered
     }
 
     return {
@@ -60,6 +67,14 @@ UmlCanvas.Attribute.from = function(construct, clazz) {
   var stereotype = construct.modifiers.get("stereotype" );
   if( stereotype && stereotype.value ) {
     props.stereotype = stereotype.value.value;
+  }
+  
+  // DERIVED
+  var derived = construct.modifiers.get("derived");
+  if( derived && derived.value ) {
+    props.derived = derived.value.value;
+  } else if( derived ) {
+    props.derived = true;
   }
 
   return clazz.addAttribute(props);
