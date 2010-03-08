@@ -40,7 +40,7 @@ UmlCanvas.KickStart.plugins.HuC = UmlCanvas.Plugin.extend( {
   * @return an element
   */
   getElement: function getElement(name) {
-    return this.model.Widget.getElementById(name);
+    return this.model.Widget.getElement(name);
   },
 
   /**
