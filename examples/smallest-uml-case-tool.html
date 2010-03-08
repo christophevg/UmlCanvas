@@ -22,10 +22,10 @@
 
     <script>
       UmlCanvas.on( "ready", function() {
-        var uc = UmlCanvas.getModel();
-        with( uc.getPlugin("Inspector") ) {
-          moveTo( uc.getLeft() + uc.getWidth() + 20, uc.getTop() );
-          resizeTo( uc.getWidth(), uc.getHeight() );
+        var model = UmlCanvas.getModel();
+        with( model.getPlugin("inspector") ) {
+          moveTo( model.getLeft() + model.getWidth() + 20, model.getTop() );
+          resizeTo( model.getWidth(), model.getHeight() );
           show();
         }
       });

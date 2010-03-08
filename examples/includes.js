@@ -3,6 +3,7 @@ var UMLCANVAS_VERSION = "development";
 var scripts = [ 
     "../lib/Canvas2D/build/Canvas2D.standalone.js",
     "../src/DepCheck.js",
+
     "../src/UmlCanvas.js",
     "../src/Common.js",
     "../src/Manager.js",
@@ -20,15 +21,19 @@ var scripts = [
     "../src/Interface.js",
     "../src/Inheritance.js",
     "../src/Realization.js",
-    "../src/KickStart.js",
-    "../src/plugins/PluginManagerRepository",
-    "../src/plugins/Widget.js",
-    "../src/plugins/Inspector.js",
-    "../src/plugins/Sheet.js",
-    "../src/plugins/HuC.js",
     "../src/Enumeration.js",
     "../src/Note.js",
     "../src/NoteLink.js",
+
+    "../src/Widget.js",
+    "../src/KickStart.js",
+    "../src/PluginManagerRepository",
+
+    "../src/plugins/Plugin.js",
+    "../src/plugins/Inspector.js",
+    "../src/plugins/Sheet.js",
+    "../src/plugins/HuC.js",
+
     "../src/Defaults.js",
     "../src/Config.js",
     "../src/plugins/inspector.css.js"

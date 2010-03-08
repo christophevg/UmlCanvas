@@ -4,42 +4,46 @@ UmlCanvas.KickStart.Starter = Canvas2D.KickStart.Starter.extend( {
   init: function init() {
     this.manager = new UmlCanvas.Manager();
     this.pluginManagerRepository = 
-      new UmlCanvas.KickStart.plugins.PluginManagerRepository();
+      new UmlCanvas.KickStart.PluginManagerRepository();
     this.setupPluginsFactories();
   },
 
   setupPluginsFactories : function setupPluginsFactories() {
     $H(UmlCanvas.KickStart.plugins).iterate(function(name, plugin) {
       if( plugin["Manager"] ) {
-        var manager = new (plugin.Manager)();
-        this.pluginManagerRepository.setManager(name, manager);
+        this.pluginManagerRepository.setManager( name, new plugin.Manager() );
       }
     }.scope(this) );
   },
 
-  getTag: function() {
+  getTag: function getTag() {
     return "UmlCanvas";
   },
 
-  makeInstance: function( name ) {
-    var umlcanvas = this.manager.setupModel(name);
-    var ps = [];
-    this.pluginManagerRepository.getManagers().iterate(function(plugin) {
-      var instance = plugin.setup(umlcanvas, this.pluginManagerRepository);
-      if( typeof instance != "undefined" ) { ps.push(instance); }
-    }.scope(this) );
-    // TODO: move to event driven approach ;-)
-    ps.iterate(function(plugin) {
-      if (plugin.activate) {
-        plugin.activate(umlcanvas);
+  makeInstance: function makeInstance( modelId ) {
+    // setup the Model
+    var model = this.manager.setupModel( modelId );
+
+    // activate the Widget Framework around the UmlCanvas
+    UmlCanvas.Widget.setup(model);
+
+    // create an instance of each plugin and add it to the UmlCanvas
+    this.pluginManagerRepository.getManagers().iterate(function(manager) {
+      if( manager.needsPlugin( model ) ) {
+        model.addPlugin( manager.setup( model ) );
       }
     }.scope(this) );
-    return umlcanvas;
+
+    // activate all plugins on the UmlCanvas
+    model.activatePlugins();
+
+    return model;
   }
 } );
 
 ProtoJS.Event.observe(window, 'load', function() { 
-  UmlCanvas.KickStarter = new UmlCanvas.KickStart.Starter();
-  UmlCanvas.KickStarter.on("ready",function(){UmlCanvas.fireEvent("ready");});
-  UmlCanvas.KickStarter.start(); 
+  with( UmlCanvas.KickStarter = new UmlCanvas.KickStart.Starter() ) {
+    on( "ready", function() { UmlCanvas.fireEvent("ready"); } );
+    start(); 
+  }
 } );

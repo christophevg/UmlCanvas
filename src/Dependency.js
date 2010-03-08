@@ -8,7 +8,6 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
     this.dstName = props.dname;
 
     if( props.name ) {
-      console.log(props.stereotype);
       props['centerLabel'] = 
         ( props.stereotype ? "<<" + props.stereotype + ">> " : "" ) 
         + ( props.name.substring(0,1) == "_" ? "" : props.name );

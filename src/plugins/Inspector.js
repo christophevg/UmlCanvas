@@ -1,14 +1,25 @@
-// Inspector should be backported to Canvas2D level
-UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
-  init: function init(umlcanvas) {
-    this.umlcanvas = umlcanvas;
+/**
+ * Inspector Plugin
+ * Implementation of the Widget Framework.
+ * Provides 
+ *
+ * @TODO Should be back-ported to Canvas2D.
+ */
+UmlCanvas.KickStart.plugins.Inspector = UmlCanvas.Plugin.extend( {
+  init: function init(model) {
+    this.model = model;
+
     this.initSheets();
   },
   
+  getName: function getName() {
+    return "inspector";
+  },
+
   /**
-   * Adds 3 default sheets to this inspector: source, console and about.
-   * TODO when moved to Canvas2D, default should be set using defaults mechanism
-   */
+  * Adds 3 default sheets to this inspector: source, console and about.
+  * TODO when moved to Canvas2D, default should be set using defaults mechanism
+  */
   initSheets: function initSheets() {
     this.sheets = {};
     this.sheetPositions = [];
@@ -21,91 +32,100 @@ UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
 
     this.addSheet(2, 'about');
   },
-  
-  activate: function activate(umlcanvas) {
+
+  activate: function activate() {
     this.insertInspector();
     this.wireActivation();
   },
-  
+
   getElement : function getElement(name) {
     return document.getElementById( "UC_inspector_" + name + 
-                                    "_for_"+this.umlcanvas.name );
+                                    "_for_" + this.model.getName() );
   },
-  
+
   /**
-   * Provides the sheet for the given label.
-   * @param label a label
-   * @return the sheet with the given label
-   */
+  * Provides the sheet for the given label.
+  * @param label a label
+  * @return the sheet with the given label
+  */
   getSheet: function getSheet(label) {
     return this.sheets[label];
   },
-  
+
   /**
-   * Adds a sheet to the inspector.
-   * Shifts the element currently at that position (if any) and 
-   * any subsequent elements to the right (adds one to their indices).
-   * @param index at which the specified sheet is to be inserted
-   * @param label a label for the sheet
-   * @param element the html element representing the content of the sheet
-   */
+  * Adds a sheet to the inspector.
+  * Shifts the element currently at that position (if any) and 
+  * any subsequent elements to the right (adds one to their indices).
+  * @param index at which the specified sheet is to be inserted
+  * @param label a label for the sheet
+  * @param element the html element representing the content of the sheet
+  */
   addSheet: function addSheet(index, label, element) {
-    var sheet = new UmlCanvas.KickStart.plugins.InspectorSheet(label, element);
+    var sheet = new UmlCanvas.KickStart.plugins.Inspector.Sheet(label, element);
     this.sheetPositions.splice(index, 0, sheet);
     this.sheets[sheet.getLabel()] = sheet;
   },
 
   /**
-   * Removes the sheet with the given label.
-   * @param label a label
-   */
+  * Removes the sheet with the given label.
+  * @param label a label
+  */
   removeSheet: function removeSheet(label) {
     this.sheetPositions.splice(
-	    this.sheetPositions.indexOf(this.getSheet(label)), 1);
+      this.sheetPositions.indexOf(this.getSheet(label)), 1);
     delete this.sheets[label];
   },
   
+  getDefaultTab: function getDefaultTab() {
+    return this.defaultTab || "source";
+  },
+  
+  setDefaultTab: function setDefaultTab(tab) {
+    this.defaultTab = tab || "source";
+  },
+
   insertInspector: function insertInspector() {
     this.insertInspectorHTML();
     this.wireResizeAndDragHandling();
 
     this.setupSheets();
-    this.gotoTab('editor');
+    this.gotoTab(this.getDefaultTab());
 
     this.resizeTo(0,0);
-    this.moveTo( this.umlcanvas.getLeft(), this.umlcanvas.getTop() );
+    this.moveTo( this.model.getLeft(), this.model.getTop() );
     this.shownBefore = false;
-    
-    UmlCanvas.Widget.activate(this.umlcanvas.name);
+
+    UmlCanvas.Widget.setup(this.model);
   },
-  
+
   insertInspectorHTML: function insertInspectorHTML() {
     this.inspector = document.createElement("DIV");
-    this.inspector.id = "UC_inspector_for_" + this.umlcanvas.name;
+    this.inspector.id = "UC_inspector_for_" + this.model.getName();
     this.inspector.className = "UC_inspector";
     this.inspector.innerHTML = 
-    '<table class="UC_inspector_header" width="100%" border="0" cellspacing="0" cellpadding="0"><tr>' +
+    '<table class="UC_inspector_header" width="100%" border="0" ' +
+           'cellspacing="0" cellpadding="0"><tr>' +
     '<td class="UC_inspector_close" ' +
-       'onclick="this.parentNode.parentNode.' +
-                     'parentNode.parentNode.style.display=\'none\';"></td>' +
-    '<td><h1 id="UC_inspector_header_for_' + this.umlcanvas.name  + '">' +
-      'UmlCanvas Inspector</h1></td>' +
+    'onclick="this.parentNode.parentNode.' +
+    'parentNode.parentNode.style.display=\'none\';"></td>' +
+    '<td><h1 id="UC_inspector_header_for_' + this.model.getName()  + '">' +
+    'UmlCanvas Inspector</h1></td>' +
     '<td class="UC_inspector_corner"></td></tr></table>' +
 
-    '<div id="UC_inspector_tabs_for_' + this.umlcanvas.name + 
-      '" class="UC_inspector_tabs"></div>' +
-    '<div id="UC_inspector_content_for_' + this.umlcanvas.name + 
-      '"class="UC_inspector_content"></div>' +
+    '<div id="UC_inspector_tabs_for_' + this.model.getName() + 
+    '" class="UC_inspector_tabs"></div>' +
+    '<div id="UC_inspector_content_for_' + this.model.getName() + 
+    '"class="UC_inspector_content"></div>' +
 
     '<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>' +
     '<td class="UC_inspector_status">'+ UmlCanvas.version +'</td>' +
-    '<td id="UC_inspector_resize_for_' + this.umlcanvas.name + '"' +
-     'class="UC_inspector_resize"></td>' +
+    '<td id="UC_inspector_resize_for_' + this.model.getName() + '"' +
+    'class="UC_inspector_resize"></td>' +
     '</tr></table>';
 
     document.body.appendChild(this.inspector);
   },
-  
+
   // TODO editor should be plugin
   // TODO generated source might be default
   setupSheets: function setupSheets() {
@@ -115,7 +135,7 @@ UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
     this.sheetPositions.iterate( function( sheet ) {
       var tab = document.createElement("A");
       tab.id = "UC_inspector_tab_" + sheet.getLabel() + 
-               "_for_" + this.umlcanvas.name;
+      "_for_" + this.model.getName();
       tab.href = "javascript:";
       tab.className ="UC_inspector_tab";
       tab.onclick = function(tabName) { 
@@ -123,11 +143,11 @@ UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
       }.scope(this)(sheet.getLabel());
       tab.appendChild(document.createTextNode(sheet.getLabel()));
       this.tabs.appendChild(tab);
-      
-      this.content.appendChild(sheet.getElement(this.umlcanvas.name));
+
+      this.content.appendChild(sheet.getElement(this.model.getName()));
     }.scope(this) );
   },
-  
+
   gotoTab: function gotoTab(tab) {
     if( this.currentTab   ) { 
       this.currentTab.className   = "UC_inspector_tab";   
@@ -138,32 +158,32 @@ UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
 
     this.currentTab   = this.getElement( "tab_" + tab );
     this.currentSheet = 
-      document.getElementById( "UC_" + tab + "_for_" + this.umlcanvas.name );
+    document.getElementById( "UC_" + tab + "_for_" + this.model.getName() );
 
     if( this.currentTab   ) { 
       this.currentTab.className = 
-        "UC_inspector_tab_selected"; 
+      "UC_inspector_tab_selected"; 
     }
     if( this.currentSheet ) { 
       this.currentSheet.className =  "UC_inspector_tab_content_selected";
     }
   },
-  
+
   wireResizeAndDragHandling: function wireResizeAndDragHandling() {
     ProtoJS.Event.observe( this.getElement("resize"), 'mousedown', 
-      function(event) {
-        this.resizing = true; 
-        this.handleMouseDown(event); 
-      }.scope(this) );
+    function(event) {
+      this.resizing = true; 
+      this.handleMouseDown(event); 
+    }.scope(this) );
     ProtoJS.Event.observe( this.getElement("header"), "mousedown",
-      function(event) {
-        this.handleMouseDown(event);
-        this.dragging = true;
-      }.scope(this) );
-	  ProtoJS.Event.observe( document, 'mouseup', 
-	    this.handleMouseUp.scope(this) );
+    function(event) {
+      this.handleMouseDown(event);
+      this.dragging = true;
+    }.scope(this) );
+    ProtoJS.Event.observe( document, 'mouseup', 
+    this.handleMouseUp.scope(this) );
     ProtoJS.Event.observe( document, 'mousemove', 
-      this.handleMouseMove.scope(this) );
+    this.handleMouseMove.scope(this) );
   },
 
   handleMouseDown : function handleMouseDown(event) {
@@ -202,10 +222,10 @@ UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
     }
     return { x: x, y: y };
   },
-  
+
   resizeBy: function resizeBy(dx, dy) {
     this.resizeTo( parseInt(this.inspector.style.width) + dx, 
-                   parseInt(this.inspector.style.height) + dy );
+    parseInt(this.inspector.style.height) + dy );
   },
 
   resizeTo: function resizeTo(w, h) {
@@ -215,9 +235,9 @@ UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
     var widthDiff = ProtoJS.Browser.IE ? 0 : 10;
 
     this.content.style.width  = 
-      ( parseInt(this.inspector.style.width) - widthDiff ) + "px";
+    ( parseInt(this.inspector.style.width) - widthDiff ) + "px";
     this.content.style.height = 
-      ( parseInt(this.inspector.style.height) - 73 ) + "px";
+    ( parseInt(this.inspector.style.height) - 73 ) + "px";
 
     // FIXME
     if( ProtoJS.Browser.IE ) {
@@ -225,36 +245,36 @@ UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
     }
 
     this.fireEvent( 'changeContentSize', 
-                    { w: parseInt(this.content.style.width),
-                      h: parseInt(this.content.style.height) } );
+    { w: parseInt(this.content.style.width),
+      h: parseInt(this.content.style.height) } );
   },
-  
+
   moveBy: function moveBy(dx, dy) {
     this.moveTo( parseInt(this.inspector.style.left) + dx, 
-                 parseInt(this.inspector.style.top ) + dy );
+    parseInt(this.inspector.style.top ) + dy );
   },
 
   moveTo: function resizeTo(l, t) {
     this.inspector.style.left = (l >= 0 ? l : 0 ) + "px";
     this.inspector.style.top  = (t >= 0 ? t : 0 ) + "px";
   },
-  
+
   getWidth: function getWidth() {
     return parseInt(this.inspector.style.width);
   },
-  
+
   getHeight: function getHeight() {
     return parseInt(this.inspector.style.height);    
   },
-  
+
   show: function show() {
     if( !this.shownBefore ) {
-      this.resizeTo( this.umlcanvas.getWidth(), this.umlcanvas.getHeight() );
+      this.resizeTo( this.model.getWidth(), this.model.getHeight() );
       this.shownBefore = true;
     }
     this.inspector.style.display = "block";
   },
-  
+
   hide: function hide() {
     this.inspector.style.display = "none";
   },
@@ -262,55 +282,34 @@ UmlCanvas.KickStart.plugins.Inspector = Class.extend( {
   wireActivation: function wireActivation() {
     if (UmlCanvas.Config.Inspector.wireActivation) {
       Canvas2D.Keyboard.on( "keyup", 
-        function(key) {
-          if( this.umlcanvas.canvas.mouseOver && key == "73" ) {
-            this.show();
-          }
-        }.scope(this));
+      function(key) {
+        if( this.model.canvas.mouseOver && key == "73" ) {
+          this.show();
+        }
+      }.scope(this));
     }
   }
 } );
 
 // mix-in event handling to Canvas2D
 ProtoJS.mix( Canvas2D.Factory.extensions.all.EventHandling, 
-             UmlCanvas.KickStart.plugins.Inspector.prototype );
+  UmlCanvas.KickStart.plugins.Inspector.prototype );
 
 /**
  * Manager for Inspector
  */
-UmlCanvas.KickStart.plugins.Inspector.Manager = Class.extend( {
-    
-    /**
-     * Manager constructor
-     * @return a Manager
-     */
-    init: function init() {
-      this.inspectors = new Hash();
-    },
-    
-    /**
-     * Creates a new inspector.
-     * @param umlcanvas the umlcanvas for which the Inspector is created.
-     * @param pluginManagerRepository provides access to other plugin managers
-     * @return an Inspector for the given umlcanvas
-     */
-    setup: function setup(umlcanvas, pluginManagerRepository) {
-        if(umlcanvas.canvas.canvas.className.contains("withoutInspector")) {
-          return;
-        }
-    
-        var inspector = new UmlCanvas.KickStart.plugins.Inspector(
-            umlcanvas, pluginManagerRepository);
-	      this.inspectors.set(umlcanvas.name, inspector);
-        return inspector;
-    },
-        
-    /**
-     * Gets the inspector for the given umlcanvas.
-     * @param name the name of a umlcanvas
-     * @return an inspector
-     */
-    getInspector: function getInspector(name) {
-	    return this.inspectors.get(name || "");
-    }
+UmlCanvas.KickStart.plugins.Inspector.Manager = 
+  UmlCanvas.PluginManager.extend( 
+{
+  /**
+   * checks whether the model needs this plugin
+   * @return boolean true if the plugin needs this plugin, false otherwise
+   */
+  needsPlugin : function needsPlugin(model) {
+    return ! model.canvas.canvas.className.contains("withoutInspector");
+  },
+
+  getPluginClass : function getPluginClass() {
+    return UmlCanvas.KickStart.plugins.Inspector;
+  }
 } );

@@ -18,10 +18,10 @@ UmlCanvas.Common = {
   },
 
   extractAbstract: function(construct) {
-    var abstract = construct.modifiers.get("abstract");
-    if( abstract && abstract.value ) {
-      return abstract.value.value;
-    } else if( abstract ) {
+    var abstr = construct.modifiers.get("abstract");
+    if( abstr && abstr.value ) {
+      return abstr.value.value;
+    } else if( abstr ) {
       return true;
     }
     return false;

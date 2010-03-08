@@ -1,10 +1,10 @@
-// we also provide a manager, but with a context-specific signature
+// UmlCanvas implements the Canvas2D.Book concept as a Model
 UmlCanvas.Manager = Canvas2D.Manager.extend( {
-    setupModel : function(model) {
-	return this.addBook(new UmlCanvas.Model(model));
-    },
+  setupModel : function setupModel(modelId) {
+    return this.addBook(new UmlCanvas.Model(modelId));
+  },
 
-    getModel : function(id) {
-	return this.getBook(id);
-    }
+  getModel : function getModel(id) {
+    return this.getBook( id || "" );
+  }
 } );

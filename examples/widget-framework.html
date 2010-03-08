@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="examples.css" />
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script type="text/javascript" src="includes.js"></script>
+
+    <style type="text/css">
+      .UmlCanvas { border: 1px solid #999; }
+    </style>
+  </head>
+  
+  <body>
+
+    <h1>Building your own UML editor</h1>
+    
+    <p>
+      This example shows how you can create a UML CASE tool using the 
+      UmlCanvas Widget Framework.
+    </p>
+
+    <canvas id="myCaseTool" class="UmlCanvas withoutInspector" width="300" height="300"></canvas>
+    <textarea id="UC_editor_for_myCaseTool" style="width:300px;height:300px">
++dynamic diagram myDiagram {
+  class myClass;
+}
+    </textarea>
+    <br>
+    <textarea id="UC_errors_for_myCaseTool" style="width:606px;height:50px"></textarea>
+    <br>
+    <textarea id="UC_console_for_myCaseTool" style="width:606px;height:50px"></textarea>
+
+  </body>
+</html>
