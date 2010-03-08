@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="examples.css" />
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script type="text/javascript" src="includes.js"></script>
+
+    <style type="text/css">
+      .UmlCanvas { border: 1px solid #999; }
+    </style>
+  </head>
+  
+  <body>
+
+    <h1>Hosted UmlCanvas API</h1>
+    
+    <p>
+      This example shows how you can dynamically load diagrams from 
+      Hosted UmlCanvas.
+    </p>
+
+    <canvas class="UmlCanvas" width="300" height="300"></canvas>
+
+    <script>
+      UmlCanvas.on( "ready", function() {
+        UmlCanvas.getModel().getPlugin("huc").load( "First_Diagram" );
+      });
+    </script>
+  </body>
+</html>

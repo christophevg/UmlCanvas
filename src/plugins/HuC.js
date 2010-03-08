@@ -287,8 +287,12 @@ UmlCanvas.KickStart.plugins.HuC = UmlCanvas.Plugin.extend( {
   */
   loadDiagram: function loadDiagram() {
     if( this.model.getName() == "" ) { return this.loadProperties(); }
-    new ProtoJS.Ajax()
-    .fetch( UmlCanvas.Config.HuC.repository_url + this.model.getName() + ':json', 
+    this.load( this.model.getName() );
+  },
+
+  load: function load(id) {
+    var url = UmlCanvas.Config.HuC.repository_url + id + ':json';
+    new ProtoJS.Ajax().fetch( url, 
     function(properties) {
       this.model.load(this.decodeHTMLSpecialCharacters(properties.src));
       this.loadProperties(properties);
