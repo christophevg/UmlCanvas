@@ -86,6 +86,8 @@ UmlCanvas.KickStart.plugins.HuC = UmlCanvas.Plugin.extend( {
       var tr = document.createElement('tr');
       var th = document.createElement('th');
       var td = document.createElement('td');
+      var errorSpan = document.createElement('span');
+      var errorCell = document.createElement('td');
 
       var field;
       if ('string' == prop.type && 100 < prop.maxlength) {
@@ -108,10 +110,15 @@ UmlCanvas.KickStart.plugins.HuC = UmlCanvas.Plugin.extend( {
         this.validateField(field, prop);
         this.updateDiagram();
       }.scope(this) );
-
+      
+      errorSpan.className = "invalid";
+      errorSpan.id = "UC_" + prop.id + "_error_for_" + this.model.getName();
+      
       td.appendChild(field);
       tr.appendChild(th);
       tr.appendChild(td);
+      errorCell.appendChild(errorSpan);
+      tr.appendChild(errorCell);
       tb.appendChild(tr);
       table.appendChild(tb);
 
@@ -163,8 +170,11 @@ UmlCanvas.KickStart.plugins.HuC = UmlCanvas.Plugin.extend( {
   validateField : function validateField(field, prop) {
     var valid = true;
 
+    var errorElement = this.getElement(prop.id + "_error");
+    
     if (prop.type != 'link') {
       field.style.backgroundColor = '#FFF';
+      errorElement.innerHTML = "";
       if ('integer' == prop.type) {
         if (isNaN(parseInt(field.value, 10))) {
           field.value = 0;
@@ -177,6 +187,7 @@ UmlCanvas.KickStart.plugins.HuC = UmlCanvas.Plugin.extend( {
       }
       if (field.value.length < prop.minlength) {
         field.style.backgroundColor = '#faa';
+        errorElement.innerHTML = "minimal length: " + prop.minlength;
         valid = false;
       }
     }
