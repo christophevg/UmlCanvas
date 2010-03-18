@@ -76,15 +76,13 @@ UmlCanvas.Widget = Class.extend( {
   setupEditor: function setupEditor() {
     this.editor = this.getElement("editor");
     if( this.editor ) {
-      this.editor.onkeydown = this.markDirty.scope(this);
+      this.editor.onkeydown = this.handleInput.scope(this);
       this.model.on( "sourceUpdated", function(newSource) {
         if(!this.updatingCanvas && !this.updatedCanvas) {
           this.setSource(newSource);
-          this.inputIsDirty = false;
         }
         this.updatedCanvas = false;
       }.scope(this) );
-      this.inputIsDirty = true;
       this.updatingCanvas = false;
       this.autoSave();
 
@@ -149,7 +147,7 @@ UmlCanvas.Widget = Class.extend( {
    */
   updateCanvas: function updateCanvas() {
     var src = this.getEditorSource();
-    if( src && this.inputIsDirty ) {
+    if( src && this.isInputDirty()) {
       if( src.replace( /^\s+|\s+$/g,"") != "" ) {
         this.updatingCanvas = true;
         this.load(src);
@@ -159,7 +157,8 @@ UmlCanvas.Widget = Class.extend( {
           this.updatingCanvas = false;
         }
       }
-      this.inputIsDirty = false;
+      // canvas updated, so mark undirty
+      this.handleInput();
     }
   },
   
@@ -173,18 +172,27 @@ UmlCanvas.Widget = Class.extend( {
   },
   
   /**
-   * Helper function to keep track of the state of the editor
+   * Handle changes to the (editor) input
    */
-  markDirty: function markDirty() {
-    this.inputIsDirty = true;
+  handleInput: function handleInput() {
+    this.oldValue = this.editor.value;
   },
   
+  /**
+   * Check whether the input is dirty.
+   * @return true if the editor is not in sync with the UmlCanvas.
+   */
+  isInputDirty: function isInputDirty() {
+    return this.oldValue != this.editor.value;
+  },
+
   /**
    * Sets the value of the editor.
    * @param src the src to set
    */
   setSource: function setSource(src) {
     this.editor.value = src;
+    this.handleInput();
   },
   
   /**
