@@ -77,10 +77,17 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
 
   asConstruct: function() {
     var construct = this._super();
-    construct.modifiers = [];
+
+    if( this.getRouting() == "recursive" && this.getRouteBegin() != "ene" ) {
+      construct.annotation.data = "recursive:" + 
+        this.getRouteBegin() + "-" + this.getRouteEnd();
+    }
 
     // add simple routing annotation if not default and not custom
-    if( this.getRouting() != "vertical" && this.getRouting() != "custom" ) {
+    if( this.getRouting() != "vertical" && 
+        this.getRouting() != "custom"   &&
+        this.getRouting() != "recursive" ) 
+    {
       construct.annotation.data = this.getRouting();
     }
     
@@ -104,6 +111,9 @@ UmlCanvas.Association = Canvas2D.Connector.extend( {
         type: "role", name: this.dstName
       } 
     );
+
+    construct.modifiers = [];
+
     return construct;
   }
 });
