@@ -20,8 +20,8 @@ UmlCanvas.Dependency = Canvas2D.Connector.extend( {
     var construct = this._super();
     construct.modifiers = [];
     
-    // add simple routing annotation if not default
-    if( this.getRouting() != "horizontal" ) {
+    // add simple routing annotation if not default and not custom
+    if( this.getRouting() != "horizontal" && this.getRouting() != "custom" ) {
       construct.annotation.data = this.getRouting();
     }
     
