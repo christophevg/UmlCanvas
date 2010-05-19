@@ -140,5 +140,12 @@ namespace TSF.UmlCanvas.UTF {
     {
       return new InterfaceRealization(this.model as Model, owner as Element);
     }
+
+    internal Diagram cloneDiagram(UML.Diagrams.Diagram sourceDiagram)
+    {
+        Diagram targetDiagram = this.createNewDiagram(sourceDiagram.name);
+        return this.cloneDiagram(targetDiagram as UML.Classes.Kernel.Element,sourceDiagram) as Diagram;
+
+    }
   }
 }

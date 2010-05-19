@@ -12,6 +12,15 @@ namespace TSF.UmlCanvas.UTF {
     public String author   { get; set; }
     public String password { get; set; }
 
+    // returns the current model
+    public static Model getModel(){
+        return Factory.getInstance().model as Model;
+    }
+    
+    public Diagram cloneDiagram(UML.Diagrams.Diagram sourceDiagram)
+    {
+        return ((Factory)this.factory).cloneDiagram(sourceDiagram);
+    }   
     public String saveDiagram( Diagram diagram, 
                                string author, string password)
     {

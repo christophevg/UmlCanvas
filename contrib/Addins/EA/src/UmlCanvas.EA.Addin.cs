@@ -87,7 +87,7 @@ namespace TSF.UmlCanvas.Addins {
     }
 
     private void export() {
-      UTF_UC.Model   model   = this.getModel();
+      UTF_UC.Model model = UTF_UC.Model.getModel();
       UTF_UC.Diagram diagram = this.getDiagram();
         
       SubmissionForm form = new SubmissionForm();
@@ -116,23 +116,13 @@ namespace TSF.UmlCanvas.Addins {
       throw new NotImplementedException();
     }
 
-    private UTF_UC.Model getModel() {
-      UTF_UC.Factory targetFactory = UTF_UC.Factory.getInstance();
-      return targetFactory.model as UTF_UC.Model;
-    }
 
     private UTF_UC.Diagram getDiagram() {
-      UML.UMLModel model = new UTF_EA.Model(this.repository);
-      UML.Diagrams.Diagram sourceDiagram = model.selectedDiagram;
-
-      UTF_UC.Factory targetFactory = UTF_UC.Factory.getInstance();
-      UML.Classes.Kernel.Element targetOwner =
-        targetFactory.createNewDiagram(sourceDiagram.name);
-
-      targetFactory.model.selectedDiagram = targetOwner as UTF_UC.Diagram;
-
-      return targetFactory.cloneDiagram(targetOwner, sourceDiagram)
-        as UTF_UC.Diagram;
+      UTF_EA.Model sourceModel = new UTF_EA.Model(this.repository);
+      UML.Diagrams.Diagram sourceDiagram = sourceModel.selectedDiagram;
+      
+      UTF_UC.Model targetModel = UTF_UC.Model.getModel();
+      return targetModel.cloneDiagram(sourceDiagram);
     }
   }
 }
