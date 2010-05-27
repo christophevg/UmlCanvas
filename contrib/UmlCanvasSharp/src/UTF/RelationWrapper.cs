@@ -31,7 +31,7 @@ namespace TSF.UmlCanvas.UTF {
       set {
         // UmlCanvas doesn't like relations without a name
         if (value == String.Empty) {
-          base.name = "a" + (RelationWrapper.namecounter++).ToString();
+          base.name = "_a" + (RelationWrapper.namecounter++).ToString();
         }
       }
     }
