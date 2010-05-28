@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="examples.css" />
+    <link rel="stylesheet" type="text/css" href="../build/UmlCanvas.css" />
+    <script type="text/javascript" src="includes.js"></script>
+
+    <style type="text/css">
+      .UmlCanvas { border: 1px solid #999; }
+    </style>
+  </head>
+  
+  <body>
+
+    <h1>Creating State Diagrams</h1>
+    
+    <p>
+      This example shows how you can create a State Diagram using UmlCanvas.
+    </p>
+
+    <canvas id="myStateDiagram" class="UmlCanvas" width="300" height="300"></canvas>
+
+    <pre id="myStateDiagramSource" style="display:none;">
++dynamic diagram myStateDiagram {
+  [@ 50, 15] state begin  +geo="100x50";
+  [@ 50, 90] state middle +geo="200x100";
+  [@ 75,120] state sub    +geo="100x50";
+  [@150,225] state end    +geo="100x50";
+  
+  transition begin-middle;
+  [@direct:nnw-nnw] transition middle-sub;
+  transition sub-end;
+}
+    </pre>
+
+  </body>
+</html>

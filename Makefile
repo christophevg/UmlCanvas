@@ -28,6 +28,7 @@ SRCS=src/DepCheck.js \
      src/Enumeration.js \
      src/Note.js \
      src/NoteLink.js \
+	 src/StateDiagrams.js \
 	 src/Widget.js \
      src/KickStart.js \
 	 src/PluginManagerRepository.js \

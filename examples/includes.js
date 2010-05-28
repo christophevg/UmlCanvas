@@ -24,6 +24,7 @@ var scripts = [
     "../src/Enumeration.js",
     "../src/Note.js",
     "../src/NoteLink.js",
+    "../src/StateDiagrams.js",
 
     "../src/Widget.js",
     "../src/KickStart.js",

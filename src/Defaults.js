@@ -31,16 +31,28 @@ UmlCanvas.Inheritance.Defaults = {}
 UmlCanvas.Realization.Defaults = {}
 
 UmlCanvas.Note.Defaults = {
-    text		: "TODO",
-    width		: 100,
-    height		: 40,
-    padding		: 5,
-    font		: "7pt Verdana",
-    fontColor		: "black",
-    lineColor		: "grey",
+    text		        : "TODO",
+    width		        : 100,
+    height		      : 40,
+    padding		      : 5,
+    font		        : "7pt Verdana",
+    fontColor		    : "black",
+    lineColor		    : "grey",
     backgroundColor	: "rgba(240,240,240,1)",
-    lineWidth		: 1,
-    useCrispLines	: true
+    lineWidth		    : 1,
+    useCrispLines	  : true
 };
 
 UmlCanvas.NoteLink.Defaults = {};
+
+UmlCanvas.State.Defaults = {
+    roundCorners : true,
+    lineColor    : 'rgb(250,125,0)',
+    fillColor    : 'rgb(255,240,175)',
+    labelColor   : 'rgb(250,125,0)',
+    labelPos     : 'top-inner'
+};
+
+UmlCanvas.Transition.Defaults = {
+    lineColor    : 'rgb(250,125,0)'
+};
