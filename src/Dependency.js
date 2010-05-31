@@ -118,7 +118,7 @@ UmlCanvas.Dependency.MANIFEST = {
   name : "dependency",
   properties : [ "client", "supplier", "stereotype" ],
   propertyPath : [ Canvas2D.Connector ],
-  libraries : [ "UmlCanvas" ]
+  libraries : [ "UmlCanvas", "Class Diagram", "Relationship" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Dependency);

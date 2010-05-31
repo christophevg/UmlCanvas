@@ -17,7 +17,7 @@ UmlCanvas.Realization = Canvas2D.Connector.extend( {
 UmlCanvas.Realization.MANIFEST = {
     name         : "realization",
     propertyPath : [ Canvas2D.Connector ],
-    libraries    : [ "UmlCanvas" ]
+    libraries    : [ "UmlCanvas", "Class Diagram", "Relationship" ]
 }
 
 Canvas2D.registerShape( UmlCanvas.Realization );

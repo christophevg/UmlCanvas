@@ -74,7 +74,7 @@ UmlCanvas.Enumeration.from = function( construct, diagram ) {
 UmlCanvas.Enumeration.MANIFEST = {
   name         : "enumeration",
   propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle, UmlCanvas.Class ],
-  libraries    : [ "UmlCanvas" ]
+  libraries    : [ "UmlCanvas", "Class Diagram", "Element" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Enumeration);

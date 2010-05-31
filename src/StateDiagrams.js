@@ -2,7 +2,13 @@ UmlCanvas.State = Canvas2D.Rectangle.extend( {
   preprocess: function preprocess(props) {
     props.label = props.name;
     return props;
-  }
+  },
+
+  // UGLY HACK 
+  // to override CompositeShape implementation and have more or less default 
+  // Shape behavior again
+  getHeight: function() { return this.getProperty("height") },
+  getWidth : function() { return this.getProperty("width") }
 } );
 
 UmlCanvas.State.from = function( construct, diagram ) {
@@ -36,7 +42,7 @@ UmlCanvas.State.from = function( construct, diagram ) {
 UmlCanvas.State.MANIFEST = {
   name         : "state",
   propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
-  libraries    : [ "UmlCanvas" ]
+  libraries    : [ "UmlCanvas", "State Diagram", "Element" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.State);
@@ -53,11 +59,11 @@ UmlCanvas.Transition = Canvas2D.Connector.extend( {
 
 UmlCanvas.Transition.from = function(construct, diagram) {
   var props = [];
-  
+
   props['routing'] = "horizontal";
   if( construct.annotation ) {
     if( construct.annotation.data.contains(":") &&
-        construct.annotation.data.contains("-") ) 
+    construct.annotation.data.contains("-") ) 
     {
       var parts = construct.annotation.data.split(":");
       props["routing"] = "custom";
@@ -69,21 +75,21 @@ UmlCanvas.Transition.from = function(construct, diagram) {
       props['routing'] = construct.annotation.data;
     }
   }  
-  
+
   props['from'] = diagram.getDiagramClass(construct.name.split("-")[0]);
   props['to']   = diagram.getDiagramClass(construct.name.split("-")[1]);
 
   var errors = [];
   if( !props['from'] ) {
     errors.push( "Unknown FROM property " + client.supers[0].constructName + 
-                 "  on " + construct.name );
+    "  on " + construct.name );
   }
 
   if( !props['to'] ) {
     errors.push( "Unknown TO property " + supplier.supers[0].constructName + 
-                 "  on " + construct.name );    
+    "  on " + construct.name );    
   }
-  
+
   if( errors.length > 0 ) {
     return { errors: errors };
   } else {
@@ -94,7 +100,7 @@ UmlCanvas.Transition.from = function(construct, diagram) {
 UmlCanvas.Transition.MANIFEST = {
   name         : "transition",
   propertyPath : [ Canvas2D.Connector ],
-  libraries    : [ "UmlCanvas" ]
+  libraries    : [ "UmlCanvas", "Class Diagram", "Relationship" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Transition);

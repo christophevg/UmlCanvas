@@ -266,7 +266,7 @@ UmlCanvas.Class.MANIFEST = {
   properties   : [ "stereotype", "isAbstract", "supers",
   "font", "fontColor", "minimumWidth" ],
   propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
-  libraries    : [ "UmlCanvas" ]
+  libraries    : [ "UmlCanvas", "Class Diagram", "Element" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Class);

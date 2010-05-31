@@ -1,6 +1,7 @@
 UmlCanvas.Defaults = {}
 
-UmlCanvas.Class.Defaults = { 
+UmlCanvas.Class.Defaults = {
+    name              : "newClass",
     stereotype        : "",
     supers            : [],
     
@@ -21,38 +22,55 @@ UmlCanvas.Class.Defaults = {
     compartmentSpacing : 3
 };
 
-UmlCanvas.Interface.Defaults   = {}
-UmlCanvas.Enumeration.Defaults = {}
+UmlCanvas.Interface.Defaults   = {
+  name : "newInterface"
+}
+UmlCanvas.Enumeration.Defaults = {
+  name : "newEnumeration"
+}
 
-UmlCanvas.Association.Defaults = {}
-UmlCanvas.Dependency.Defaults  = {}
+UmlCanvas.Association.Defaults = {
+  name : "newAssociation"
+}
+UmlCanvas.Dependency.Defaults  = {
+  name : "newDependency"
+}
 
-UmlCanvas.Inheritance.Defaults = {}
-UmlCanvas.Realization.Defaults = {}
+UmlCanvas.Inheritance.Defaults = {
+  name : "newInheritance"
+}
+UmlCanvas.Realization.Defaults = {
+  name : "newRealization"
+}
 
 UmlCanvas.Note.Defaults = {
-    text		        : "TODO",
-    width		        : 100,
-    height		      : 40,
-    padding		      : 5,
-    font		        : "7pt Verdana",
-    fontColor		    : "black",
-    lineColor		    : "grey",
-    backgroundColor	: "rgba(240,240,240,1)",
-    lineWidth		    : 1,
-    useCrispLines	  : true
+  name            : "NewName",
+  text		        : "New Note",
+  width		        : 100,
+  height		      : 40,
+  padding		      : 5,
+  font		        : "7pt Verdana",
+  fontColor		    : "black",
+  lineColor		    : "grey",
+  backgroundColor	: "rgba(240,240,240,1)",
+  lineWidth		    : 1,
+  useCrispLines	  : true
 };
 
 UmlCanvas.NoteLink.Defaults = {};
 
 UmlCanvas.State.Defaults = {
-    roundCorners : true,
-    lineColor    : 'rgb(250,125,0)',
-    fillColor    : 'rgb(255,240,175)',
-    labelColor   : 'rgb(250,125,0)',
-    labelPos     : 'top-inner'
+  name         : 'newState',
+  roundCorners : true,
+  lineColor    : 'rgb(250,125,0)',
+  fillColor    : 'rgb(255,240,175)',
+  labelColor   : 'rgb(250,125,0)',
+  labelPos     : 'top-inner',
+  width        : 100,
+  height       : 50
 };
 
 UmlCanvas.Transition.Defaults = {
-    lineColor    : 'rgb(250,125,0)'
+  name         : 'NewTransition',
+  lineColor    : 'rgb(250,125,0)'
 };

@@ -15,7 +15,7 @@ UmlCanvas.NoteLink = Canvas2D.Connector.extend( {
 UmlCanvas.NoteLink.MANIFEST = {
     name         : "notelink",
     propertyPath : [ Canvas2D.Connector ],
-    libraries    : [ "UmlCanvas" ]
+    libraries    : [ "UmlCanvas", "Class Diagram", "Relationship" ]
 }
 
 Canvas2D.registerShape( UmlCanvas.NoteLink );

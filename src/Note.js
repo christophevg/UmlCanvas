@@ -128,7 +128,7 @@ UmlCanvas.Note.MANIFEST = {
   name         : "note",
   properties   : [ "text", "width", "height", "linkedTo" ],
   propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle ],
-  libraries    : [ "UmlCanvas" ]
+  libraries    : [ "UmlCanvas", "Class Diagram", "Element" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Note);

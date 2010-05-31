@@ -62,7 +62,7 @@ UmlCanvas.Interface.from = function( construct, diagram ) {
 UmlCanvas.Interface.MANIFEST = {
     name         : "interface",
     propertyPath : [ Canvas2D.CompositeShape, Canvas2D.Rectangle, UmlCanvas.Class ],
-    libraries    : [ "UmlCanvas" ]
+    libraries    : [ "UmlCanvas", "Class Diagram", "Element" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Interface);

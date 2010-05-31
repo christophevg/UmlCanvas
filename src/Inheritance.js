@@ -17,7 +17,7 @@ UmlCanvas.Inheritance = Canvas2D.Connector.extend( {
 UmlCanvas.Inheritance.MANIFEST = {
     name         : "inheritance",
     propertyPath : [ Canvas2D.Connector ],
-    libraries    : [ "UmlCanvas" ]
+    libraries    : [ "UmlCanvas", "Class Diagram", "Relationship" ]
 }
 
 Canvas2D.registerShape( UmlCanvas.Inheritance );

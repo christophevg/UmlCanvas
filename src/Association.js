@@ -245,7 +245,7 @@ UmlCanvas.Association.MANIFEST = {
                    "srcMultiplicity", "dstMultiplicity",
                    "srcVisibility", "dstVisibility" ],
   propertyPath : [ Canvas2D.Connector ],
-  libraries    : [ "UmlCanvas" ]
+  libraries    : [ "UmlCanvas", "Class Diagram", "Relationship" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Association);

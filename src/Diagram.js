@@ -77,7 +77,7 @@ UmlCanvas.Diagram.from = function(construct, model) {
 UmlCanvas.Diagram.MANIFEST = {
     name         : "diagram",
     propertyPath : [ Canvas2D.Sheet ],
-    libraries    : [ "UmlCanvas" ]
+    libraries    : [ "UmlCanvas", "Diagram" ]
 }
 
 Canvas2D.registerShape(UmlCanvas.Diagram);
