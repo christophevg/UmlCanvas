@@ -1,12 +1,20 @@
-UMLCanvas is an implementation around the HTML5 Canvas that allows
+UmlCanvas
+by Christophe VG <xtof@umlcanvas.org>
+Copyright 2009-2010, Christophe VG
+
+---
+
+UmlCanvas is an implementation around the HTML5 Canvas that allows
 generation of UML diagrams. A Mediawiki extension is provided to allow
 editors to just enter the commands required to generate the
 diagrams. Two interfaces are provided: an OO Javascript API and a
 textual DSL in the form of a UML profile for ADL, the Application
 Definition Language.
 
-UMLCanvas is a project by TheSoftwareFactory, 
-maintained by Christophe VG <xtof@thesoftwarefactory.be>
+WARNING: the current UmlCanvas repository is not stable. Yes, shame on me.
+not even the master, I know. I'm currently migrating from our old more closed
+git repositories to the open GitHub world. Some issues still need to be
+addressed.
 
 * Kickstart
 
