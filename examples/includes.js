@@ -28,7 +28,7 @@ var scripts = [
 
     "../src/Widget.js",
     "../src/KickStart.js",
-    "../src/PluginManagerRepository",
+    "../src/PluginManagerRepository.js",
 
     "../src/plugins/Plugin.js",
     "../src/plugins/Inspector.js",
