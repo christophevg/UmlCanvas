@@ -11,18 +11,28 @@ diagrams. Two interfaces are provided: an OO Javascript API and a
 textual DSL in the form of a UML profile for ADL, the Application
 Definition Language.
 
-WARNING: the current UmlCanvas repository is not stable. Yes, shame on me.
-not even the master, I know. I'm currently migrating from our old more closed
-git repositories to the open GitHub world. Some issues still need to be
-addressed.
-
 * Kickstart
 
-$ make
+$ git clone git://github.com/christophevg/UmlCanvas.git
+Cloning into UmlCanvas...
 ...
+Resolving deltas: 100% (673/673), done.
 
-Install the Mediawiki extension:
-$ cd /var/www/htdocs/mediawiki-install-dir/extensions
-$ ln -s /path/to/UmlCanvas/dist/ext/UmlCanvas
-$ echo 'require_once( "$IP/extensions/UmlCanvas/UmlCanvas.php" );' \
-    >> LocalSettings.php
+$ cd UmlCanvas
+
+$ make
+*** checking dependencies
+    (if you get errors in this section the cmd right before
+     the error, is not found in your PATH)
+...
+*** building build/UmlCanvas.standalone.min.js
+*** building build/UmlCanvas.css
+
+Open the index.html file from the examples/ directory and take a look around.
+
+* Roadmap
+
+I'm currently working on the foundations of UmlCanvas: Canvas2D, which is also
+hosted on my GitHub account. Development is done in the "next" branch and if
+you check it out, you'll see that a lot is changing. Once that effort is done,
+I'll be updating UmlCanvas to use all of the new goodies.
