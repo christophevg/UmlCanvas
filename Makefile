@@ -28,24 +28,24 @@ SRCS=src/DepCheck.js \
      src/Enumeration.js \
      src/Note.js \
      src/NoteLink.js \
-	 src/StateDiagrams.js \
-	 src/Widget.js \
+	 	 src/StateDiagrams.js \
+	   src/Widget.js \
      src/KickStart.js \
-	 src/PluginManagerRepository.js \
-	 src/plugins/Plugin.js \
-	 src/plugins/Inspector.js \
-	 src/plugins/Sheet.js \
-	 src/plugins/HuC.js \
+	   src/PluginManagerRepository.js \
+	   src/plugins/Plugin.js \
+	   src/plugins/Inspector.js \
+	   src/plugins/Sheet.js \
+	   src/plugins/HuC.js \
      src/Defaults.js \
-	 src/Config.js \
-	 src/plugins/inspector.css.js
+	   src/Config.js \
+	   src/plugins/inspector.css.js
 CSSSRCS=src/${APP}.css lib/Canvas2D/build/Canvas2D.css
 LIBS=lib/Canvas2D/build/Canvas2D.standalone.js
 
 COMPRESSOR-DIST=yuicompressor-${COMPRESSOR-VERSION}.zip
 COMPRESS-JAR=lib/yuicompressor-${COMPRESSOR-VERSION}/build/yuicompressor-${COMPRESSOR-VERSION}.jar
 COMPRESSOR-URL=http://www.julienlecomte.net/yuicompressor/${COMPRESSOR-DIST}
-CANVAS2D-URL=http://github.com/christophevg/Canvas2D.git
+CANVAS2D-URL=git://github.com/christophevg/Canvas2D.git
 
 DIST=${APP}-${VERSION}.zip
 DISTSRCS=${TARGETS} examples/*.html examples/*.css LICENSE README
@@ -59,8 +59,6 @@ DIST-EXTSRCS=LICENSE \
              build/${APP}.shared.min.js \
              build/${APP}.css \
              src/ext/${APP}.php
-
-PUB=moonbase:~/dist/
 
 all: build
 
