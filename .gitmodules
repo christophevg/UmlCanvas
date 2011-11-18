@@ -1,0 +1,3 @@
+[submodule "lib/Canvas2D"]
+	path = lib/Canvas2D
+	url = http://github.com/christophevg/Canvas2D.git
