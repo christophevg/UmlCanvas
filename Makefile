@@ -51,7 +51,8 @@ DIST=${APP}-${VERSION}.zip
 DISTSRCS=${TARGETS} examples/*.html examples/*.css LICENSE README
 
 DIST-SRC=${APP}-${VERSION}-src.zip
-DIST-SRCSRCS=LICENSE README examples Makefile doc src
+DIST-SRCSRCS=LICENSE README examples/* doc/* src/*.* src/ext/*.* src/plugins/*.*
+DIST-SRC-LIBS=lib/Canvas2D/build/Canvas2D.standalone.js
 
 DIST-EXT=${APP}-${VERSION}-ext.zip
 DIST-EXTSRCS=LICENSE \
@@ -135,10 +136,16 @@ dist/${DIST}: ${DISTSRCS}
 	@mv dist/js/${APP}/build/* dist/js/${APP}/; rm -rf dist/js/${APP}/build
 	@(cd dist/js; ${ZIP} ../${DIST} ${APP})
 
-dist/${DIST-SRC}: ${DIST-SRCSRCS}
+dist/${DIST-SRC}: ${DIST-SRCSRCS} ${DIST-SRC-LIBS}
 	@echo "*** packaging ${APP} src distribution"
-	@mkdir -p dist/src/${APP}
-	@cp -r ${DIST-SRCSRCS} dist/src/${APP}
+	@mkdir -p dist/src/${APP}/{doc,src/{ext,plugins},examples,lib}
+	@for f in ${DIST-SRCSRCS}; do \
+	    cat $$f \
+	    | sed -e 's|Canvas2D/build/||' \
+	    | sed -e 's|\.\.\/build/||' \
+	    > dist/src/${APP}/$$f; done
+	@cp build/UmlCanvas.css dist/src/${APP}/examples
+	@cp ${DIST-SRC-LIBS} dist/src/${APP}/lib
 	@(cd dist/src; ${ZIP} ../${DIST-SRC} ${APP})
 
 dist/${DIST-EXT}: ${DIST-EXTSRCS}
