@@ -11,7 +11,22 @@ diagrams. Two interfaces are provided: an OO Javascript API and a
 textual DSL in the form of a UML profile for ADL, the Application
 Definition Language.
 
-* Kickstart
+* Try it out now !
+
+Download a complete source archive containing everything you need to play with
+UmlCanvas, including the sources from github:
+
+https://github.com/christophevg/UmlCanvas/downloads
+
+Unzip the archive and open:
+
+examples/index.html
+
+* Ready to dive into the code.
+
+If you want to change and contribute things, you can checkout the git 
+repository locally. You'll probably need a Unix-type of environment with a lot
+of common tools like make, (ub)zip, touch, wget, java,...
 
 $ git clone git://github.com/christophevg/UmlCanvas.git
 Cloning into UmlCanvas...
